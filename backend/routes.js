@@ -5,6 +5,7 @@ let path = require('path'),
 	mq = require(path.resolve('backend/models/messagequeue.js'))
 
 var raspiAlive = false
+var time=0
 
 module.exports = (app, passport) => {
 
@@ -100,6 +101,17 @@ module.exports = (app, passport) => {
 		if (typeof upinterval === 'undefined') upinterval = '30000'
     	mq.sendmsgtoRaspberry('Sensor:UpInterval:'+sensorid+':'+upinterval)
     	res.json({sent: true})
+	})
+    
+    app.get('/setpumpon', function (req, res) {
+    	time=new Date()
+    	mq.sendmsgtoRaspberry('Pump:Calibrate:ON')
+    	res.json({sent: true})
+	})
+	app.get('/setpumpoff', function (req, res) {
+		time=new Date()-time
+    	mq.sendmsgtoRaspberry('Pump:Calibrate:OFF')
+    	res.json({time: time})
 	})
 
 	app.get('*', (req, res) => {
