@@ -151,15 +151,15 @@ PiApp.prototype.messagequeueCheck = function(){
 	var calibrate = this.messagequeue.getCalibration()
 	switch(calibrate){
 		case 'L':
-        	this.phCallibrateLow
+        		this.phCallibrateLow()
 			this.messagequeue.resetCalibration()
 			break
-        case 'M':
-            this.phCallibrateMid
+        	case 'M':
+            		this.phCallibrateMid()
 			this.messagequeue.resetCalibration()
-            break
-        case 'H':
-            this.phCallibrateHigh
+            		break
+        	case 'H':
+            		this.phCallibrateHigh()
 			this.messagequeue.resetCalibration()
             break
 		}

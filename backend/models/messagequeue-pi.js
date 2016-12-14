@@ -52,10 +52,10 @@ function MessageRouting(message){
     case 'Ph':
         switch(splitMessage[1]){
 		    case 'Calibrate':
-                switch(splitMessage[1]){
-		            case 'Low':
-                        calibrate = 'L'
-			            break
+                switch(splitMessage[2]){
+		    case 'Low':
+                         calibrate = 'L'
+			 break
                     case 'Mid':
                         calibrate = 'M'
                         break
