@@ -1,0 +1,87 @@
+var i2c = require('i2c-bus'),
+    i2c1 = i2c.openSync(1);
+
+/**
+ * Class to handle all the required devices, sensors
+ */
+var PhDevice = module.exports = function () {
+    this.init()
+}
+
+PhDevice.prototype.init = function () {
+    this.PH_STD_ADDR = 0x63
+    this.READ_LENGTH = 32
+    this.PH_CMD_READ = 0x52
+}
+
+/*
+ * @returns the phvalue
+ */
+PhDevice.prototype.getPh = function (callback) {
+    i2c1.sendByteSync(this.H_STD_ADDR, this.PH_CMD_READ)
+        setTimeout(function () {
+            var PH_OUTPUT = new Buffer(this.READ_LENGTH)
+            i2c1.i2cReadSync(this.PH_STD_ADDR, this.READ_LENGTH, this.PH_OUTPUT)
+
+            console.log('Atlas-scientific-PhMeter READ Value: ' + this.PH_OUTPUT.toString().substr(1))
+            return callback(this.PH_OUTPUT.toString().substr(1))
+    }.bind(this), 1000);   
+}
+
+/*
+ * @return if calibration was Successful or not
+ */
+PhDevice.prototype.calibrateHigh = function (value,callback) {
+    var PH_CALIBRATION_SEND = new Buffer('CAL,HIGH,' + value);
+    i2c1.i2cWriteSync(this.PH_STD_ADDR, 14, PH_CALIBRATION_SEND)
+    setTimeout(function () {
+        var PH_OUTPUT = new Buffer(1);
+        i2c1.i2cReadSync(this.PH_STD_ADDR, 1, this.PH_OUTPUT)
+        if (PH_OUTPUT[0] == 1) {
+            this.console.log('Atlas-scientific-PhMeter HIGH calibration SUCCESSFUL with Value: ' + value)
+            return callback('Successed - cal,high')
+        } else {
+            this.console.log('Atlas-scientific-PhMeter HIGH calibration FAILED with Value: ' + value)
+            return callback('Failed - cal,high')
+        }
+    }.bind(this), 1600);
+}
+
+/*
+ * @return if calibration was Successful or not
+ */
+PhDevice.prototype.calibrateMiddle = function (value,callback) {
+    var PH_CALIBRATION_SEND = new Buffer('CAL,MID,' + value);
+    i2c1.i2cWriteSync(this.PH_STD_ADDR, 12, PH_CALIBRATION_SEND)
+    setTimeout(function () {
+        var PH_OUTPUT = new Buffer(1);
+        i2c1.i2cReadSync(this.PH_STD_ADDR, 1, this.PH_OUTPUT)
+        if (PH_OUTPUT[0] == 1) {
+            this.console.log('Atlas-scientific-PhMeter MID calibration SUCCESSFUL with Value: ' + value)
+            return callback('Successed - cal,mid')
+        } else {
+            this.console.log('Atlas-scientific-PhMeter MID calibration FAILED with Value: ' + value)
+            return callback('Failed - cal,mid')
+        }
+    }.bind(this), 1600);
+}
+
+/*
+ * @return if calibration was Successful or not
+ */
+PhDevice.prototype.calibrateLow = function (value,callback) {
+    var PH_CALIBRATION_SEND = new Buffer('CAL,LOW,' + value);
+    i2c1.i2cWriteSync(this.PH_STD_ADDR, 12, PH_CALIBRATION_SEND)
+    setTimeout(function () {
+        var PH_OUTPUT = new Buffer(1);
+        i2c1.i2cReadSync(this.PH_STD_ADDR, 1, this.PH_OUTPUT)
+        if (PH_OUTPUT[0] == 1) {
+            this.console.log('Atlas-scientific-PhMeter LOW calibration SUCCESSFUL with Value: ' + value)
+            return callback('Successed - cal,low')
+        } else {
+            this.console.log('Atlas-scientific-PhMeter LOW calibration FAILED with Value: ' + value)
+            return callback('Failed - cal,low')
+        }
+    }.bind(this), 1600);
+}
+
