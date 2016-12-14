@@ -22,8 +22,6 @@ PhDevice.prototype.getPh = function (callback) {
         setTimeout(function () {
             var PH_OUTPUT = new Buffer(this.READ_LENGTH)
             i2c1.i2cReadSync(this.PH_STD_ADDR, this.READ_LENGTH, this.PH_OUTPUT)
-
-            console.log('Atlas-scientific-PhMeter READ Value: ' + this.PH_OUTPUT.toString().substr(1))
             return callback(this.PH_OUTPUT.toString().substr(1))
     }.bind(this), 1000);   
 }

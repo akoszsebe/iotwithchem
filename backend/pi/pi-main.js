@@ -19,6 +19,11 @@ var temperaturedevice = new TemperatureDevice
 var HeatSourceDevice =  require ('./devices/heatsource.device')
 var heatsourcedevice = new HeatSourceDevice()   
 
+//  Create new PH Device 
+var PhDevice =  require ('./devices/heatsource.device')
+var phdevice = new PhDevice()   
+
+
 // create a new instance 
 // with the exernal dependencies 
 // db, devices, gateway 

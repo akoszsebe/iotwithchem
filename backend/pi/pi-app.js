@@ -3,10 +3,11 @@
 ** with the injected external dependencies  
 ** 
 */ 
-var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice, gateway, messagequeue) {
+var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice, phdevice, gateway, messagequeue) {
 	this.db                          = db
 	this.temperaturedevice           = temperaturedevice  
 	this.heatsourcedevice            = heatsourcedevice 
+	this.phdevice					 = phdevice
 	this.gateway 		             = gateway
 	this.messagequeue                = messagequeue
 } 
@@ -18,8 +19,10 @@ var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice,
 PiApp.prototype.init = function () { 
 	this.serialnumber   = this.gateway.fingerPrint()
 	this.hearthBeatInterval = 3000 
-	this.temperatureUploadInterval = 30000 
+	this.temperatureUploadInterval = 30000
+	this.phUploadInterval = 30000 
 	this.heatingCheckInterval = 2000
+	this.phCheckInterval = 2000
 	this.messagequeueCheckInterval = 3000
 } 
 
@@ -68,6 +71,17 @@ PiApp.prototype.heatingCheck = function(){
 	})
 }
 
+/** 
+ * Keeps the ph betweet tolerance values
+ */
+PiApp.prototype.phCheck = function(){
+	var self = this 
+	this.phdevice.getph(function(phvalue){
+		console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue)
+	});
+}
+
+
 /**
  * Checks if the heating value has changed in messagequeue
  * and sends a message if it changed here to.
@@ -99,6 +113,7 @@ PiApp.prototype.setEventLoop = function () {
 	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
 	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
+	setInterval(this.phCheck.bind(this),this.phCheckInterval)
 	setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
 
 }
