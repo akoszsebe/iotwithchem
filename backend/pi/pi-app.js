@@ -76,7 +76,7 @@ PiApp.prototype.heatingCheck = function(){
  */
 PiApp.prototype.phCheck = function(){
 	var self = this 
-	this.phdevice.getph(function(phvalue){
+	this.phdevice.getPh(function(phvalue){
 		console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue)
 	});
 }

@@ -18,12 +18,13 @@ PhDevice.prototype.init = function () {
  * @returns the phvalue
  */
 PhDevice.prototype.getPh = function (callback) {
-    i2c1.sendByteSync(this.H_STD_ADDR, this.PH_CMD_READ)
+var self = this
+    i2c1.sendByteSync(self.PH_STD_ADDR, self.PH_CMD_READ)
         setTimeout(function () {
-            var PH_OUTPUT = new Buffer(this.READ_LENGTH)
-            i2c1.i2cReadSync(this.PH_STD_ADDR, this.READ_LENGTH, this.PH_OUTPUT)
-            return callback(this.PH_OUTPUT.toString().substr(1))
-    }.bind(this), 1000);   
+            var PH_OUTPUT = new Buffer(self.READ_LENGTH)
+            i2c1.i2cReadSync(self.PH_STD_ADDR, self.READ_LENGTH, PH_OUTPUT)
+            return callback(PH_OUTPUT.toString().substr(1))
+    }.bind(self), 1000);   
 }
 
 /*
@@ -82,4 +83,3 @@ PhDevice.prototype.calibrateLow = function (value,callback) {
         }
     }.bind(this), 1600);
 }
-

@@ -20,7 +20,7 @@ var HeatSourceDevice =  require ('./devices/heatsource.device')
 var heatsourcedevice = new HeatSourceDevice()   
 
 //  Create new PH Device 
-var PhDevice =  require ('./devices/heatsource.device')
+var PhDevice =  require ('./devices/ph.device')
 var phdevice = new PhDevice()   
 
 
