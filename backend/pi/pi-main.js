@@ -27,7 +27,7 @@ var phdevice = new PhDevice()
 // create a new instance 
 // with the exernal dependencies 
 // db, devices, gateway 
-var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, gateway, messagequeue) 
+var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, gateway, messagequeue) 
 
 // Initialize the pi app 
 piapp.init()
