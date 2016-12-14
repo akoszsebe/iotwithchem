@@ -3,10 +3,11 @@
 ** with the injected external dependencies  
 ** 
 */ 
-var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice, gateway, messagequeue) {
+var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice, pumpdevice, gateway, messagequeue) {
 	this.db                          = db
 	this.temperaturedevice           = temperaturedevice  
 	this.heatsourcedevice            = heatsourcedevice 
+	this.pumpdevice                  = pumpdevice
 	this.gateway 		             = gateway
 	this.messagequeue                = messagequeue
 } 
@@ -87,6 +88,12 @@ PiApp.prototype.messagequeueCheck = function(){
 		this.temperatureUploadInterval = lastUploadIntervalinQueue
 		clearTimeout(this.uploadDataTimeout)
 		this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
+	}
+	var pumpWorking = this.messagequeue.isPumpWorking();
+	if(pumpWorking){
+		this.pumpdevice.turnOnPump()
+	}else{
+		this.pumpdevice.turnOffPump()
 	}
 }
 
