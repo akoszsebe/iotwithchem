@@ -79,8 +79,47 @@ PiApp.prototype.phCheck = function(){
 	this.phdevice.getPh(function(phvalue){
 		console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue)
 	});
+	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
 }
 
+/**
+ * Calibrate Low Ph sensor (ph = 4.00 ) 
+ */
+PiApp.prototype.phCallibrateLow = function(){
+	var self = this 
+	clearTimeout(self.phcheckTimeout)
+	var ph = '4.00'
+	this.phdevice.calibrateLow(ph,function(calbackmsg){
+		console.log('Calibration Low on PhSensor was ' + calbackmsg)
+		self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
+	})
+}
+
+/**
+ * Calibrate Middle Ph sensor (ph = 7.00 ) 
+ */
+PiApp.prototype.phCallibrateMid = function(){
+	var self = this 
+	clearTimeout(self.phcheckTimeout)
+	var ph = '7.00'
+	this.phdevice.calibrateMiddle(ph,function(calbackmsg){
+		console.log('Calibration Mid on PhSensor was ' + calbackmsg)
+		self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
+	})
+}
+
+/**
+ * Calibrate High Ph sensor (ph = 10.00 ) 
+ */
+PiApp.prototype.phCallibrateHigh = function(){
+	var self = this 
+	clearTimeout(self.phcheckTimeout)
+	var ph = '10.00'
+	this.phdevice.calibrateHigh(ph,function(calbackmsg){
+		console.log('Calibration High on PhSensor was ' + calbackmsg)
+		self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
+	})
+}
 
 /**
  * Checks if the heating value has changed in messagequeue
@@ -102,6 +141,22 @@ PiApp.prototype.messagequeueCheck = function(){
 		clearTimeout(this.uploadDataTimeout)
 		this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	}
+	
+	var calibrate = this.messagequeue.getCalibration()
+	switch(calibrate){
+		case 'L':
+        	this.phCallibrateLow
+			this.messagequeue.resetCalibration()
+			break
+        case 'M':
+            this.phCallibrateMid
+			this.messagequeue.resetCalibration()
+            break
+        case 'H':
+            this.phCallibrateHigh
+			this.messagequeue.resetCalibration()
+            break
+		}
 }
 
 /**
@@ -113,7 +168,7 @@ PiApp.prototype.setEventLoop = function () {
 	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
 	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
-	setInterval(this.phCheck.bind(this),this.phCheckInterval)
+	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
 	setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
 
 }

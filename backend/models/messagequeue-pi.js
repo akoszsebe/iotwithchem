@@ -13,7 +13,8 @@ let qR = 'qToRaspberry',
         });
     }).then(null, console.warn),
     heatertemperature = 0,
-    uploadTempInterval = 30000
+    uploadTempInterval = 30000,
+    calibrate = 'N'; //no calibration
 
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
@@ -47,7 +48,24 @@ function MessageRouting(message){
                 uploadTempInterval = splitMessage[3]
 			    break
 		    }
-        break   
+        break 
+    case 'Ph':
+        switch(splitMessage[1]){
+		    case 'Calibrate':
+                switch(splitMessage[1]){
+		            case 'Low':
+                        calibrate = 'L'
+			            break
+                    case 'Mid':
+                        calibrate = 'M'
+                        break
+                    case 'High':
+                        calibrate = 'H'
+                        break
+		        }
+			    break
+		    }
+        break     
 	}
 }
 
@@ -60,6 +78,16 @@ function getUploadInterval(){
     return uploadTempInterval
 }
 
+function getCalibration(){
+    return calibrate
+}
+
+function resetCalibration(){
+     calibrate = 'N';
+}
+
 module.exports.sendmsgtoWebserver = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature
 module.exports.getUploadInterval = getUploadInterval
+module.exports.getCalibration = getCalibration
+module.exports.resetCalibration = resetCalibration
