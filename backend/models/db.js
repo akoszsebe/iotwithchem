@@ -5,7 +5,7 @@
 let path = require('path'),
 	Temperature = require(path.resolve('./backend/models/temperature.js')),
 	Alive = require(path.resolve('./backend/models/alive.js')),
-	Ph = require(path.resolve('./backend/models/ph.js'))
+	Ph = require(path.resolve('./backend/models/ph.js')),
 	mongoose = require('mongoose')
 
 /** 

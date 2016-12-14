@@ -24,6 +24,7 @@ PiApp.prototype.init = function () {
 	this.heatingCheckInterval = 2000
 	this.phCheckInterval = 2000
 	this.messagequeueCheckInterval = 3000
+	this.ph = 0
 } 
 
 
@@ -39,12 +40,10 @@ PiApp.prototype.uploadDataToDatabase = function () {
 			if (err) console.error(err)            
 		})
 	})
-	this.phdevice.getPh(function(phvalue){
-		console.info('Raspberry -', self.serialnumber)
-		console.info('Current ph on sensor is: ' + phvalue)
-		self.db.createPhMessage(self.serialnumber,'1',phvalue,new Date().getTime(),function(err){
-			if (err) console.error(err)            
-		})
+	console.info('Raspberry -', self.serialnumber)
+	console.info('-----Current ph on sensor is: ' + self.ph)
+	self.db.createPhMessage(self.serialnumber,'1',self.ph,new Date().getTime(),function(err){
+		if (err) console.error(err)            
 	})
 	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 }
