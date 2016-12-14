@@ -37,6 +37,27 @@ module.exports = (app, passport) => {
 
 	})
 
+	app.get('/getph', (req, res) => {
+		var sensorid = req.param('sensorid')
+		if (typeof sensorid === 'undefined') sensorid = '1'
+
+		db.getPh(sensorid,function(returndata){
+			res.json(returndata)
+		})
+	})
+
+
+	app.get('/getphinterval', (req, res) => {
+		var sensorid = req.param('sensorid')
+		var datefrom = req.param('datefrom')
+		var dateto = req.param('dateto')
+		if (typeof sensorid === 'undefined') sensorid = '1'
+
+		db.getPhInterval(sensorid,datefrom,dateto,function(returndata){
+			res.json(returndata)
+		})
+	})
+
 
 	app.get('/isalive', (req, res) => {
 		res.json({alive : raspiAlive})
