@@ -83,7 +83,7 @@ function getCalibration(){
 }
 
 function resetCalibration(){
-     calibrate = 'N';
+     calibrate = 'N'
 }
 
 module.exports.sendmsgtoWebserver = sendmsgtoWebserver
