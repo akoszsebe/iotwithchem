@@ -2,6 +2,7 @@
 
 let path = require('path'),
 	Temperature = require(path.resolve('./backend/models/temperature.js')),
+	Ph= require(path.resolve('./backend/models/ph.js')),
 	Alive = require(path.resolve('./backend/models/alive.js')),
 	mongoose = require('mongoose')
 mongoose.Promise = global.Promise
@@ -37,6 +38,21 @@ function createTemperatureMessage(rid,sid,tv,td,_callback){
 	return _callback(null)
 }
 
+function createPhMessage(rid,sid,pv,pd,_callback){
+	var t = new Ph({  
+		raspberryid : rid,
+		sensorid : sid,
+		phvalue : pv,
+		phdate :  pd
+	})
+
+	t.save(function(err) {
+		if (err) 
+			return _callback(err)
+	})
+	return _callback(null)
+}
+
 function createAliveMessage(rid,td,_callback){
 	var a= new Alive({  
 		raspberryid : rid,
@@ -59,5 +75,6 @@ function createAliveMessage(rid,td,_callback){
 
 
 module.exports.createTemperatureMessage = createTemperatureMessage
+module.exports.createPhMessage = createPhMessage
 module.exports.createAliveMessage = createAliveMessage
 

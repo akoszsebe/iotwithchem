@@ -2,6 +2,7 @@
 
 let path = require('path'),   
 	Temperature = require(path.resolve('backend/models/temperature.js')),
+	Ph = require(path.resolve('backend/models/ph.js')),
 	Alive = require(path.resolve('backend/models/alive.js')),
 	mongoose = require('mongoose')
 
@@ -54,6 +55,26 @@ function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
 	}).where('sensorid').equals(sensorid) 
 }
 
+function getPhSensors(_callback){
+       
+	var _sensorids = new Set()
+	Ph.find({},'-_id -__v' ,(error, sensors) => {
+		if (error) { return _callback(null) }
+		sensors.forEach(function(item) {
+			_sensorids.add(item.sensorid) 
+		})
+		return _callback(Array.from(_sensorids))     
+	})
+}
+
+function getPh(sensorid,_callback){
+        
+	Ph.findOne({},'-_id -__v',(error, phs) => {
+		if (error) { return _callback(null) }
+		return _callback(phs)       
+	}).where('sensorid').equals(sensorid).sort({'tempdate':'descending'})   
+}
+
 
 function getPulse(_callback){
 	Alive.find((error, alivedata) => {
@@ -74,4 +95,6 @@ function getPulse(_callback){
 module.exports.getTemperatureSensors = getTemperatureSensors
 module.exports.getTemperature = getTemperature
 module.exports.getTemperatureInterval = getTemperatureInterval
+module.exports.getPhSensors = getPhSensors
+module.exports.getPh = getPh
 module.exports.getPulse = getPulse
