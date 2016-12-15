@@ -14,7 +14,7 @@ let qR = 'qToRaspberry',
     }).then(null, console.warn),
     heatertemperature = 0,
     uploadTempInterval = 30000,
-    pumpIsWorking = false;
+    pumpIsWorking = false
 
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
@@ -51,10 +51,10 @@ function MessageRouting(message){
         break
     case 'Pump':
         switch(splitMessage[2]){ // [1] is calibrate or other function... might need to set that too
-            case 'ON'
+            case 'ON':
                 pumpIsWorking = true;
                 break
-            case 'OFF'
+            case 'OFF':
                 pumpIsWorking = false;
                 break
         }   

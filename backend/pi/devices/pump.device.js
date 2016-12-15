@@ -20,7 +20,7 @@ PumpDevice.prototype.init = function () {
 PumpDevice.prototype.turnOffPump = function() {
 	if(this.pumpWorking){
 		this.pumpWorking = false
-		gpio.write(this.pumpPin, false, function(err) {
+		gpio.write(this.pumpPin, true, function(err) {
 			if(err) throw err
 			console.info('Turned OFF PUMP!')
 		})
@@ -33,7 +33,7 @@ PumpDevice.prototype.turnOffPump = function() {
 PumpDevice.prototype.turnOnPump = function() {
 	if(!this.pumpWorking){
 		this.pumpWorking = true
-		gpio.write(this.pumpPin, true, function(err) {
+		gpio.write(this.pumpPin, false, function(err) {
 			if(err) throw err
 			console.info('Turned ON PUMP!')
 		})
