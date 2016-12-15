@@ -75,6 +75,14 @@ function getPh(sensorid,_callback){
 	}).where('sensorid').equals(sensorid).sort({'tempdate':'descending'})   
 }
 
+function getPhInterval(sensorid,datefrom,dateto,_callback){
+        
+	Ph.find({'phdate': {'$gte': datefrom, '$lt': dateto}},'-_id -__v',(error, phs) => {
+		if (error) { return _callback(null) }
+		return _callback(phs)       
+	}).where('sensorid').equals(sensorid) 
+}
+
 
 function getPulse(_callback){
 	Alive.find((error, alivedata) => {
@@ -97,4 +105,5 @@ module.exports.getTemperature = getTemperature
 module.exports.getTemperatureInterval = getTemperatureInterval
 module.exports.getPhSensors = getPhSensors
 module.exports.getPh = getPh
+module.exports.getPhInterval = getPhInterval
 module.exports.getPulse = getPulse
