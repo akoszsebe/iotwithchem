@@ -69,10 +69,10 @@ function getPhSensors(_callback){
 
 function getPh(sensorid,_callback){
         
-	Ph.findOne({},'-_id -__v',(error, phs) => {
+	Ph.findOne({},'-_id -__v',(error, ph) => {
 		if (error) { return _callback(null) }
-		return _callback(phs)       
-	}).where('sensorid').equals(sensorid).sort({'tempdate':'descending'})   
+		return _callback(ph)       
+	}).where('sensorid').equals(sensorid).sort({'phdate':'descending'})   
 }
 
 function getPhInterval(sensorid,datefrom,dateto,_callback){

@@ -40,11 +40,18 @@ PiApp.prototype.uploadDataToDatabase = function () {
 			if (err) console.error(err)            
 		})
 	})
-	console.info('Raspberry -', self.serialnumber)
-	console.info('-----Current ph on sensor is: ' + self.ph)
-	self.db.createPhMessage(self.serialnumber,'1',self.ph,new Date().getTime(),function(err){
-		if (err) console.error(err)            
-	})
+	
+	if (this.ph != 0){
+		console.info('Raspberry -', self.serialnumber)
+		console.info('-----Current ph on sensor is: ' + self.ph)
+		self.db.createPhMessage(self.serialnumber,'1',this.ph,new Date().getTime(),function(err){
+			if (err) console.error(err)            
+		})
+	}
+	else 
+	{
+		console.info('-----Phsensor is not connected !!!')
+	}
 	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 }
 
@@ -84,6 +91,7 @@ PiApp.prototype.phCheck = function(){
 	var self = this 
 	this.phdevice.getPh(function(phvalue){
 		console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue)
+		self.ph = phvalue
 	})
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
 }
