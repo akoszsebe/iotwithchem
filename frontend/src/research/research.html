@@ -10,7 +10,7 @@
 				<tr data-ng-controller="temperatureController">
 					<td>Temperature: </td>
 					<td class="sensor-value">{{ temperatureValue }}&#8451;
-					
+
 					</td>
 				<tr data-ng-controller="temperatureController">
 						<td>Temperature Interval: </td>
@@ -32,11 +32,11 @@
 					<td>{{ temperatureDate | date: 'medium' }}</td>
 				</tr>
 				<tr>
-					<td>Select the interval:</td>
+					<td>Temperature chart interval:</td>
 					<td>
 						<label>
 							<input type="radio" ng-model="value" value=172800000 ng-click="getVal(172800000)">48h</input>
-							<input type="radio" ng-model="value" value=86400000 ng-click="getVal(86400000)" ng-checked="true" data-ng-init="getVal(172800000)">24h</input>
+							<input type="radio" ng-model="value" value=86400000 ng-click="getVal(86400000)" ng-checked="true" data-ng-init="getVal(86400000)">24h</input>
 							<input type="radio" ng-model="value" value=43200000 ng-click="getVal(43200000)">12h</input>
 							<input type="radio" ng-model="value" value=3600000 ng-click="getVal(3600000)">1h</input>
 							<input type="radio" ng-model="value" value=1800000 ng-click="getVal(1800000)">30m</input>
@@ -52,5 +52,13 @@
 		chart-dataset-override="datasetOverride" chart-click="onClick">
 		</canvas>
 		<br>
+		<p>Ph chart</p>
+		<br>
+		<div data-ng-controller="phChartController">
+			<canvas class="chart chart-line" chart-data="phV"
+			chart-labels="phD" chart-options="options"
+			chart-dataset-override="datasetOverride" chart-click="onClick">
+			</canvas>
+		</div>
 	</div>
 </div>
