@@ -27,7 +27,7 @@
 			var dateto = new moment().valueOf()
 			return chartFactory.getTemperatureInterval(sensorid, datefrom, dateto)
 			.then((data) => {
-				console.log('itt ujra',sensorid,datefrom,dateto)
+				console.log('TEMPERATURE CHART: ',datefrom)
 				$scope.tempV = []
 				$scope.tempD = []
 				let temporaryTemperatures = []

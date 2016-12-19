@@ -7,18 +7,27 @@
 	function phChartController($scope, phChartFactory, moment,$interval)
 	{
 		let p=this
+		let sensorid = 1
+		let val = 24*60*60*1000
 
 		p.ph=0.0
+
+		$scope.getValPh = function(value)
+		{
+			sensorid = 1
+			val = value
+			getPhInterval()
+		}
 
 		$interval(getPhInterval, 1000)
 
 		function getPhInterval()
 		{
-			var datefrom = new moment().valueOf()-24*60*60*1000
+			var datefrom = new moment().valueOf()-val
 			var dateto = new moment().valueOf()
-			return phChartFactory.getPhInterval(1, datefrom, dateto)
+			return phChartFactory.getPhInterval(sensorid, datefrom, dateto)
 			.then((data) => {
-				console.log('ph sensor: ', datefrom, dateto)
+				console.log('PH CHART: ', datefrom, dateto, data.length)
 				$scope.phV = []
 				$scope.phD = []
 				let temporaryPhs = []
