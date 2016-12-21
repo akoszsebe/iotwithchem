@@ -61,6 +61,7 @@
 						]
 					}
 				}
+				$scope.colors = ['#ff87cb'] //#db04bb']'#08ce40']
 				return p.ph
 			})
 		}

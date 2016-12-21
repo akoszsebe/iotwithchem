@@ -61,6 +61,7 @@
 						]
 					}
 				}
+				$scope.colors = ['#68d6dd']
 				return temp.temperature
 			})
 		}

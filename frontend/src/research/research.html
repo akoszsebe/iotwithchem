@@ -31,26 +31,24 @@
 					<td>Last measurement: </td>
 					<td>{{ temperatureDate | date: 'medium' }}</td>
 				</tr>
-				<tr>
-					<td>Temperature chart interval:</td>
-					<td>
-						<label>
-							<input type="radio" ng-model="value" value=172800000 ng-click="getVal(172800000)">48h</input>
-							<input type="radio" ng-model="value" value=86400000 ng-click="getVal(86400000)" ng-checked="true" data-ng-init="getVal(86400000)">24h</input>
-							<input type="radio" ng-model="value" value=43200000 ng-click="getVal(43200000)">12h</input>
-							<input type="radio" ng-model="value" value=3600000 ng-click="getVal(3600000)">1h</input>
-							<input type="radio" ng-model="value" value=1800000 ng-click="getVal(1800000)">30m</input>
-							<input type="radio" ng-model="value" value=600000 ng-click="getVal(600000)">10m</input>
-							<input type="radio" ng-model="value" value=300000 ng-click="getVal(300000)">5m</input>
-						</label>
-					</td>
-				</tr>
 			</tbody>
 		</table>
+	<form data-ng-controller="chartController">
+			<label>
+				<label>Temperature chart interval:</label>
+				<input type="radio" ng-model="value" value=172800000 ng-click="getVal(172800000)">48h</input>
+				<input type="radio" ng-model="value" value=86400000 ng-click="getVal(86400000)" ng-checked="true" data-ng-init="getVal(86400000)">24h</input>
+				<input type="radio" ng-model="value" value=43200000 ng-click="getVal(43200000)">12h</input>
+				<input type="radio" ng-model="value" value=3600000 ng-click="getVal(3600000)">1h</input>
+				<input type="radio" ng-model="value" value=1800000 ng-click="getVal(1800000)">30m</input>
+				<input type="radio" ng-model="value" value=600000 ng-click="getVal(600000)">10m</input>
+				<input type="radio" ng-model="value" value=300000 ng-click="getVal(300000)">5m</input>
+			</label>
 		<canvas class="chart chart-line" chart-data="tempV"
-		chart-labels="tempD" chart-options="options"
+		chart-labels="tempD" chart-options="options" chart-colors="colors"
 		chart-dataset-override="datasetOverride" chart-click="onClick">
-	</canvas>
+		</canvas>
+	</form>
 	<br>
 	<form data-ng-controller="phChartController">
 		<label>
@@ -65,7 +63,7 @@
 		</label>
 		<p><br></p>
 		<canvas class="chart chart-line" chart-data="phV"
-		chart-labels="phD" chart-options="options"
+		chart-labels="phD" chart-options="options" chart-colors="colors"
 		chart-dataset-override="datasetOverride" chart-click="onClick">
 	</canvas>
 </form>
