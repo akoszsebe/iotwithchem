@@ -14,7 +14,8 @@ let qR = 'qToRaspberry',
     }).then(null, console.warn),
     heatertemperature = 0,
     uploadTempInterval = 30000,
-    calibrate = 'N'; //no calibration
+    calibrate = 'N', //no calibration
+    pumpIsWorking = false
 
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
@@ -65,7 +66,17 @@ function MessageRouting(message){
 		        }
 			    break
 		    }
-        break     
+        break
+    case 'Pump':
+        switch(splitMessage[2]){ // [1] is calibrate or other function... might need to set that too
+            case 'ON':
+                pumpIsWorking = true;
+                break
+            case 'OFF':
+                pumpIsWorking = false;
+                break
+        }
+    break   
 	}
 }
 
@@ -76,6 +87,14 @@ function getHeaterTemperature()
 
 function getUploadInterval(){
     return uploadTempInterval
+}
+
+function isPumpWorking(){
+    return pumpIsWorking
+}
+
+function setPumpWorking(value){
+    pumpIsWorking = value
 }
 
 function getCalibration(){
@@ -91,3 +110,5 @@ module.exports.getHeaterTemperature = getHeaterTemperature
 module.exports.getUploadInterval = getUploadInterval
 module.exports.getCalibration = getCalibration
 module.exports.resetCalibration = resetCalibration
+module.exports.isPumpWorking = isPumpWorking
+module.exports.setPumpWorking = setPumpWorking

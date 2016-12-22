@@ -23,11 +23,14 @@ var heatsourcedevice = new HeatSourceDevice()
 var PhDevice =  require ('./devices/ph.device')
 var phdevice = new PhDevice()   
 
+// Create new PumpDevice
+var PumpDevice = require('./devices/pump.device')
+var pumpdevice = new PumpDevice()
 
 // create a new instance 
 // with the exernal dependencies 
 // db, devices, gateway 
-var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, gateway, messagequeue) 
+var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, messagequeue) 
 
 // Initialize the pi app 
 piapp.init()
