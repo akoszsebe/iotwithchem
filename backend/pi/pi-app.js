@@ -93,11 +93,11 @@ PiApp.prototype.phCheck = function(){
 	this.phdevice.getPh(function(phvalue){
 		console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue)
 		self.ph = phvalue
-		if( phvalue < (self.pumpdevice.phValue - self.pumpdevice.pumpDelta) ||
-			phvalue > (self.pumpdevice.phValue + self.pumpdevice.pumpDelta)){
-			self.pumpdevice.turnOnPump();
+		if( phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
+			phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)){
+			self.pumpdevice.turnOnPump()
 		}else{
-			self.pumpdevice.turnOffPump();
+			self.pumpdevice.turnOffPump()
 		}
 	})
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)

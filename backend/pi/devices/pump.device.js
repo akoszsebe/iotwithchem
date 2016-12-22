@@ -11,8 +11,8 @@ var PumpDevice = module.exports = function () {
 PumpDevice.prototype.init = function () { 
 	this.pumpPin = 13
 	this.pumpWorking = true
-	this.pumpPhValue = 7.0;
-	this.pumpDelta = 1;
+	this.pumpPhValue = 7.0
+	this.pumpDelta = 1
 	gpio.setup(this.pumpPin, gpio.DIR_OUT,this.turnOffPump.bind(this))
 }
 
