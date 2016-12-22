@@ -15,7 +15,8 @@ let qR = 'qToRaspberry',
     heatertemperature = 0,
     uploadTempInterval = 30000,
     calibrate = 'N', //no calibration
-    pumpIsWorking = false
+    pumpIsWorking = false,
+    phValue = 7.0
 
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
@@ -54,9 +55,9 @@ function MessageRouting(message){
         switch(splitMessage[1]){
 		    case 'Calibrate':
                 switch(splitMessage[2]){
-		    case 'Low':
-                         calibrate = 'L'
-			 break
+        		    case 'Low':
+                        calibrate = 'L'
+        			    break
                     case 'Mid':
                         calibrate = 'M'
                         break
@@ -65,6 +66,9 @@ function MessageRouting(message){
                         break
 		        }
 			    break
+            case 'Value':
+                phValue = splitMessage[2]
+                break
 		    }
         break
     case 'Pump':
@@ -105,6 +109,10 @@ function resetCalibration(){
      calibrate = 'N'
 }
 
+function getPhValue(){
+    return phValue;
+}
+
 module.exports.sendmsgtoWebserver = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature
 module.exports.getUploadInterval = getUploadInterval
@@ -112,3 +120,4 @@ module.exports.getCalibration = getCalibration
 module.exports.resetCalibration = resetCalibration
 module.exports.isPumpWorking = isPumpWorking
 module.exports.setPumpWorking = setPumpWorking
+module.exports.getPhValue = getPhValue

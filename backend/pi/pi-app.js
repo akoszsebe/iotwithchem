@@ -93,6 +93,12 @@ PiApp.prototype.phCheck = function(){
 	this.phdevice.getPh(function(phvalue){
 		console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue)
 		self.ph = phvalue
+		if( phvalue < (self.pumpdevice.phValue - self.pumpdevice.pumpDelta) ||
+			phvalue > (self.pumpdevice.phValue + self.pumpdevice.pumpDelta)){
+			self.pumpdevice.turnOnPump();
+		}else{
+			self.pumpdevice.turnOffPump();
+		}
 	})
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
 }
@@ -156,11 +162,10 @@ PiApp.prototype.messagequeueCheck = function(){
 		clearTimeout(this.uploadDataTimeout)
 		this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	}
-	var pumpWorking = this.messagequeue.isPumpWorking();
-	if(pumpWorking){
-		this.pumpdevice.turnOnPump()
-	}else{
-		this.pumpdevice.turnOffPump()
+
+	var phValue = parseFloat(this.messagequeue.getPhValue())
+	if( phValue != this.pumpdevice.pumpPhValue ){
+		this.pumpdevice.setPumpPh(phValue)
 	}
 	
 	var calibrate = this.messagequeue.getCalibration()
