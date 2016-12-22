@@ -9,7 +9,7 @@
 		let temp=this
 		let sensorid = 1
 		let val = 26*60*60*1000
-		
+
 		temp.temperature=0.0
 
 		$scope.getVal = function(value)
@@ -19,15 +19,15 @@
 			getTemperatureInterval()
 		}
 
-		$interval(getTemperatureInterval, 30000)
+		$interval(getTemperatureInterval, 1000)
 
 		function getTemperatureInterval()
-		{	
+		{
 			var datefrom = new moment().valueOf()-val
-			var dateto = new moment().valueOf()		
+			var dateto = new moment().valueOf()
 			return chartFactory.getTemperatureInterval(sensorid, datefrom, dateto)
 			.then((data) => {
-				console.log('itt ujra',sensorid,datefrom,dateto)
+				console.log('TEMPERATURE CHART: ',datefrom)
 				$scope.tempV = []
 				$scope.tempD = []
 				let temporaryTemperatures = []
@@ -61,6 +61,7 @@
 						]
 					}
 				}
+				$scope.colors = ['#68d6dd']
 				return temp.temperature
 			})
 		}
