@@ -7,23 +7,6 @@
 					<td>Gateway status: </td>
 					<td><img src="frontend/icons/{{status}}.png" alt="Ok" height="30" width="30"/></td>
 				</tr>
-				<tr data-ng-controller="phController">
-					<td>Ph: </td>
-					<td class="sensor-value">{{ phValue }} ph
-					</td>
-				</tr>
-				<tr data-ng-controller="phController">
-						<td>Ph Control: </td>
-						<td>
-							<input name="myInput" class="data-input-field"  ng-model="settedPh" required >
-							<input type="button" class="save-button" ng-click="setHeaterPh()"  value="save" />
-						</td>
-				</tr>
-				<tr data-ng-controller="phController">
-					<td>Last ph measurement: </td>
-					<td>{{ phDate | date: 'medium' }}</td>
-				</tr>
-				
 				<tr data-ng-controller="temperatureController">
 					<td>Temperature: </td>
 					<td class="sensor-value">{{ temperatureValue }}&#8451;
@@ -48,7 +31,22 @@
 					<td>Last temperature measurement: </td>
 					<td>{{ temperatureDate | date: 'medium' }}</td>
 				</tr>
-				
+				<tr data-ng-controller="phController">
+					<td>Ph: </td>
+					<td class="sensor-value">{{ phValue }} pH
+					</td>
+				</tr>
+				<tr data-ng-controller="phController">
+						<td>Ph Control: </td>
+						<td>
+							<input name="myInput" class="data-input-field"  ng-model="settedPh" required >
+							<input type="button" class="save-button" ng-click="setHeaterPh()"  value="save" />
+						</td>
+				</tr>
+				<tr data-ng-controller="phController">
+					<td>Last pH measurement: </td>
+					<td>{{ phDate | date: 'medium' }}</td>
+				</tr>
 			</tbody>
 		</table>
 	<form data-ng-controller="chartController">
