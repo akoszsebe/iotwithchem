@@ -150,6 +150,12 @@ module.exports = (app, passport) => {
 		res.json({sent : true})
 	})
 
+	app.get('/setphvalue', function (req, res) {
+		var phvalue = req.param('phvalue')
+    	mq.sendmsgtoRaspberry('Ph:Value:'+phvalue)
+		res.json({sent : true})
+	})
+
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve('./frontend/index.html'))
 	})
