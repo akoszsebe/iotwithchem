@@ -2,9 +2,9 @@
 	angular.module('kemia-app')
 	.controller('calibrationController', calibrationController)
 
-	calibrationController.$inject = ['$scope', 'calibrationFactory','$interval','$window']
+	calibrationController.$inject = ['$scope', 'calibrationFactory','$interval']
 
-	function calibrationController($scope, calibrationFactory,$interval,$window) {
+	function calibrationController($scope, calibrationFactory,$interval) {
 		let temp=this
 		temp.ph=0.0
 		getPh().then(() => {
