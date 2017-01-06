@@ -27,10 +27,37 @@ var phdevice = new PhDevice()
 var PumpDevice = require('./devices/pump.device')
 var pumpdevice = new PumpDevice()
 
+/** 
+ * *********
+ * REVIEW requested by LASZLO : START 
+ * **********  
+// Create new Sensor Values Context 
+var SensorValueContext = require ('../models/sensor-value-context')
+var sensorValueContext = new SensorValueContext () 
+
+// Create new Message Queue pi -> webservice 
+
+var MQueuePi = require ('../models/mqueue-pi')
+var mQueuePi = new MQueuePi (sensorValueContext)  
+
+ * ********
+ * REVIEW requested by LASZLO  : END 
+ * ********** 
+*/ 
+
 // create a new instance 
 // with the exernal dependencies 
 // db, devices, gateway 
-var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, messagequeue) 
+var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, messagequeue)
+/** 
+ * *********
+ * REVIEW requested by LASZLO : START 
+ * **********  
+ var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi) 
+ * ********
+ * REVIEW requested by LASZLO  : END 
+ * ********** 
+*/ 
 
 // Initialize the pi app 
 piapp.init()
