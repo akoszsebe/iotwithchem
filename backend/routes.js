@@ -4,6 +4,23 @@ let path = require('path'),
 	db = require(path.resolve('backend/models/downloadData.js')),
 	mq = require(path.resolve('backend/models/messagequeue.js'))
 
+
+
+/** 
+ * *********
+ * REVIEW requested by LASZLO : START 
+ * **********  
+ * 
+// Create new Message Queue  webservice -> pi 
+
+var MQueueWS = require ('../communication/mqueue-ws')
+var mQueueWS = new MQueueWS ()  
+
+ * ********
+ * REVIEW requested by LASZLO  : END 
+ * ********** 
+*/ 
+
 var raspiAlive = false
 var time=0
 
