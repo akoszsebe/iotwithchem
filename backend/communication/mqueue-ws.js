@@ -10,7 +10,7 @@
 
 
 
-var MQueueWS = module.export = function () {
+var MQueueWS = module.exports = function () {
 	this.qR = 'qToRaspberry'
 	this.qW = 'qToWebserver'
 	this.channel = null
@@ -26,14 +26,15 @@ var MQueueWS = module.export = function () {
 MQueueWS.prototype.init = function () {
 
 	this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz'
-	this.open = require('amqplib').connect(this.cloudAmqpUrl).then(function (conn) {
+	var self = this
+	this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn) {
 		var ok = conn.createChannel();
 		ok = ok.then(function (ch) {
-			channel = ch
+			self.channel = ch
 			console.info("channel created")
-			this.receivemsgfromRaspberry()
+			self.receivemsgfromRaspberry()
 		});
-	}).then(null, console.warn),
+	}).then(null, console.warn)
 
 }
 
@@ -53,7 +54,7 @@ MQueueWS.prototype.sendmsgtoRaspberry = function (msg) {
  */
 MQueueWS.prototype.receivemsgfromRaspberry = function () {
 	this.channel.assertQueue(this.qW)
-	this.channel.consume(qW, function (msg) {
+	this.channel.consume(this.qW, function (msg) {
 		if (msg !== null) {
 			this.MessageRouting(msg.content.toString());
 			channel.ack(msg)

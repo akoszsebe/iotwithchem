@@ -1,26 +1,26 @@
 'use strict'
 
-let path = require('path'),
-	db = require(path.resolve('backend/models/downloadData.js')),
-	mq = require(path.resolve('backend/models/messagequeue.js'))
+let path = require('path')
+//	db = require(path.resolve('backend/models/downloadData.js')),
+//	mq = require(path.resolve('backend/models/messagequeue.js'))
 
 
 
 /** 
  * *********
  * REVIEW requested by LASZLO : START 
- * **********  
+ * **********/  
   
  // Create DB WS  
  
-var DbWs = require('../models/db-ws')
-var dbWs = new DbWs(); 
+var DbWs = require(path.resolve('backend/models/db-ws'))
+var db = new DbWs() 
 // Create new Message Queue  webservice -> pi 
 
-var MQueueWS = require ('../communication/mqueue-ws')
-var mQueueWS = new MQueueWS ()  
+var MQueueWS = require (path.resolve('backend/communication/mqueue-ws'))
+var mq = new MQueueWS ()  
 
- * ********
+ /* ********
  * REVIEW requested by LASZLO  : END 
  * ********** 
 */ 
