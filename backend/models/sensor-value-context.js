@@ -3,7 +3,7 @@
  * values  
 */
 
-var SensorValueContext = module.export = function () {
+var SensorValueContext = module.exports = function () {
 
 	this.heatertemperature = 0
 	this.uploadTempInterval = 30000
@@ -19,8 +19,6 @@ SensorValueContext.prototype.getHeaterTemperature = function () {
 SensorValueContext.prototype.setHeaterTemperature = function ( value ) {
 	this.heatertemperature = value 
 }
-
-
 
 SensorValueContext.prototype.getUploadInterval = function () {
 	return this.uploadTempInterval

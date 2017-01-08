@@ -8,7 +8,7 @@
  * via messagequeue 
  */
 
-var MQueuePI = module.export = function (sensorValueContext ) {
+var MQueuePI = module.exports = function (sensorValueContext ) {
 	this.qR = 'qToRaspberry'
 	this.qW = 'qToWebserver'
 	this.channel = null
@@ -28,13 +28,13 @@ MQueuePI.prototype.init = function () {
 
 	
 	this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz'
-
-	this.open = require('amqplib').connect(this.cloudAmqpUrl).then(function (conn) {
+	var self = this
+	this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn) {
 		var ok = conn.createChannel();
 		ok = ok.then(function (ch) {
-			this.channel = ch
+			self.channel = ch
 			console.info("channel created")
-			this.receivemsgfromWebserver()
+			self.receivemsgfromWebserver()
 		});
 	}).then(null, console.warn)
 
@@ -56,11 +56,12 @@ MQueuePI.prototype.sendmsgtoWebserver = function (msg) {
  */
 MQueuePI.prototype.receivemsgfromWebserver = function () {
 	this.channel.assertQueue(this.qR)
+	var self = this
 	this.channel.consume(this.qR, function (msg) {
 		if (msg !== null) {
 			console.info('New message from WEB', msg.content.toString())
-			this.MessageRouting(msg.content.toString())
-			this.channel.ack(msg)
+			self.MessageRouting(msg.content.toString())
+			self.channel.ack(msg)
 		}
 	});
 }
@@ -82,7 +83,7 @@ MQueuePI.prototype.MessageRouting = function (message) {
 	case 'Sensor':
 		switch (splitMessage[1]) {
 		case 'UpInterval':
-			this.sensorValueContext.setUploadTempInterval (splitMessage[3] ) 
+			this.sensorValueContext.setUploadInterval (splitMessage[3] ) 
 			break
 		}
 		break

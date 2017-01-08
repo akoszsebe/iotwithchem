@@ -148,7 +148,7 @@ PiApp.prototype.phCallibrateHigh = function(){
  * Checks if uploadInterval was changed and updates that too
  */
 PiApp.prototype.messagequeueCheck = function(){
-	var lastTempInQueue = parseInt(this.messagequeue.getHeaterTemperature())
+	var lastTempInQueue = parseInt(this.messagequeue.sensorValueContext.getHeaterTemperature())
 	var currentHeatingValue = this.heatsourcedevice.heatingValue
 	console.info('LastTempInQueue',lastTempInQueue)
 	console.info('CurrentHeatValue',currentHeatingValue)
@@ -156,31 +156,31 @@ PiApp.prototype.messagequeueCheck = function(){
 		this.heatsourcedevice.setHeatingTo(lastTempInQueue)
 		this.messagequeue.sendmsgtoWebserver('Heater:Temperature:'+lastTempInQueue)
 	}
-	var lastUploadIntervalinQueue = parseInt(this.messagequeue.getUploadInterval())
+	var lastUploadIntervalinQueue = parseInt(this.messagequeue.sensorValueContext.getUploadInterval())
 	if(lastUploadIntervalinQueue != this.temperatureUploadInterval){
 		this.temperatureUploadInterval = lastUploadIntervalinQueue
 		clearTimeout(this.uploadDataTimeout)
 		this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	}
 
-	var phValue = parseFloat(this.messagequeue.getPhValue())
+	var phValue = parseFloat(this.messagequeue.sensorValueContext.getPhValue())
 	if( phValue != this.pumpdevice.pumpPhValue ){
 		this.pumpdevice.setPumpPh(phValue)
 	}
 	
-	var calibrate = this.messagequeue.getCalibration()
+	var calibrate = this.messagequeue.sensorValueContext.getCalibration()
 	switch(calibrate){
 		case 'L':
         		this.phCallibrateLow()
-			this.messagequeue.resetCalibration()
+			this.messagequeue.sensorValueContext.resetCalibration()
 			break
         	case 'M':
             		this.phCallibrateMid()
-			this.messagequeue.resetCalibration()
+			this.messagequeue.sensorValueContext.resetCalibration()
             		break
         	case 'H':
             		this.phCallibrateHigh()
-			this.messagequeue.resetCalibration()
+			this.messagequeue.sensorValueContext.resetCalibration()
             break
 		}
 }
