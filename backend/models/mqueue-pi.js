@@ -98,8 +98,8 @@ MQueuePI.prototype.MessageRouting = function (message) {
 			break
 		}
 		break
-	case 'Pump':
-		switch (splitMessage[2]) { // [1] is calibrate or other function... might need to set that too
+	case 'Pump':      
+		switch (splitMessage[1]) { 
 		case 'ON':
 			this.sensorValueContext.setPumpIsWorking(true)
 			break

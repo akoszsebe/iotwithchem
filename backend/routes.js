@@ -110,6 +110,10 @@ module.exports = (app, passport) => {
 		}
 	})
 
+	/**
+	 * Implemented but never used in (raspbarry) mqueue-pi.js
+	 *    
+	 
 	app.get('/setheateron', function (req, res) {
 		mq.sendmsgtoRaspberry('Heater:ON')
 		res.json({ heater: true });
@@ -120,6 +124,7 @@ module.exports = (app, passport) => {
 		res.json({ heater: false })
 	})
 
+	*/
 	app.get('/setheatertemperature', function (req, res) {
 		var heatertemp = req.param('heatertemp')
 		mq.sendmsgtoRaspberry('Heater:Temperature:'+heatertemp)
@@ -147,12 +152,12 @@ module.exports = (app, passport) => {
 	
 	app.get('/setpumpon', function (req, res) {
 		time=new Date()
-		mq.sendmsgtoRaspberry('Pump:Calibrate:ON')
+		mq.sendmsgtoRaspberry('Pump:ON')
 		res.json({sent: true})
 	})
 	app.get('/setpumpoff', function (req, res) {
 		time=new Date()-time
-		mq.sendmsgtoRaspberry('Pump:Calibrate:OFF')
+		mq.sendmsgtoRaspberry('Pump:OFF')
 		res.json({time: time})
 	})
 
