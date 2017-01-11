@@ -110,10 +110,12 @@ PiApp.prototype.phCallibrateLow = function(){
 	var self = this 
 	clearTimeout(self.phcheckTimeout)
 	var ph = '4.00'
-	this.phdevice.calibrateLow(ph,function(calbackmsg){
-		console.log('Calibration Low on PhSensor was ' + calbackmsg)
-		self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
-	})
+	setTimeout(function(){
+		self.phdevice.calibrateLow(ph,function(callbackmsg){
+			console.log('Calibration Low on PhSensor was ' + callbackmsg)
+			self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
+		})
+	},1000);
 }
 
 /**
@@ -123,10 +125,12 @@ PiApp.prototype.phCallibrateMid = function(){
 	var self = this 
 	clearTimeout(self.phcheckTimeout)
 	var ph = '7.00'
-	this.phdevice.calibrateMiddle(ph,function(calbackmsg){
-		console.log('Calibration Mid on PhSensor was ' + calbackmsg)
-		self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
-	})
+	setTimeout(function(){
+		self.phdevice.calibrateMiddle(ph,function(callbackmsg){
+			console.log('Calibration Mid on PhSensor was ' + callbackmsg)
+			self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
+		})
+	},1000);
 }
 
 /**
@@ -136,10 +140,12 @@ PiApp.prototype.phCallibrateHigh = function(){
 	var self = this 
 	clearTimeout(self.phcheckTimeout)
 	var ph = '10.00'
-	this.phdevice.calibrateHigh(ph,function(calbackmsg){
-		console.log('Calibration High on PhSensor was ' + calbackmsg)
-		self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
-	})
+	setTimeout(function(){
+		self.phdevice.calibrateHigh(ph,function(callbackmsg){
+			console.log('Calibration High on PhSensor was ' + callbackmsg)
+			self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
+		})
+	},1000);
 }
 
 /**

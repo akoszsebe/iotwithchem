@@ -31,7 +31,7 @@ var SensorValueContext = require ('../models/sensor-value-context')
 var sensorValueContext = new SensorValueContext () 
 
 // Create new Message Queue pi -> webservice 
-var MQueuePi = require ('../models/mqueue-pi')
+var MQueuePi = require ('../communication/mqueue-pi')
 var mQueuePi = new MQueuePi (sensorValueContext)  
 
 // create a new instance 
