@@ -20,7 +20,7 @@
 			templateUrl: 'frontend/src/research/research.html',
 			controller: 'chartController',
 			controllerAs: 'chart',
-			authenticate: true
+			authenticate: false
 		}
 
 		let calibrationState = {
