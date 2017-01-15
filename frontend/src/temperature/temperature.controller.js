@@ -24,8 +24,8 @@
 				tempValue=temp.temperature.tempvalue
 				tempDate=temp.temperature.tempdate
 				refresh()
-				console.log(oldDate)
-				console.log(temp.temperature.tempdate-$scope.interval*1000)
+				//console.log(oldDate)
+				//console.log(temp.temperature.tempdate-$scope.interval*1000)
 				if(oldDate-$scope.interval*1000>temp.temperature.tempdate){
 					$scope.status=false
 				}
@@ -46,7 +46,7 @@
 			//}
 			//refreshId=$interval(getTemperature, interval*1000)
 		}
-		
+
 		function setTemperatureTime() {
 			return temperatureFactory.setTemperatureTime(1, $scope.interval*1000)
 		}

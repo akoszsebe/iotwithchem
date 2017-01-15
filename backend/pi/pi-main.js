@@ -1,4 +1,3 @@
-var messagequeue = require('../models/messagequeue-pi')
 
 // load the pi ap module 
 var PiApp = require('./pi-app')
@@ -19,10 +18,26 @@ var temperaturedevice = new TemperatureDevice
 var HeatSourceDevice =  require ('./devices/heatsource.device')
 var heatsourcedevice = new HeatSourceDevice()   
 
+//  Create new PH Device 
+var PhDevice =  require ('./devices/ph.device')
+var phdevice = new PhDevice()   
+
+// Create new PumpDevice
+var PumpDevice = require('./devices/pump.device')
+var pumpdevice = new PumpDevice()
+
+// Create new Sensor Values Context 
+var SensorValueContext = require ('../models/sensor-value-context')
+var sensorValueContext = new SensorValueContext () 
+
+// Create new Message Queue pi -> webservice 
+var MQueuePi = require ('../communication/mqueue-pi')
+var mQueuePi = new MQueuePi (sensorValueContext)  
+
 // create a new instance 
 // with the exernal dependencies 
 // db, devices, gateway 
-var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, gateway, messagequeue) 
+var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi)
 
 // Initialize the pi app 
 piapp.init()
