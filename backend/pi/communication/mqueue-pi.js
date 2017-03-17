@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 /**
  * Class to handle the communication 
  * pi gateway toward webservice 

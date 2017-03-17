@@ -11,19 +11,36 @@ var Gateway = require('./devices/gateway')
 var gateway = new Gateway()
 
 // Create new Temperature Device 
-var TemperatureDevice = require('./devices/temperature.device') 
-var temperaturedevice = new TemperatureDevice 
+var TemperatureDevice
 
 //  Create new HeatSource Device 
-var HeatSourceDevice =  require ('./devices/heatsource.device')
-var heatsourcedevice = new HeatSourceDevice()   
-
+var HeatSourceDevice;
 //  Create new PH Device 
-var PhDevice =  require ('./devices/ph.device')
-var phdevice = new PhDevice()   
-
+var PhDevice;
 // Create new PumpDevice
-var PumpDevice = require('./devices/pump.device')
+var PumpDevice;
+
+
+if(gateway.fingerPrint() == -1) // Mock for desktop testing
+{
+	TemperatureDevice = require('./mocks/mockTemperature.device') 
+	HeatSourceDevice = require ('./mocks/mockHeatsource.device')
+	PhDevice =  require ('./mocks/mockPh.device')
+	PumpDevice = require('./mocks/mockPump.device')
+	
+	console.info('Device is not Raspberry! Using mock gateway instead');
+}
+else
+{
+	TemperatureDevice = require('./devices/temperature.device') 
+	HeatSourceDevice =  require ('./devices/heatsource.device')
+	PhDevice =  require ('./devices/ph.device')
+	PumpDevice = require('./devices/pump.device')
+}
+
+var temperaturedevice = new TemperatureDevice 
+var heatsourcedevice = new HeatSourceDevice();
+var phdevice = new PhDevice()   
 var pumpdevice = new PumpDevice()
 
 // Create new Sensor Values Context 
@@ -31,7 +48,7 @@ var SensorValueContext = require ('../models/sensor-value-context')
 var sensorValueContext = new SensorValueContext () 
 
 // Create new Message Queue pi -> webservice 
-var MQueuePi = require ('../communication/mqueue-pi')
+var MQueuePi = require ('./communication/mqueue-pi')
 var mQueuePi = new MQueuePi (sensorValueContext)  
 
 // create a new instance 

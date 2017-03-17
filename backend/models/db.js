@@ -1,12 +1,36 @@
-
-
 'use strict'
 
-let path = require('path'),
-	Temperature = require(path.resolve('./backend/models/temperature.js')),
-	Alive = require(path.resolve('./backend/models/alive.js')),
-	Ph = require(path.resolve('./backend/models/ph.js')),
-	mongoose = require('mongoose')
+var isRaspberryApp = true
+let path,Temperature,Alive,Ph,mongoose
+
+
+try{ // Try it for the raspberryApp
+		path = require('path')
+		Temperature = require(path.resolve('../models/temperature.js'))
+		Alive = require(path.resolve('../models/alive.js'))
+		Ph = require(path.resolve('../models/ph.js'))
+		mongoose = require('../pi/node_modules/mongoose')
+
+}catch (e) {
+	console.warn('Couldn\'t load the DB for the raspberry. Ignore this message if you are are the server')
+	console.info(e)
+	isRaspberryApp = false
+}
+
+if(!isRaspberryApp)
+{
+	try{ // Try it for the server
+		path = require('path')
+			Temperature = require(path.resolve('./backend/models/temperature.js')),
+			Alive = require(path.resolve('./backend/models/alive.js')),
+			Ph = require(path.resolve('./backend/models/ph.js')),
+			mongoose = require('mongoose')
+
+	}catch (e) {
+		console.warn('Couldn\'t load the DB for the server. Ignore this message if you are using the RaspberryPi')
+		// console.error(e)
+	}
+}
 
 /** 
  * Create a DB class to handle: 
@@ -61,7 +85,7 @@ Db.prototype.close = function () {
 	})
 }
 
-/**
+/*
  * createTemperatureMessage   method is responsabile for ...
  * 
  * rid: 
@@ -70,6 +94,7 @@ Db.prototype.close = function () {
  * td: 
  * callback:  
  */
+ 
 
 Db.prototype.createTemperatureMessage = function (rid,sid,tv,td,_callback){
 	var self = this
