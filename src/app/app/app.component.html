@@ -1,0 +1,57 @@
+<button (click)="loadTemperatures()"> Start</button>
+
+<div>
+  <justgage class='timer' [options]="optionsTimerGauge" [max]="maxTime" [value]="valueTimer"></justgage>
+</div>
+
+<div>
+  <md-list>
+    <md-list-item>
+
+      <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="tempReadValue"></justgage>
+
+
+      <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="phReadValue"></justgage>
+
+    </md-list-item>
+
+    <md-list-item>
+    <md-card class="example-card">
+      <md-card-content>
+        <p> Set Temperature: {{tempSetValue}}°C</p><br>
+        <p> Set read interval: {{tempReadInt}}s</p>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button (click)="openTempSettings()">
+          Edit
+          <md-icon class="example-icon">edit</md-icon>
+        </button>
+
+      </md-card-actions>
+    </md-card>
+
+
+
+      <md-card class="example-card">
+        <md-card-content>
+          <p> Set pH value: {{phSetValue}}</p><br>
+          <p> Set read interval: {{phReadInt}}s</p>
+        </md-card-content>
+        <md-card-actions>
+          <button md-button (click)="openPhSettings()">
+            Edit
+            <md-icon class="example-icon">edit</md-icon>
+          </button>
+
+        </md-card-actions>
+      </md-card>
+
+
+    </md-list-item>
+  </md-list>
+</div>
+
+
+
+
+

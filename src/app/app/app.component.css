@@ -1,0 +1,31 @@
+html, body {
+  height: 100%;
+}
+
+edit-btn{
+  margin: auto;
+}
+
+
+.example-card {
+  width: 400px;
+  margin: 10px auto 10px auto;
+}
+
+p {
+  color: #dc655e;
+}
+
+justgage {
+  width: 35%;
+  margin: 50px auto 35% auto;
+}
+
+justgage.timer {
+  width: 20%;
+  margin: 10px auto 20% auto;
+}
+
+table {
+  margin: auto;
+}
