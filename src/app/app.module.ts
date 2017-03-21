@@ -16,6 +16,7 @@ import {AuthService} from "./auth/auth.service";
 import {AuthGuardService} from "./auth-guard/auth-guard.service";
 import {DialogService} from "./dialog/dialog.service";
 import {ChartModule} from "primeng/components/chart/chart";
+import {PhService} from "./ph/ph.service";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {ChartModule} from "primeng/components/chart/chart";
   ],
   providers: [
     TempService,
+    PhService,
     MdIconRegistry,
     AuthService,
     AuthGuardService,

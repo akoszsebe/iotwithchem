@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Temperature} from '../model/temperature';
 import {TempService} from '../temp/temp.service';
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {SettingsDialogComponent} from "../settings-dialog/settings-dialog.component";
 import {DialogService} from "../dialog/dialog.service";
+import {TemperatureDO} from "../model/temperatureDO";
+import {PhService} from "../ph/ph.service";
+import {PhDO} from "../model/phDO";
 
 
 @Component({
@@ -57,7 +57,7 @@ export class AppComponent {
   tempSetValue = 0;
 
   maxPH = 14;
-  phReadInt = 0;
+  phReadInt = 3;
   phSetValue = 1;
   phReadValue = 1;
 
@@ -84,6 +84,12 @@ export class AppComponent {
   //   }, 1000);
   // }
 
+  startSync() {
+    this.getTemp();
+    this.getPh();
+  }
+
+
   getTemp() {
     setInterval(() => {
       this.tempService.getTemp()
@@ -93,15 +99,31 @@ export class AppComponent {
             console.log(temp.tempvalue);
           },
           error => {
-            console.log(error)
+            console.log(error);
           });
     }, this.tempReadInt * 1000);
   }
 
+  getPh() {
+    setInterval(() => {
+      this.phService.getPh()
+        .subscribe(ph => {
+            this.ph = ph;
+            this.phReadValue = ph.phvalue;
+            console.log(ph.phvalue);
+          },
+          error => {
+            console.log(error);
+          });
+    }, this.phReadInt * 1000);
+  }
 
-  temp = new Temperature("", "", 0, "");
+
+  temp = new TemperatureDO("", "", 0, "");
+  ph = new PhDO("", "", 0, "");
 
   constructor(private tempService: TempService,
+              private phService: PhService,
               private dialogService: DialogService) {
   }
 
@@ -133,7 +155,6 @@ export class AppComponent {
         }],
         counter: true
       };
-
       console.log(res)
     });
   }
@@ -163,7 +184,6 @@ export class AppComponent {
         }],
         counter: true
       };
-
       console.log(res)
     });
   }

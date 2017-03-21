@@ -1,9 +1,9 @@
-export class Temperature {
+export class PhDO {
 
   constructor(
     public raspberryid: string,
     public sensorid: string,
-    public tempvalue: number,
-    public tempdate: string
+    public phvalue: number,
+    public phdate: string
   ){}
 }
