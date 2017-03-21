@@ -10,7 +10,6 @@ import {HttpModule} from "@angular/http";
 import {JustgageModule} from "angular2-justgage";
 import {MaterialModule, MdIconRegistry} from "@angular/material";
 import {AppRoutingModule} from "./app-routing/app-routing.module";
-import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {CalendarModule} from "primeng/primeng";
 import {TempService} from "./temp/temp.service";
 import {AuthService} from "./auth/auth.service";
