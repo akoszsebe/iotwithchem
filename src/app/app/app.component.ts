@@ -19,7 +19,7 @@ export class AppComponent {
     symbol: "°C",
     min: 0,
     max: 100,
-    decimals: 2,
+    decimals: 3,
     gaugeWidthScale: 0.6,
     customSectors: [],
     counter: true
@@ -30,7 +30,7 @@ export class AppComponent {
     label: "pH",
     min: 1,
     max: 14,
-    decimals: 2,
+    decimals: 3,
     gaugeWidthScale: 0.6,
     customSectors: [],
     counter: true
@@ -52,7 +52,7 @@ export class AppComponent {
 
 
   maxTemp = 100;
-  tempReadInt = 0;
+  tempReadInt = 3;
   tempReadValue = 0;
   tempSetValue = 0;
 
@@ -65,37 +65,41 @@ export class AppComponent {
   valueTimer = 60;
 
 
-  loadTemperatures() {
-    let diff1 = -10, diff2 = -1;
-    setInterval(() => {
-      if (this.tempReadValue === 100 || this.tempReadValue === 0) {
-        diff1 = diff1 * -1;
-      }
-      if (this.phReadValue === 14 || this.phReadValue === 1) {
-        diff2 = diff2 * -1;
-      }
-      if (this.valueTimer > 0) {
-        this.valueTimer--;
-      }
-
-      this.tempReadValue = this.tempReadValue + diff1;
-      this.phReadValue = this.phReadValue + diff2;
-
-    }, 1000);
-  }
+  // loadTemperatures() {
+  //   let diff1 = -10, diff2 = -1;
+  //   setInterval(() => {
+  //     if (this.tempReadValue === 100 || this.tempReadValue === 0) {
+  //       diff1 = diff1 * -1;
+  //     }
+  //     if (this.phReadValue === 14 || this.phReadValue === 1) {
+  //       diff2 = diff2 * -1;
+  //     }
+  //     if (this.valueTimer > 0) {
+  //       this.valueTimer--;
+  //     }
+  //
+  //     this.tempReadValue = this.tempReadValue + diff1;
+  //     this.phReadValue = this.phReadValue + diff2;
+  //
+  //   }, 1000);
+  // }
 
   getTemp() {
-    this.tempService.getTemp()
-      .subscribe(temp => {
-          this.temp = temp;
-          console.log(temp.tempvalue);
-        },
-        error => {
-          console.log(error)
-        });
+    setInterval(() => {
+      this.tempService.getTemp()
+        .subscribe(temp => {
+            this.temp = temp;
+            this.tempReadValue = temp.tempvalue;
+            console.log(temp.tempvalue);
+          },
+          error => {
+            console.log(error)
+          });
+    }, this.tempReadInt * 1000);
   }
 
-  temp = new Temperature("", "", "", "");
+
+  temp = new Temperature("", "", 0, "");
 
   constructor(private tempService: TempService,
               private dialogService: DialogService) {
@@ -114,7 +118,7 @@ export class AppComponent {
         symbol: "°C",
         min: 0,
         max: 100,
-        decimals: 2,
+        decimals: 3,
         gaugeWidthScale: 0.6,
         customSectors: [{
           color: "#ff0000", lo: 0, hi: this.tempSetValue - 3
@@ -144,7 +148,7 @@ export class AppComponent {
         label: "pH",
         min: 1,
         max: 14,
-        decimals: 2,
+        decimals: 3,
         gaugeWidthScale: 0.6,
         customSectors: [{
           color: "#ff0000", lo: 1, hi: this.phSetValue - 2

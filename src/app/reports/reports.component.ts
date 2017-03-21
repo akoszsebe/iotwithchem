@@ -9,26 +9,35 @@ import {Component, OnInit} from '@angular/core';
 
 export class ReportsComponent implements OnInit {
 
+  tempStartDate: Date;
+  tempEndDate: Date;
+  phStartDate: Date;
+  phEndDate: Date;
 
-
+  tempData: any;
+  phData: any;
 
   constructor() {
-    this.options1 = {
-      title: {text: 'Temperature chart'},
-      series: [{
-        data: [29.9, 71.5, 106.4, 129.2],
-      }]
+    this.tempData = {
+      datasets: [
+        {
+          label: 'Measured temperatures',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          fill: true,
+          borderColor: '#4bc0c0'
+        }]
     };
 
-    this.options2 = {
-      title: {text: 'ph chart'},
-      series: [{
-        data: [6,5,3,4,5,6,7,6,5,4,3,2,1],
-      }]
+    this.phData = {
+      datasets: [
+        {
+          label: 'Measured ph values',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: '#4bc0c0'
+        }]
     };
   }
-  options1: Object;
-  options2: Object;
 
   ngOnInit() {
 

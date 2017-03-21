@@ -1,16 +1,24 @@
 <p>
   <md-tab-group md-stretch-tabs="always">
     <md-tab label="Temp">
-      <h1>Temp Chart</h1>
+      <div class="ui-g-12 ui-md-4">
+        <p-calendar [(ngModel)]="tempStartDate" [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+      <div class="ui-g-12 ui-md-4">
+        <p-calendar [(ngModel)]="tempEndDate" [timeOnly]="true"></p-calendar>
+      </div>
       <br>
       <div>
-        <chart [options]="options1"></chart>
+        <p-chart type="line" [data]="tempData"></p-chart>
       </div>
     </md-tab>
     <md-tab label="pH">
-      <h1>pH Chart</h1>
+      <p-calendar [(ngModel)]="phStartDate" showTime="true"></p-calendar>
+      <p-calendar [(ngModel)]="phEndDate" showTime="true"></p-calendar>
       <br>
-      <chart [options]="options2"></chart>
+      <div>
+        <p-chart type="line" [data]="phData"></p-chart>
+      </div>
     </md-tab>
   </md-tab-group>
 </p>

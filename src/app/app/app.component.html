@@ -1,4 +1,4 @@
-<button (click)="loadTemperatures()"> Start</button>
+<button (click)="getTemp()"> Start</button>
 
 <div>
   <justgage class='timer' [options]="optionsTimerGauge" [max]="maxTime" [value]="valueTimer"></justgage>
@@ -16,20 +16,19 @@
     </md-list-item>
 
     <md-list-item>
-    <md-card class="example-card">
-      <md-card-content>
-        <p> Set Temperature: {{tempSetValue}}°C</p><br>
-        <p> Set read interval: {{tempReadInt}}s</p>
-      </md-card-content>
-      <md-card-actions>
-        <button md-button (click)="openTempSettings()">
-          Edit
-          <md-icon class="example-icon">edit</md-icon>
-        </button>
+      <md-card class="example-card">
+        <md-card-content>
+          <p> Set Temperature: {{tempSetValue}}°C</p><br>
+          <p> Set read interval: {{tempReadInt}}s</p>
+        </md-card-content>
+        <md-card-actions>
+          <button md-button (click)="openTempSettings()">
+            Edit
+            <md-icon class="example-icon">edit</md-icon>
+          </button>
 
-      </md-card-actions>
-    </md-card>
-
+        </md-card-actions>
+      </md-card>
 
 
       <md-card class="example-card">
