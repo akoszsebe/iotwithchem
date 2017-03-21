@@ -19,6 +19,14 @@ import {AuthService} from "./auth/auth.service";
 import {AuthGuardService} from "./auth-guard/auth-guard.service";
 import {SettingsDialogComponent} from './settings-dialog/settings-dialog.component';
 import {DialogService} from "./dialog/dialog.service";
+import {ChartModule} from "angular2-highcharts";
+import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
+
+
+export function highchartsFactory() {
+  return require('highcharts');
+}
+
 
 @NgModule({
   declarations: [
@@ -37,14 +45,19 @@ import {DialogService} from "./dialog/dialog.service";
     HttpModule,
     JustgageModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartModule
   ],
   providers: [
     TempService,
     MdIconRegistry,
     AuthService,
     AuthGuardService,
-    DialogService
+    DialogService,
+    {
+      provide: HighchartsStatic,
+      useFactory: highchartsFactory
+    },
   ],
   bootstrap: [SidenavComponent]
 })
