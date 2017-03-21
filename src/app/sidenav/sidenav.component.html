@@ -4,7 +4,12 @@
 
     <md-list>
       <md-list-item>
-        <button md-button (click)="sidenav.close()">Close sidenav</button>
+        <button id="closeMenu" md-button (click)="sidenav.close()">
+          <md-icon>close</md-icon>
+        </button>
+      </md-list-item>
+      <md-list-item>
+        <h3>IoTwithChem v2</h3>
       </md-list-item>
       <md-list-item><a routerLink="/research">Research</a></md-list-item>
       <md-list-item><a routerLink="/reports"> Reports</a></md-list-item>
@@ -15,7 +20,7 @@
 
   <div>
     <button md-button (click)="sidenav.open()">
-      Open sidenav
+      <md-icon>menu</md-icon>
     </button>
     <router-outlet></router-outlet>
   </div>
