@@ -96,7 +96,7 @@ export class AppComponent {
         .subscribe(temp => {
             this.temp = temp;
             this.tempReadValue = temp.tempvalue;
-            console.log(temp.tempvalue);
+            console.log(temp);
           },
           error => {
             console.log(error);
@@ -110,7 +110,7 @@ export class AppComponent {
         .subscribe(ph => {
             this.ph = ph;
             this.phReadValue = ph.phvalue;
-            console.log(ph.phvalue);
+            console.log(ph);
           },
           error => {
             console.log(error);
@@ -119,8 +119,8 @@ export class AppComponent {
   }
 
 
-  temp = new TemperatureDO("", "", 0, "");
-  ph = new PhDO("", "", 0, "");
+  temp: any;
+  ph: any;
 
   constructor(private tempService: TempService,
               private phService: PhService,

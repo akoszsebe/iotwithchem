@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import {PhDO} from "../model/phDO";
 
@@ -9,11 +9,24 @@ export class PhService {
   constructor(private http: Http) {
   }
 
-  private url = 'https://iotwithchemtest.herokuapp.com/getph';
+  private baseUrl = 'https://iotwithchemtest.herokuapp.com';
 
   getPh(): Observable<PhDO> {
 
-    return this.http.get(this.url)
+    return this.http.get(this.baseUrl + "/getph")
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+
+  getPhsInInterval(startDate: string, endDate: string): Observable<PhDO[]> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('datefrom', startDate);
+    params.set('dateto', endDate);
+
+
+    return this.http.get(this.baseUrl + "/getPhinterval", {search: params})
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

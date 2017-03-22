@@ -4,6 +4,6 @@ export class PhDO {
     public raspberryid: string,
     public sensorid: string,
     public phvalue: number,
-    public phdate: string
+    public phdate: Date
   ){}
 }

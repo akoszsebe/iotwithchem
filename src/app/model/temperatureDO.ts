@@ -4,6 +4,6 @@ export class TemperatureDO {
     public raspberryid: string,
     public sensorid: string,
     public tempvalue: number,
-    public tempdate: string
+    public tempdate: Date
   ){}
 }

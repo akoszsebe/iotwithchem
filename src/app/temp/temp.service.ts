@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import {TemperatureDO} from "../model/temperatureDO";
 import "rxjs/add/operator/map";
@@ -11,13 +11,24 @@ export class TempService {
   constructor(private http: Http) {
   }
 
-  private url = 'https://iotwithchemtest.herokuapp.com/gettemperature';
+  private baseUrl = 'https://iotwithchemtest.herokuapp.com';
 
   getTemp(): Observable<TemperatureDO> {
 
-    return this.http.get(this.url)
+    console.log(this.baseUrl + "/gettemperature");
+    return this.http.get(this.baseUrl + "/gettemperature")
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  getTempsInInterval(startDate: string, endDate: string): Observable<TemperatureDO[]> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('datefrom', startDate);
+    params.set('dateto', endDate);
+
+    return this.http.get(this.baseUrl + "/gettemperatureinterval", {search: params})
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }
