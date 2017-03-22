@@ -15,7 +15,7 @@ PhDevice.prototype.init = function () {
  * @returns the phvalue
  */
 PhDevice.prototype.getPh = function (callback) {
-
+	return callback('7.0')
 }
 
 /*

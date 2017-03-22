@@ -38,14 +38,20 @@ HeatSourceDevice.prototype.chekcHeatRelayStatus = function(){
  * Turns on the relay for heat source
  */
 HeatSourceDevice.prototype.turnOnHeatRelay = function() {
-	console.info('Turned ON HEATING!')
+	if(!this.heatSourceWorking){
+		console.info('Turned ON HEATING!')
+		this.heatSourceWorking=true;
+	}
 }
 
 /*
  * Turns off the relay for heat source
  */
 HeatSourceDevice.prototype.turnOffHeatRelay = function() {
-	console.info('Turned OFF HEATING!')		
+	if(this.heatSourceWorking){
+		console.info('Turned OFF HEATING!')
+		this.heatSourceWorking=false;
+	}
 }
 
 /*

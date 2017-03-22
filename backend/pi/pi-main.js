@@ -3,7 +3,7 @@
 var PiApp = require('./pi-app')
 
 // load the Db module 
-var Db = require('../models/db')
+var Db = require('./communication/db')
 var db = new Db(); 
 
 // load the gateway module

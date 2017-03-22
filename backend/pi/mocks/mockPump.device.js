@@ -18,14 +18,20 @@ PumpDevice.prototype.init = function () {
  * Turns off the pump
  */
 PumpDevice.prototype.turnOffPump = function() {
-	console.info('Turned OFF PUMP!')
+	if(this.pumpWorking){
+		console.info('Turned OFF PUMP!')
+		this.pumpWorking=false;
+	}
 }
 
 /*
  * Turns on the pump
  */
 PumpDevice.prototype.turnOnPump = function() {
-	console.info('Turned ON PUMP!')
+	if(!this.pumpWorking){
+		console.info('Turned ON PUMP!')
+		this.pumpWorking=true;
+	}
 }
 
 PumpDevice.prototype.getPumpPh = function() {
