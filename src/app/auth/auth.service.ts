@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
+import {UserDO} from "../model/userDO";
 
 @Injectable()
 export class AuthService {
 
   isLoggedIn: boolean = false;
+  user: UserDO = null;
   redirectUrl: string;
 
   login(): Observable<boolean>{

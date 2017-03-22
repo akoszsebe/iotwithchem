@@ -11,7 +11,10 @@ import {PhDO} from "../model/phDO";
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  ngOnInit(): void {
+  }
 
   optionsTempGauge = {
     id: "tempGauge",
@@ -132,7 +135,6 @@ export class AppComponent {
 
     this.dialogService.openSettings(this.tempReadInt, this.tempSetValue).subscribe(res => {
       this.tempReadInt = res[0];
-      this.tempSetValue = res[1];
 
       this.optionsTempGauge = {
         id: "tempGauge",
@@ -155,6 +157,12 @@ export class AppComponent {
         }],
         counter: true
       };
+      this.tempService.setReadInterval(res[0] * 1000)
+        .subscribe(result => {
+          console.log(result)
+        });
+      this.tempService.setHeaterTemp(res[1])
+        .subscribe(result => this.tempSetValue = result.heatertemperature)
       console.log(res)
     });
   }
