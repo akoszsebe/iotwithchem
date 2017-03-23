@@ -24,17 +24,16 @@ var Db = module.exports = function ( ) {
  */
 Db.prototype.init = function () {
 	var self = this 
-	console.info("mongooooo vagyok --------")
 
 	self.mongoose.Promise = global.Promise
 
 	//database connection settings
 	self.mongoose.connection.on('open', (ref) => {
-		console.info('-----------------Connected to mongo server.', ref)
+		console.info('Connected to mongo server.', ref)
 	})
 
 	self.mongoose.connection.on('error', (error) => {
-		console.error('------------------Could not connect to mongo server!', error)
+		console.error('Could not connect to mongo server!', error)
 	})
 
 	// connect to database on mongolab
@@ -43,7 +42,6 @@ Db.prototype.init = function () {
 	self.mongoose.connect('mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5',
 		function(err) { 
 			if (err) console.error('erros:' + err)
-			console.info("erro-------------------------------------------------------------------------------------s")
 		 })
 }
 
@@ -135,31 +133,18 @@ Db.prototype.createAliveMessage = function ( rid,td,_callback){
 		raspberryid : rid,
 		alivedate : td
 	})
-	console.info("--------------------------------------------",a);
 
-	// // call the Alive class save operator   // NOT SAFE! Need a fix here!!!
-	// Alive.find((error, alivedata) => {
-	// 	if(alivedata.length != 0){
-	// 		alivedata[0].remove();
-	// 	}
-	// })
-	// a.save(function(err) {
-	// if (err) 
-	// 	return _callback(err)
-	// return _callback(null)
-	// })
 	Alive.find({},(error, alivedata) => {
-		console.info("------------------van --------------------------", alivedata);
 		if(error || alivedata == null){
 			a.save(function(err) {
 			if (err) 
 				return _callback(err)
 			return _callback('successful');
-		})
+			})
 		}
 		else 
-		{
-			alivedata.remove();
+		{	if (alivedata.length != 0)
+			alivedata[0].remove();
 			a.save(function(err) {
 			if (err) 
 				return _callback(err)
