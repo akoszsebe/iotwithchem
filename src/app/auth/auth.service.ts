@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {UserDO} from "../model/userDO";
 
@@ -9,7 +9,7 @@ export class AuthService {
   user: UserDO = null;
   redirectUrl: string;
 
-  login(): Observable<boolean>{
+  login(): Observable<boolean> {
     return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
   }
 
@@ -17,6 +17,7 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
-  constructor() { }
+  constructor() {
+  }
 
 }

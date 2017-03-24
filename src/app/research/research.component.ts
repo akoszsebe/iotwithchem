@@ -1,19 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {TempService} from '../temp/temp.service';
+import {Component, OnInit} from "@angular/core";
+import {TempService} from "../temp/temp.service";
 import {DialogService} from "../dialog/dialog.service";
-import {TemperatureDO} from "../model/temperatureDO";
 import {PhService} from "../ph/ph.service";
-import {PhDO} from "../model/phDO";
 
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  templateUrl: 'research.component.html',
+  styleUrls: ['research.component.css']
 })
-export class AppComponent implements OnInit{
+export class ResearchComponent implements OnInit {
 
   ngOnInit(): void {
+    this.tempService.getHeaterTemp()
+      .subscribe(temp => {
+        this.tempSetValue = temp.heatertemperature;
+        console.log(temp.heatertemperature);
+      })
   }
 
   optionsTempGauge = {
@@ -57,7 +60,7 @@ export class AppComponent implements OnInit{
   maxTemp = 100;
   tempReadInt = 3;
   tempReadValue = 0;
-  tempSetValue = 0;
+  tempSetValue: number;
 
   maxPH = 14;
   phReadInt = 3;
@@ -171,6 +174,11 @@ export class AppComponent implements OnInit{
     this.dialogService.openSettings(this.phReadInt, this.phSetValue).subscribe(res => {
       this.phReadInt = res[0];
       this.phSetValue = res[1];
+
+      this.phService.setPhValue(res[1])
+        .subscribe(result => {
+          console.log(result.sent);
+        });
 
       this.optionsPHGauge = {
         id: "phGauge",

@@ -1,4 +1,4 @@
-import { AngularCLIPage } from './app.po';
+import {AngularCLIPage} from "./app.po";
 
 describe('angular-cli App', () => {
   let page: AngularCLIPage;

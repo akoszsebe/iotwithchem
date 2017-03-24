@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {UIChart} from "primeng/components/chart/chart";
 import {TempService} from "../temp/temp.service";
 import {PhService} from "../ph/ph.service";

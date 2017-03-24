@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {SettingsDialogComponent} from "../settings-dialog/settings-dialog.component";
 import {Observable} from "rxjs";
@@ -17,7 +17,7 @@ export class DialogService {
     dialogRef.componentInstance.previousInterval = interval;
     dialogRef.componentInstance.previousValue = value;
 
-    return  dialogRef.afterClosed();
+    return dialogRef.afterClosed();
 
 
   }

@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {AppComponent} from "./app/app.component";
 import {SidenavComponent} from "./sidenav/sidenav.component";
 import {LoginComponent} from "./login/login.component";
 import {ReportsComponent} from "./reports/reports.component";
@@ -17,11 +16,12 @@ import {AuthGuardService} from "./auth-guard/auth-guard.service";
 import {DialogService} from "./dialog/dialog.service";
 import {ChartModule} from "primeng/components/chart/chart";
 import {PhService} from "./ph/ph.service";
+import {ResearchComponent} from "./research/research.component";
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    ResearchComponent,
     SidenavComponent,
     LoginComponent,
     ReportsComponent,

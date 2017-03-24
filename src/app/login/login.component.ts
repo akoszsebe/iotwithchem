@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
 
@@ -15,16 +15,16 @@ export class LoginComponent {
     this.setMessage();
   }
 
-  setMessage(){
+  setMessage() {
     this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
 
-  login(){
+  login() {
     this.message = 'Trying to log in...';
 
     this.authService.login().subscribe(() => {
       this.setMessage();
-      if (this.authService.isLoggedIn){
+      if (this.authService.isLoggedIn) {
 
         let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/research';
 
@@ -34,7 +34,7 @@ export class LoginComponent {
   }
 
 
-  logout(){
+  logout() {
     this.authService.logout();
     this.setMessage();
   }

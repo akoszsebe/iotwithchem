@@ -15,12 +15,11 @@ export class TempService {
   private baseUrl = 'https://iotwithchemtest.herokuapp.com';
 
 
-  private extractData(res: Response) {
-    let body = res.json();
-    return body;
+  private static extractData(res: Response) {
+    return res.json();
   }
 
-  private handleError(error: any) {
+  private static handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
@@ -33,8 +32,8 @@ export class TempService {
 
     console.log(this.baseUrl + "/gettemperature");
     return this.http.get(this.baseUrl + "/gettemperature")
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(TempService.extractData)
+      .catch(TempService.handleError);
   }
 
   getTempsInInterval(startDate: string, endDate: string): Observable<TemperatureDO[]> {
@@ -44,8 +43,8 @@ export class TempService {
     params.set('dateto', endDate);
 
     return this.http.get(this.baseUrl + "/gettemperatureinterval", {search: params})
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(TempService.extractData)
+      .catch(TempService.handleError);
   }
 
   setReadInterval(seconds: number): Observable<boolean> {
@@ -54,8 +53,8 @@ export class TempService {
     params.set('upinterval', seconds.toString());
 
     return this.http.get(this.baseUrl + "/settemperaturesensorsuploadintervall", {search: params})
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(TempService.extractData)
+      .catch(TempService.handleError);
   }
 
   setHeaterTemp(temp: number): Observable<HeaterTempDO> {
@@ -64,14 +63,14 @@ export class TempService {
     params.set('heatertemp', temp.toString());
 
     return this.http.get(this.baseUrl + "/setheatertemperature", {search: params})
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(TempService.extractData)
+      .catch(TempService.handleError);
   }
 
-  getHeaterTemp(): Observable<number> {
+  getHeaterTemp(): Observable<HeaterTempDO> {
 
     return this.http.get(this.baseUrl + "/getheatertemperature")
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(TempService.extractData)
+      .catch(TempService.handleError);
   }
 }

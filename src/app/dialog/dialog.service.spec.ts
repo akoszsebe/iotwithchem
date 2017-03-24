@@ -1,6 +1,5 @@
-import { TestBed, inject } from '@angular/core/testing';
-
-import { DialogService } from './dialog.service';
+import {inject, TestBed} from "@angular/core/testing";
+import {DialogService} from "./dialog.service";
 
 describe('DialogService', () => {
   beforeEach(() => {
