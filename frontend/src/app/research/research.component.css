@@ -28,6 +28,10 @@ h1 {
   font-size: 14px !important;
 }
 
+md-slide-toggle {
+  float: right;
+}
+
 table {
   margin: auto;
 }

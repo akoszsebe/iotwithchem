@@ -21,6 +21,7 @@ export class ResearchComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.startSync();
     this.tempService.getHeaterTemp()
       .subscribe(temp => {
         this.tempSetValue = temp.heatertemperature;
@@ -76,6 +77,18 @@ export class ResearchComponent implements OnInit {
   jobEndDate: Date;
   jobDescription: string;
 
+
+  syncLabel: string = "Sync is on";
+  toggleChecked: boolean = true;
+
+  toggleSync() {
+    if (this.toggleChecked) {
+      this.syncLabel = "Sync is on";
+    } else {
+      this.syncLabel = "Sync is off";
+    }
+  }
+
   startSync() {
     this.getTemp();
     this.getPh();
@@ -84,6 +97,7 @@ export class ResearchComponent implements OnInit {
 
   getTemp() {
     setInterval(() => {
+      if (!this.toggleChecked) return;
       this.tempService.getTemp()
         .subscribe(temp => {
             this.temp = temp;
@@ -98,6 +112,7 @@ export class ResearchComponent implements OnInit {
 
   getPh() {
     setInterval(() => {
+      if (!this.toggleChecked) return;
       this.phService.getPh()
         .subscribe(ph => {
             this.ph = ph;

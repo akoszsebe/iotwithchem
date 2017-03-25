@@ -1,4 +1,4 @@
-<button (click)="startSync()"> Start</button>
+<md-slide-toggle [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
 
 <md-card class="example-card">
   <md-card-content>
