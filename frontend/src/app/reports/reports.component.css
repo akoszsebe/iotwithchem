@@ -2,3 +2,11 @@ p-chart {
   padding-left: 30px;
   padding-right: 30px;
 }
+
+md-tab-group {
+  min-height: 720px !important;
+}
+
+/deep/ .mat-tab-body-wrapper{
+  min-height: 720px!important;
+}

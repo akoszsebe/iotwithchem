@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {UserDO} from "../model/userDO";
+import {UserDO} from "../model/user";
 import {Http, Response} from "@angular/http";
 
 @Injectable()

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {TempService} from "../temp/temp.service";
 import {DialogService} from "../dialog/dialog.service";
 import {PhService} from "../ph/ph.service";
@@ -11,7 +11,12 @@ import {JobDO} from "../model/job";
   templateUrl: 'research.component.html',
   styleUrls: ['research.component.css']
 })
-export class ResearchComponent implements OnInit {
+export class ResearchComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    clearInterval(this.tempTimer);
+    clearInterval(this.phTimer);
+    clearInterval(this.progressBarTimer);
+  }
 
   constructor(private tempService: TempService,
               private phService: PhService,
@@ -20,7 +25,10 @@ export class ResearchComponent implements OnInit {
   }
 
 
+  progressBarTimer: any;
+
   ngOnInit(): void {
+    this.toggleChecked = true;
     this.startSync();
     this.tempService.getHeaterTemp()
       .subscribe(temp => {
@@ -35,7 +43,10 @@ export class ResearchComponent implements OnInit {
         this.jobEndDate.setTime(job.jobEndDate);
         this.jobDescription = job.jobDescription;
         this.calculateProgBarValue();
-        this.updateProgressbar();
+        this.progressBarTimer = setInterval(() => {
+          this.calculateProgBarValue();
+          console.log("progressbar updated");
+        }, 30000);
       });
 
   }
@@ -79,9 +90,10 @@ export class ResearchComponent implements OnInit {
 
 
   syncLabel: string = "Sync is on";
-  toggleChecked: boolean = true;
+  toggleChecked: boolean;
 
   toggleSync() {
+    console.log(this.toggleChecked);
     if (this.toggleChecked) {
       this.syncLabel = "Sync is on";
     } else {
@@ -94,9 +106,10 @@ export class ResearchComponent implements OnInit {
     this.getPh();
   }
 
+  tempTimer: any;
 
   getTemp() {
-    setInterval(() => {
+    this.tempTimer = setInterval(() => {
       if (!this.toggleChecked) return;
       this.tempService.getTemp()
         .subscribe(temp => {
@@ -110,8 +123,10 @@ export class ResearchComponent implements OnInit {
     }, this.tempReadInt * 1000);
   }
 
+  phTimer: any;
+
   getPh() {
-    setInterval(() => {
+    this.phTimer = setInterval(() => {
       if (!this.toggleChecked) return;
       this.phService.getPh()
         .subscribe(ph => {
@@ -235,13 +250,6 @@ export class ResearchComponent implements OnInit {
 
     this.progressBarValue = parseFloat((((new Date().getTime()) - this.jobStartDate.getTime() ) * 100
     / (this.jobEndDate.getTime() - this.jobStartDate.getTime())).toFixed(3));
-  }
-
-  updateProgressbar() {
-    setInterval(() => {
-      this.calculateProgBarValue();
-      console.log("progressbar updated");
-    }, 30000);
   }
 
   text: any = {

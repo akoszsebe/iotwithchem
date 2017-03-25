@@ -23,7 +23,7 @@ export class DialogService {
 
   public openNewJob(): Observable<[Date, string]> {
     let dialogRef: MdDialogRef<JobDialogComponent>;
-    dialogRef = this.dialog.open(JobDialogComponent, {height: "500px", width: "400px", disableClose: true});
+    dialogRef = this.dialog.open(JobDialogComponent, {width:"350px", disableClose: true});
 
     return dialogRef.afterClosed();
 

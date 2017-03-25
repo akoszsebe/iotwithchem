@@ -19,13 +19,9 @@ p {
   display: flex;
 }
 
-count-down {
+.counter {
   font-size: 14px !important;
   color: #dc655e;
-}
-
-h1 {
-  font-size: 14px !important;
 }
 
 md-slide-toggle {

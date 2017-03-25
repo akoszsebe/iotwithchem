@@ -6,12 +6,12 @@
     <p-calendar [(ngModel)]="jobEndDate" dateformat="@" [minDate]="minJobEndDate"
                 showTime="true"></p-calendar>
   </md-list-item>
-  <md-list-item>
-    <md-input-container class="full-width">
-      <input mdInput minRows="3" placeholder="Add a description" id="description"
-             [(ngModel)]="jobDescription"/>
-    </md-input-container>
-  </md-list-item>
+
+  <md-input-container>
+        <textarea mdInput
+                  rows="15" cols="100" placeholder="Add a description" [(ngModel)]="jobDescription"></textarea>
+  </md-input-container>
+
   <md-list-item>
     <button type="button" md-raised-button
             (click)="dialogRef.close([jobEndDate, jobDescription])">OK

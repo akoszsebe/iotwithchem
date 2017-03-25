@@ -1,5 +1,5 @@
 <md-slide-toggle [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
-
+<br>
 <md-card class="example-card">
   <md-card-content>
     <p-progressBar [value]="progressBarValue"></p-progressBar>
@@ -9,7 +9,7 @@
     <label>Job end date:</label>
     <p> {{jobEndDate}} </p><br>
     <label>Remaining time:</label>
-    <count-down [text]="text" units="Days | Hours | Minutes | Seconds " end={{jobEndDate}}></count-down>
+    <count-down class="counter" [text]="text" units="Days | Hours | Minutes | Seconds " end={{jobEndDate}}></count-down>
     <label>Job description: </label>
     <p>{{jobDescription}}</p>
   </md-card-content>
