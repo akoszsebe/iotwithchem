@@ -1,0 +1,23 @@
+{
+  "name": "kemia-app",
+  "version": "1.0.0",
+  "description": "This is the gateway for the iotwithchem.",
+  "engines": {
+    "node": "4.2.5",
+    "npm": "2.14.12"
+  },
+  "main": "pi.js",
+  "scripts": {
+    "start": "sudo node pi.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/kemia-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rpi-gpio": "^0.7.0"
+  }
+}

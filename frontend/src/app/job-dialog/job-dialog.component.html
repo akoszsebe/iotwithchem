@@ -1,0 +1,23 @@
+<md-list>
+  <md-list-item>
+    <label>Job end date: </label>
+  </md-list-item>
+  <md-list-item>
+    <p-calendar [(ngModel)]="jobEndDate" dateformat="@" [minDate]="minJobEndDate"
+                showTime="true"></p-calendar>
+  </md-list-item>
+  <md-list-item>
+    <md-input-container class="full-width">
+      <input mdInput minRows="3" placeholder="Add a description" id="description"
+             [(ngModel)]="jobDescription"/>
+    </md-input-container>
+  </md-list-item>
+  <md-list-item>
+    <button type="button" md-raised-button
+            (click)="dialogRef.close([jobEndDate, jobDescription])">OK
+    </button>
+    <button type="button" md-button
+            (click)="dialogRef.close([null,null])">Cancel
+    </button>
+  </md-list-item>
+</md-list>

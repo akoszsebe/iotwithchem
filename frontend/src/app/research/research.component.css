@@ -1,0 +1,33 @@
+html, body {
+  height: 100%;
+}
+
+edit-btn {
+  margin: auto;
+}
+
+.example-card {
+  width: 400px;
+  margin: 10px auto 10px auto;
+}
+
+p {
+  color: #dc655e;
+}
+
+.sensors-container {
+  display: flex;
+}
+
+count-down {
+  font-size: 14px !important;
+  color: #dc655e;
+}
+
+h1 {
+  font-size: 14px !important;
+}
+
+table {
+  margin: auto;
+}

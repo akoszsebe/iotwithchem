@@ -1,0 +1,66 @@
+<button (click)="startSync()"> Start</button>
+
+<md-card class="example-card">
+  <md-card-content>
+    <p-progressBar [value]="progressBarValue"></p-progressBar>
+    <br>
+    <label>Job start date:</label>
+    <p> {{jobStartDate}} </p><br>
+    <label>Job end date:</label>
+    <p> {{jobEndDate}} </p><br>
+    <label>Remaining time:</label>
+    <count-down [text]="text" units="Days | Hours | Minutes | Seconds " end={{jobEndDate}}></count-down>
+    <label>Job description: </label>
+    <p>{{jobDescription}}</p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="openNewJob()">
+      <md-icon class="example-icon">add</md-icon>
+    </button>
+  </md-card-actions>
+</md-card>
+<!--<div>-->
+<!--<justgage class='timer' [options]="optionsTimerGauge" [max]="maxTime" [value]="valueTimer"></justgage>-->
+<!--</div>-->
+
+
+<div class="sensors-container">
+
+  <md-card class="example-card">
+    <md-card-content>
+      <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="tempReadValue"></justgage>
+      <p> Set Temperature: {{tempSetValue}}°C</p><br>
+      <p> Set read interval: {{tempReadInt}}s</p>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button (click)="openTempSettings()">
+        <md-icon class="example-icon">settings</md-icon>
+      </button>
+
+    </md-card-actions>
+  </md-card>
+
+
+  <md-card class="example-card">
+    <md-card-content>
+      <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="phReadValue"></justgage>
+      <p> Set pH value: {{phSetValue}}</p><br>
+      <p> Set read interval: {{phReadInt}}s</p>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button (click)="openPhSettings()">
+        <md-icon class="example-icon">settings</md-icon>
+      </button>
+
+    </md-card-actions>
+  </md-card>
+
+</div>
+
+
+
+
+
+
+
+

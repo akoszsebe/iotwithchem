@@ -5,7 +5,7 @@
   },
   "apps": [
     {
-      "root": "src",
+      "root": "frontend/src",
       "outDir": "dist",
       "assets": [
         "assets",
@@ -20,8 +20,9 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/primeng/resources/themes/omega/theme.css",
-        "../node_modules/primeng/resources/primeng.min.css"
+        "../../node_modules/primeng/resources/themes/omega/theme.css",
+        "../../node_modules/primeng/resources/primeng.min.css",
+        "../../node_modules/font-awesome/css/font-awesome.min.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
