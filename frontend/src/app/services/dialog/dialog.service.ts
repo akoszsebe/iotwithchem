@@ -1,8 +1,10 @@
 import {Injectable} from "@angular/core";
 import {MdDialog, MdDialogRef} from "@angular/material";
-import {SettingsDialogComponent} from "../settings-dialog/settings-dialog.component";
 import {Observable} from "rxjs";
-import {JobDialogComponent} from "../job-dialog/job-dialog.component";
+import {SettingsDialogComponent} from "../../dialogs/settings-dialog/settings-dialog.component";
+import {JobDialogComponent} from "../../dialogs/job-dialog/job-dialog.component";
+import {ConfirmDialogComponent} from "../../dialogs/confirm-dialog/confirm-dialog.component";
+
 
 @Injectable()
 export class DialogService {
@@ -17,15 +19,22 @@ export class DialogService {
     dialogRef.componentInstance.value = value;
 
     return dialogRef.afterClosed();
-
   }
 
 
   public openNewJob(): Observable<[Date, string]> {
     let dialogRef: MdDialogRef<JobDialogComponent>;
-    dialogRef = this.dialog.open(JobDialogComponent, {width:"350px", disableClose: true});
+    dialogRef = this.dialog.open(JobDialogComponent, {width: "350px", disableClose: true});
 
     return dialogRef.afterClosed();
-
   }
+
+  public openConfirmation(): Observable<boolean> {
+    let dialogRef: MdDialogRef<ConfirmDialogComponent>;
+    dialogRef = this.dialog.open(ConfirmDialogComponent, {disableClose: true});
+
+    return dialogRef.afterClosed();
+  }
+
+
 }

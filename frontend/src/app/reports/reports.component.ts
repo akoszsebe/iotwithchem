@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {UIChart} from "primeng/components/chart/chart";
-import {TempService} from "../temp/temp.service";
-import {PhService} from "../ph/ph.service";
+import {TempService} from "../services/temp/temp.service";
+import {PhService} from "../services/ph/ph.service";
 
 @Component({
   selector: 'app-reports',

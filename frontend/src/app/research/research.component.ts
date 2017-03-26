@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {TempService} from "../temp/temp.service";
-import {DialogService} from "../dialog/dialog.service";
-import {PhService} from "../ph/ph.service";
-import {JobService} from "../job/job.service";
+import {TempService} from "../services/temp/temp.service";
+import {DialogService} from "../services/dialog/dialog.service";
+import {PhService} from "../services/ph/ph.service";
+import {JobService} from "../services/job/job.service";
 import {JobDO} from "../model/job";
 
 
@@ -223,6 +223,19 @@ export class ResearchComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  checkJob() {
+    if ((new Date().getTime()) < this.jobEndDate.getTime()) {
+      this.dialogService.openConfirmation().subscribe(response => {
+        if (response) {
+          this.openNewJob();
+        }
+      });
+    } else {
+      this.openNewJob();
+    }
+  }
+
   openNewJob() {
     this.dialogService.openNewJob()
       .subscribe(res => {
@@ -237,9 +250,8 @@ export class ResearchComponent implements OnInit, OnDestroy {
               date2.setTime(newJob.jobEndDate);
               this.jobEndDate = date2;
               this.jobDescription = newJob.jobDescription;
-              this.calculateProgBarValue()
-            })
-
+              this.calculateProgBarValue();
+            });
         }
       });
   }

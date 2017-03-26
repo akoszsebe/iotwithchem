@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {UserDO} from "../model/user";
 import {Http, Response} from "@angular/http";
+import {UserDO} from "../../model/user";
 
 @Injectable()
 export class AuthService {
@@ -9,7 +9,7 @@ export class AuthService {
   user: UserDO;
   redirectUrl: string;
 
-  private baseUrl = 'https://iotwithchembackend.herokuapp.com';
+  private baseUrl = '';
 
   private extractData(res: Response) {
     console.log(res);
@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   constructor(private http: Http) {
-   // this.checkAuthentication().subscribe(user => console.log(user));
+    // this.checkAuthentication().subscribe(user => console.log(user));
   }
 
 }

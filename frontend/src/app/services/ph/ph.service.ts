@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
-import {PhDO} from "../model/ph";
+import {PhDO} from "../../model/ph";
 
 @Injectable()
 export class PhService {
