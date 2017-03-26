@@ -9,7 +9,7 @@ export class PhService {
   constructor(private http: Http) {
   }
 
-  private baseUrl = 'https://iotwithchembackend.herokuapp.com';
+  private baseUrl = '';
 
   getPh(): Observable<PhDO> {
 

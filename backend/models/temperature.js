@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 
 let mongoose = require('mongoose'),
-	Schema = mongoose.Schema
+    Schema = mongoose.Schema;
 
 let temperatureSchema = new Schema({
-	raspberryid : String,
-	sensorid : String,
-	tempvalue : String,
-	tempdate : String
-})
+    raspberryid: String,
+    sensorid: String,
+    tempvalue: String,
+    tempdate: String
+});
 
-module.exports = mongoose.model('Temperatures', temperatureSchema)
+module.exports = mongoose.model('Temperatures', temperatureSchema);

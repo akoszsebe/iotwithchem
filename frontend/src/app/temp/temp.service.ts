@@ -12,7 +12,7 @@ export class TempService {
   constructor(private http: Http) {
   }
 
-  private baseUrl = 'https://iotwithchembackend.herokuapp.com';
+  private baseUrl = '';
 
 
   private static extractData(res: Response) {

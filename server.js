@@ -1,26 +1,30 @@
 'use strict'
 
 let express = require('express'),
-  app = express(),
-  // Configuring Passport
-  passport = require('passport'),
-  expressSession = require('express-session')
+    app = express(),
+    // Configuring Passport
+    passport = require('passport'),
+    expressSession = require('express-session'),
+    bodyParser = require('body-parser');
 
 // set port
 app.set('port', process.env.PORT || 8081)
 
 app.use(express.static(__dirname + '/dist'))
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
-  res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
-  next()
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    res.header('Access-Control-Allow-Headers', 'Content-Type')
+    next()
 })
 
 // run
 app.listen(app.get('port'), () => {
-  console.info('App is running on port ', app.get('port'))
+    console.info('App is running on port ', app.get('port'))
 })
 
 exports = module.exports = app
