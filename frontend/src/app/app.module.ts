@@ -20,6 +20,8 @@ import {ResearchComponent} from "./research/research.component";
 import {JobService} from "./job/job.service";
 import {JobDialogComponent} from "./job-dialog/job-dialog.component";
 import {CountDown} from "../../../node_modules/angular2-simple-countdown/countdown";
+import { FeedbackComponent } from './feedback/feedback.component';
+import {FeedbackService} from "./feedback/feedback.service";
 
 
 @NgModule({
@@ -28,9 +30,11 @@ import {CountDown} from "../../../node_modules/angular2-simple-countdown/countdo
     SidenavComponent,
     LoginComponent,
     ReportsComponent,
+    FeedbackComponent,
     SettingsDialogComponent,
     JobDialogComponent,
-    CountDown
+    CountDown,
+    FeedbackComponent
   ],
   entryComponents: [
     SettingsDialogComponent,
@@ -54,7 +58,8 @@ import {CountDown} from "../../../node_modules/angular2-simple-countdown/countdo
     AuthService,
     AuthGuardService,
     DialogService,
-    JobService
+    JobService,
+    FeedbackService
   ],
   bootstrap: [SidenavComponent]
 })

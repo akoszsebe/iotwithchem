@@ -33,3 +33,9 @@
 #closeMenu {
   float: right;
 }
+
+a.feedback{
+  color: #bb1d0c;
+  font-weight: bold;
+  font-style: italic;
+}

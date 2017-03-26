@@ -1,7 +1,5 @@
 <md-sidenav-container fullscreen>
   <md-sidenav #sidenav class="example-sidenav">
-
-
     <md-list>
       <md-list-item>
         <button id="closeMenu" md-button (click)="sidenav.close()">
@@ -13,7 +11,8 @@
       </md-list-item>
       <md-list-item><a md-button routerLink="/research">Research</a></md-list-item>
       <md-list-item><a md-button routerLink="/reports">Reports</a></md-list-item>
-      <md-list-item><a md-button routerLink="/login">Login</a></md-list-item>
+      <!--<md-list-item><a md-button routerLink="/login">Login</a></md-list-item>-->
+      <md-list-item><a class="feedback" md-button routerLink="/feedback">Leave a feedback</a></md-list-item>
     </md-list>
 
   </md-sidenav>

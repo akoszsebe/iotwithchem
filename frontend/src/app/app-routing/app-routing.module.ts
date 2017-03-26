@@ -5,6 +5,7 @@ import {ResearchComponent} from "../research/research.component";
 import {LoginComponent} from "../login/login.component";
 import {ReportsComponent} from "../reports/reports.component";
 import {AuthGuardService} from "../auth-guard/auth-guard.service";
+import {FeedbackComponent} from "../feedback/feedback.component";
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'research', component: ResearchComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuardService]},
   {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
+  {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService]},
   {path: '**', component: ResearchComponent},
 ];
 
