@@ -1,23 +1,24 @@
 <md-tab-group md-stretch-tabs="always">
   <md-tab label="Temp">
-    <div>
-    <p-calendar [(ngModel)]="tempStartDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
-                showTime="true"></p-calendar>
-    <p-calendar [(ngModel)]="tempEndDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
-                showTime="true"></p-calendar>
-    <button md-button (click)="loadTempInInterval(tempchart)"> Load</button>
+    <div class="control">
+      <p-calendar [(ngModel)]="tempStartDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
+                  showTime="true"></p-calendar>
+      <p-calendar [(ngModel)]="tempEndDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
+                  showTime="true"></p-calendar>
+      <button md-button (click)="loadTempInInterval(tempchart)"> Load</button>
     </div>
-    <br>
-    <div>
+    <div class="chart">
       <p-chart #tempchart type="line" [data]="tempChartData"></p-chart>
     </div>
   </md-tab>
   <md-tab label="pH">
-    <p-calendar [(ngModel)]="phStartDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
-    <p-calendar [(ngModel)]="phEndDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
-    <button md-button (click)="loadPhsInInterval(phchart)"> Load</button>
+    <div class="control">
+      <p-calendar [(ngModel)]="phStartDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
+      <p-calendar [(ngModel)]="phEndDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
+      <button md-button (click)="loadPhsInInterval(phchart)"> Load</button>
+    </div>
     <br>
-    <div>
+    <div class="chart">
       <p-chart #phchart type="line" [data]="phChartData"></p-chart>
     </div>
   </md-tab>

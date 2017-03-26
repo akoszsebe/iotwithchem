@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response, URLSearchParams} from "@angular/http";
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import {TemperatureDO} from "../model/temperature";
 import "rxjs/add/operator/map";
@@ -49,21 +49,19 @@ export class TempService {
   }
 
   setReadInterval(seconds: number): Observable<boolean> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
 
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('upinterval', seconds.toString());
-
-    return this.http.get(this.baseUrl + "/settemperaturesensorsuploadintervall", {search: params})
+    return this.http.post(this.baseUrl + "/settemperaturesensorsuploadinterval", {'upinterval': seconds}, options)
       .map(TempService.extractData)
       .catch(TempService.handleError);
   }
 
   setHeaterTemp(temp: number): Observable<HeaterTempDO> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
 
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('heatertemp', temp.toString());
-
-    return this.http.get(this.baseUrl + "/setheatertemperature", {search: params})
+    return this.http.post(this.baseUrl + "/setheatertemperature", {"heatertemp": temp}, options)
       .map(TempService.extractData)
       .catch(TempService.handleError);
   }

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response, URLSearchParams} from "@angular/http";
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import {PhDO} from "../model/ph";
 
@@ -32,10 +32,10 @@ export class PhService {
   }
 
   setPhValue(phValue: number): Observable<any> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('phvalue', phValue.toString());
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
 
-    return this.http.get(this.baseUrl + "/setphvalue", {search: params})
+    return this.http.post(this.baseUrl + "/setphvalue", phValue, options)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

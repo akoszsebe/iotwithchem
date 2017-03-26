@@ -29,6 +29,7 @@ export class ReportsComponent implements OnInit {
   tempChartData: any;
   phChartData: any;
 
+
   constructor(private tempService: TempService,
               private phService: PhService) {
     this.tempChartData = {

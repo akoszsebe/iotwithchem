@@ -7,6 +7,24 @@ md-tab-group {
   min-height: 720px !important;
 }
 
-/deep/ .mat-tab-body-wrapper{
-  min-height: 720px!important;
+@media screen and (min-width: 1280px) {
+  div.chart {
+    margin: auto;
+    width: 85%;
+  }
 }
+
+.control {
+  display: -webkit-box;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+/deep/
+.mat-tab-body-wrapper {
+  min-height: 720px !important;
+}
+
+
+
