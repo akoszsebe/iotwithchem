@@ -4,6 +4,9 @@ import {DialogService} from "../services/dialog/dialog.service";
 import {PhService} from "../services/ph/ph.service";
 import {JobService} from "../services/job/job.service";
 import {JobDO} from "../model/job";
+import {TemperatureDO} from "../model/temperature";
+import {PhDO} from "../model/ph";
+import {JobDateDO} from "../model/job-date";
 
 
 @Component({
@@ -26,6 +29,7 @@ export class ResearchComponent implements OnInit, OnDestroy {
 
 
   progressBarTimer: any;
+  countdownDate: Date;
 
   ngOnInit(): void {
     this.toggleChecked = true;
@@ -37,11 +41,12 @@ export class ResearchComponent implements OnInit, OnDestroy {
       });
     this.jobService.getJob()
       .subscribe(job => {
-        this.jobStartDate = new Date();
-        this.jobStartDate.setTime(job.jobStartDate);
-        this.jobEndDate = new Date();
-        this.jobEndDate.setTime(job.jobEndDate);
-        this.jobDescription = job.jobDescription;
+        ResearchComponent.setupJob(job, this.currentJob);
+        if (this.currentJob.jobEndDate < (new Date())) {
+          this.countdownDate = null;
+        } else {
+          this.countdownDate = this.currentJob.jobEndDate;
+        }
         this.calculateProgBarValue();
         this.progressBarTimer = setInterval(() => {
           this.calculateProgBarValue();
@@ -76,18 +81,13 @@ export class ResearchComponent implements OnInit, OnDestroy {
 
   maxTemp = 100;
   tempReadInt = 3;
-  tempReadValue = 0;
   tempSetValue: number;
 
   maxPH = 14;
   phReadInt = 3;
   phSetValue = 1;
-  phReadValue = 1;
 
-  jobStartDate: Date;
-  jobEndDate: Date;
-  jobDescription: string;
-
+  currentJob = new JobDateDO(new Date(), new Date(), "");
 
   syncLabel: string = "Sync is on";
   toggleChecked: boolean;
@@ -107,6 +107,7 @@ export class ResearchComponent implements OnInit, OnDestroy {
   }
 
   tempTimer: any;
+  phTimer: any;
 
   getTemp() {
     this.tempTimer = setInterval(() => {
@@ -114,7 +115,6 @@ export class ResearchComponent implements OnInit, OnDestroy {
       this.tempService.getTemp()
         .subscribe(temp => {
             this.temp = temp;
-            this.tempReadValue = temp.tempvalue;
             console.log(temp);
           },
           error => {
@@ -123,15 +123,12 @@ export class ResearchComponent implements OnInit, OnDestroy {
     }, this.tempReadInt * 1000);
   }
 
-  phTimer: any;
-
   getPh() {
     this.phTimer = setInterval(() => {
       if (!this.toggleChecked) return;
       this.phService.getPh()
         .subscribe(ph => {
             this.ph = ph;
-            this.phReadValue = ph.phvalue;
             console.log(ph);
           },
           error => {
@@ -141,8 +138,8 @@ export class ResearchComponent implements OnInit, OnDestroy {
   }
 
 
-  temp: any;
-  ph: any;
+  temp = new TemperatureDO("", "", 0, 0);
+  ph = new PhDO("", "", 1, 0);
 
 
   openTempSettings() {
@@ -225,7 +222,7 @@ export class ResearchComponent implements OnInit, OnDestroy {
 
 
   checkJob() {
-    if ((new Date().getTime()) < this.jobEndDate.getTime()) {
+    if ((new Date()) < this.currentJob.jobEndDate) {
       this.dialogService.openConfirmation().subscribe(response => {
         if (response) {
           this.openNewJob();
@@ -243,13 +240,9 @@ export class ResearchComponent implements OnInit, OnDestroy {
         if ((res[0]) != null) {
           this.jobService.setJob(new JobDO(new Date().getTime(), res[0].getTime(), res[1]))
             .subscribe(newJob => {
-              let date1 = new Date();
-              date1.setTime(newJob.jobStartDate);
-              this.jobStartDate = date1;
-              let date2 = new Date();
-              date2.setTime(newJob.jobEndDate);
-              this.jobEndDate = date2;
-              this.jobDescription = newJob.jobDescription;
+              ResearchComponent.setupJob(newJob, this.currentJob);
+              this.countdownDate = new Date();
+              this.countdownDate = this.currentJob.jobEndDate;
               this.calculateProgBarValue();
             });
         }
@@ -260,8 +253,12 @@ export class ResearchComponent implements OnInit, OnDestroy {
 
   calculateProgBarValue() {
 
-    this.progressBarValue = parseFloat((((new Date().getTime()) - this.jobStartDate.getTime() ) * 100
-    / (this.jobEndDate.getTime() - this.jobStartDate.getTime())).toFixed(3));
+    if (this.currentJob.jobEndDate > (new Date())) {
+      this.progressBarValue = parseFloat((((new Date().getTime()) - this.currentJob.jobStartDate.getTime() ) * 100
+      / (this.currentJob.jobEndDate.getTime() - this.currentJob.jobStartDate.getTime())).toFixed(3));
+    } else {
+      this.progressBarValue = 100;
+    }
   }
 
   text: any = {
@@ -270,4 +267,14 @@ export class ResearchComponent implements OnInit, OnDestroy {
     "Minutes": "m", "Seconds": "s",
     "MilliSeconds": "ms"
   };
+
+  static setupJob(job: JobDO, currentJob: JobDateDO) {
+    let date1 = new Date();
+    date1.setTime(job.jobStartDate);
+    currentJob.jobStartDate = date1;
+    let date2 = new Date();
+    date2.setTime(job.jobEndDate);
+    currentJob.jobEndDate = date2;
+    currentJob.jobDescription = job.jobDescription;
+  }
 }

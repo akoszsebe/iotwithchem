@@ -31,3 +31,7 @@ md-slide-toggle {
 table {
   margin: auto;
 }
+
+.synctoggle{
+  margin-right: 10px;
+}

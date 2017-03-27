@@ -1,4 +1,3 @@
-import {NgModule} from "@angular/core";
 import {SidenavComponent} from "./sidenav/sidenav.component";
 import {LoginComponent} from "./login/login.component";
 import {ReportsComponent} from "./reports/reports.component";
@@ -20,9 +19,10 @@ import {ResearchComponent} from "./research/research.component";
 import {JobService} from "./services/job/job.service";
 import {JobDialogComponent} from "./dialogs/job-dialog/job-dialog.component";
 import {CountDown} from "angular2-simple-countdown/lib/countdown";
-import { FeedbackComponent } from './feedback/feedback.component';
+import {FeedbackComponent} from "./feedback/feedback.component";
 import {FeedbackService} from "./services/feedback/feedback.service";
-import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from "./dialogs/confirm-dialog/confirm-dialog.component";
+import {NgModule} from "@angular/core";
 
 
 @NgModule({

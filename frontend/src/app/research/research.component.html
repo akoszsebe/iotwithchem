@@ -1,17 +1,19 @@
-<md-slide-toggle [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
+<md-slide-toggle class="synctoggle" [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
 <br>
 <md-card class="example-card">
   <md-card-content>
     <p-progressBar [value]="progressBarValue"></p-progressBar>
     <br>
     <label>Job start date:</label>
-    <p> {{jobStartDate}} </p><br>
+    <p> {{currentJob.jobStartDate}} </p><br>
     <label>Job end date:</label>
-    <p> {{jobEndDate}} </p><br>
+    <p> {{currentJob.jobEndDate}} </p><br>
     <label>Remaining time:</label>
-    <count-down class="counter" [text]="text" units="Days | Hours | Minutes | Seconds " end={{jobEndDate}}></count-down>
+    <count-down *ngIf="countdownDate!=null" class="counter" [text]="text" units="Days | Hours | Minutes | Seconds "
+                end={{countdownDate}}></count-down>
+    <p *ngIf="countdownDate==null"> - </p>
     <label>Job description: </label>
-    <p>{{jobDescription}}</p>
+    <p>{{currentJob.jobDescription}}</p>
   </md-card-content>
   <md-card-actions>
     <button md-button (click)="checkJob()">
@@ -28,9 +30,11 @@
 
   <md-card class="example-card">
     <md-card-content>
-      <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="tempReadValue"></justgage>
-      <p> Set Temperature: {{tempSetValue}}°C</p><br>
-      <p> Set read interval: {{tempReadInt}}s</p>
+      <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="temp.tempvalue"></justgage>
+      <label> Set Temperature: </label>
+      <p>{{tempSetValue}}°C</p>
+      <label> Set read interval: </label>
+      <p>{{tempReadInt}}s</p>
     </md-card-content>
     <md-card-actions>
       <button md-button (click)="openTempSettings()">
@@ -43,9 +47,11 @@
 
   <md-card class="example-card">
     <md-card-content>
-      <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="phReadValue"></justgage>
-      <p> Set pH value: {{phSetValue}}</p><br>
-      <p> Set read interval: {{phReadInt}}s</p>
+      <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="ph.phvalue"></justgage>
+      <label> Set pH value: </label>
+      <p>{{phSetValue}}</p>
+      <label> Set read interval: </label>
+      <p>{{phReadInt}}s</p>
     </md-card-content>
     <md-card-actions>
       <button md-button (click)="openPhSettings()">
