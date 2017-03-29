@@ -47,7 +47,6 @@ module.exports = (app, passport) => {
     let sensorid = req.query.sensorid;
     let datefrom = req.query.datefrom;
     let dateto = req.query.dateto;
-    console.log(sensorid);
     if (typeof sensorid === 'undefined') sensorid = '1';
     db.getTemperatureInterval(sensorid, datefrom, dateto, function (returndata) {
       res.json(returndata)

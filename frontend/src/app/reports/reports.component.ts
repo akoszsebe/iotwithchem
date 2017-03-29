@@ -58,7 +58,7 @@ export class ReportsComponent implements OnInit {
     let me = this;
     let newData: number[] = [];
     let newLabels: string[] = [];
-    this.tempService.getTempsInInterval(Date.parse(this.tempStartDate.toDateString()), Date.parse(this.tempEndDate.toDateString()))
+    this.tempService.getTempsInInterval(this.tempStartDate.getTime(), this.tempEndDate.getTime())
       .subscribe(tempDOs => {
           tempDOs.forEach(function (item) {
             newData.push(item.tempvalue);
@@ -81,7 +81,7 @@ export class ReportsComponent implements OnInit {
     let me = this;
     let newData: number[] = [];
     let newLabels: string[] = [];
-    this.phService.getPhsInInterval(Date.parse(this.phStartDate.toDateString()), Date.parse(this.phEndDate.toDateString()))
+    this.phService.getPhsInInterval(this.phStartDate.getTime(), this.phEndDate.getTime())
       .subscribe(phDOs => {
           phDOs.forEach(function (item) {
             newData.push(item.phvalue);

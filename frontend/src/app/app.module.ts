@@ -23,6 +23,7 @@ import {FeedbackComponent} from "./feedback/feedback.component";
 import {FeedbackService} from "./services/feedback/feedback.service";
 import {ConfirmDialogComponent} from "./dialogs/confirm-dialog/confirm-dialog.component";
 import {NgModule} from "@angular/core";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {NgModule} from "@angular/core";
     ConfirmDialogComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,
