@@ -1,6 +1,6 @@
-import {Component} from "@angular/core";
-import {AuthService} from "../services/auth/auth.service";
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {AuthService} from '../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,21 +19,23 @@ export class LoginComponent {
     this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
 
-  // login() {
-  //   this.message = 'Trying to log in...';
-  //
-  //   // this.authService.checkAuthentication().subscribe(user => console.log(user));
-  //
-  //   this.authService.login().subscribe(() => {
-  //     this.setMessage();
-  //     if (this.authService.isLoggedIn) {
-  //
-  //       let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/research';
-  //
-  //       this.router.navigate([redirect]);
-  //     }
-  //   })
-  //}
+  /*
+   login() {
+   this.message = 'Trying to log in...';
+
+   // this.authService.checkAuthentication().subscribe(user => console.log(user));
+
+   this.authService.login().subscribe(() => {
+   this.setMessage();
+   if (this.authService.isLoggedIn) {
+
+   let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/research';
+
+   this.router.navigate([redirect]);
+   }
+   })
+   }
+   */
 
 
   logout() {

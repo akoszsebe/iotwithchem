@@ -1,11 +1,11 @@
 'use strict';
 
 let path = require('path'),
-    Temperature = require(path.resolve('./backend/models/temperature.js')),
-    Alive = require(path.resolve('./backend/models/alive.js')),
-    Ph = require(path.resolve('./backend/models/ph.js')),
-    Job = require(path.resolve('./backend/models/job.js')),
-    mongoose = require('mongoose');
+  Temperature = require(path.resolve('./backend/models/temperature.js')),
+  Alive = require(path.resolve('./backend/models/alive.js')),
+  Ph = require(path.resolve('./backend/models/ph.js')),
+  Job = require(path.resolve('./backend/models/job.js')),
+  mongoose = require('mongoose');
 
 /**
  * Create a DB class to handle:
@@ -13,8 +13,8 @@ let path = require('path'),
  */
 const Db = module.exports = function () {
 
-    this.mongoose = mongoose;
-    this.init()
+  this.mongoose = mongoose;
+  this.init()
 
 };
 
@@ -23,26 +23,26 @@ const Db = module.exports = function () {
  *
  */
 Db.prototype.init = function () {
-    const self = this;
+  const self = this;
 
-    self.mongoose.Promise = global.Promise;
+  self.mongoose.Promise = global.Promise;
 
-    //database connection settings
-    self.mongoose.connection.on('open', (ref) => {
-        console.info('Connected to mongo server.', ref)
-    });
+  //database connection settings
+  self.mongoose.connection.on('open', (ref) => {
+    console.info('Connected to mongo server.', ref)
+  });
 
-    self.mongoose.connection.on('error', (error) => {
-        console.error('Could not connect to mongo server!', error)
-    });
+  self.mongoose.connection.on('error', (error) => {
+    console.error('Could not connect to mongo server!', error)
+  });
 
-    // connect to database on mongolab
-    // ujj mongo : mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5
-    //regi mongo kemiasoke :mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1
-    self.mongoose.connect('mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5',
-        function (err) {
-            if (err) console.error('erros:' + err)
-        })
+  // connect to database on mongolab
+  // ujj mongo : mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5
+  //regi mongo kemiasoke :mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1
+  self.mongoose.connect('mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5',
+    function (err) {
+      if (err) console.error('erros:' + err)
+    })
 };
 
 /**
@@ -50,14 +50,14 @@ Db.prototype.init = function () {
  */
 Db.prototype.close = function () {
 
-    const self = this;
+  const self = this;
 
-    self.mongoose.Promise = global.Promise;
+  self.mongoose.Promise = global.Promise;
 
-    self.mongoose.connection.close(function () {
-        console.log('Mongoose default connection disconnected through app termination');
+  self.mongoose.connection.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
 
-    })
+  })
 };
 
 /**
@@ -73,19 +73,19 @@ Db.prototype.close = function () {
 Db.prototype.createTemperatureMessage = function (rid, sid, tv, td, _callback) {
 
 
-    // create a Temperature json object
-    const t = new Temperature({
-        raspberryid: rid,
-        sensorid: sid,
-        tempvalue: tv,
-        tempdate: td
-    });
-    // call the Temperature class save operator
-    t.save(function (err) {
-        if (err)
-            return _callback(err)
-    });
-    return _callback(null)
+  // create a Temperature json object
+  const t = new Temperature({
+    raspberryid: rid,
+    sensorid: sid,
+    tempvalue: tv,
+    tempdate: td
+  });
+  // call the Temperature class save operator
+  t.save(function (err) {
+    if (err)
+      return _callback(err)
+  });
+  return _callback(null)
 };
 
 /**
@@ -101,19 +101,19 @@ Db.prototype.createTemperatureMessage = function (rid, sid, tv, td, _callback) {
 Db.prototype.createPhMessage = function (rid, sid, pv, pd, _callback) {
 
 
-    // create a Ph json object
-    const t = new Ph({
-        raspberryid: rid,
-        sensorid: sid,
-        phvalue: pv,
-        phdate: pd
-    });
-    // call the Temperature class save operator
-    t.save(function (err) {
-        if (err)
-            return _callback(err)
-    });
-    return _callback(null)
+  // create a Ph json object
+  const t = new Ph({
+    raspberryid: rid,
+    sensorid: sid,
+    phvalue: pv,
+    phdate: pd
+  });
+  // call the Temperature class save operator
+  t.save(function (err) {
+    if (err)
+      return _callback(err)
+  });
+  return _callback(null)
 };
 
 /**
@@ -125,24 +125,24 @@ Db.prototype.createPhMessage = function (rid, sid, pv, pd, _callback) {
 Db.prototype.createAliveMessage = function (rid, td, _callback) {
 
 
-    // creae a new Alive object
-    const a = new Alive({
-        raspberryid: rid,
-        alivedate: td
+  // creae a new Alive object
+  const a = new Alive({
+    raspberryid: rid,
+    alivedate: td
+  });
+
+  // call the Alive class save operator
+  Alive.find((error, alivedata) => {
+    if (alivedata.length !== 0) {
+      alivedata[0].remove();
+    }
+
+    a.save(function (err) {
+      if (err)
+        return _callback(err)
     });
-
-    // call the Alive class save operator
-    Alive.find((error, alivedata) => {
-        if (alivedata.length !== 0) {
-            alivedata[0].remove();
-        }
-
-        a.save(function (err) {
-            if (err)
-                return _callback(err)
-        });
-        return _callback(null)
-    })
+    return _callback(null)
+  })
 };
 
 /**
@@ -152,24 +152,24 @@ Db.prototype.createAliveMessage = function (rid, td, _callback) {
 Db.prototype.createJobMessage = function (jsd, jed, jd, _callback) {
 
 
-    // creae a new Alive object
-    const a = new Job({
-        jobStartDate: jsd,
-        jobEndDate: jed,
-        jobDescription: jd
+  // creae a new Alive object
+  const a = new Job({
+    jobStartDate: jsd,
+    jobEndDate: jed,
+    jobDescription: jd
+  });
+
+  // call the Job class save operator
+  Job.find((error, jobdata) => {
+    if (jobdata.length !== 0) {
+      jobdata[0].remove();
+    }
+
+    a.save(function (err) {
+      if (err)
+        return _callback(err)
     });
-
-    // call the Job class save operator
-    Job.find((error, jobdata) => {
-        if (jobdata.length !== 0) {
-            jobdata[0].remove();
-        }
-
-        a.save(function (err) {
-            if (err)
-                return _callback(err)
-        });
-        return _callback(null)
-    })
+    return _callback(null)
+  })
 };
 

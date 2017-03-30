@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {FeedbackService} from "../services/feedback/feedback.service";
+import {Component, OnInit} from '@angular/core';
+import {FeedbackService} from '../services/feedback/feedback.service';
 
 @Component({
   selector: 'app-feedback',
@@ -19,13 +19,13 @@ export class FeedbackComponent implements OnInit {
   }
 
   sendFeedback() {
-    this.feedbackService.sendFeedback(this.from, this.message).subscribe(res =>{
-      if (res){
-        this.response = "Thank you for your feedback";
-        this.from = "";
-        this.message = "";
-      }else{
-        this.response = "Something went wrong, please try again"
+    this.feedbackService.sendFeedback(this.from, this.message).subscribe(res => {
+      if (res) {
+        this.response = 'Thank you for your feedback';
+        this.from = '';
+        this.message = '';
+      } else {
+        this.response = 'Something went wrong, please try again';
       }
     });
   }

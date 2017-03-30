@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {Http, Response} from "@angular/http";
-import {UserDO} from "../../model/user";
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {UserDO} from '../../model/user';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -20,20 +20,22 @@ export class AuthService {
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
-    let errMsg = (error.message) ? error.message :
+    const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
 
 
-  //login(): Observable<any> {
-  // return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
-  // return this.http.get(this.baseUrl + "/login/facebook");
-  //}
+  /*
+   login(): Observable<any> {
+   return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
+   return this.http.get(this.baseUrl + "/login/facebook");
+   }
+   */
 
   logout(): void {
-    //this.isLoggedIn = false;
+    /*this.isLoggedIn = false;*/
   }
 
   isLoggedIn(): boolean {
@@ -44,7 +46,7 @@ export class AuthService {
   }
 
   checkAuthentication(): Observable<any> {
-    return this.http.get(this.baseUrl + "/checkAuth")
+    return this.http.get(this.baseUrl + '/checkAuth')
       .map(this.extractData)
       .catch(this.handleError);
   }

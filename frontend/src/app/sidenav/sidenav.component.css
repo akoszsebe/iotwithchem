@@ -4,13 +4,6 @@
 /*border: 1px solid rgba(0, 0, 0, 0.5);*/
 /*}*/
 
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
 .example-sidenav {
   padding: 5px;
   width: 50%;
@@ -34,7 +27,7 @@
   float: right;
 }
 
-a.feedback{
+a.feedback {
   color: #bb1d0c;
   font-weight: bold;
   font-style: italic;

@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {AuthService} from "../auth/auth.service";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -10,12 +10,12 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
-    let url: string = state.url;
+    const url: string = state.url;
     return this.checkLogin(url);
   }
 
   checkLogin(url: string): boolean {
-    //console.log(this.authService.isLoggedIn());
+    /*console.log(this.authService.isLoggedIn());*/
     if (url === '/login') {
 
       return !this.authService.isLoggedIn();

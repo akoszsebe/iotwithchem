@@ -1,21 +1,11 @@
 body, html {
   height: 100%;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+  background: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)) no-repeat;
 }
 
 .card-container.card {
   max-width: 350px;
   padding: 40px 40px;
-}
-
-.btn {
-  font-weight: 700;
-  height: 36px;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: default;
 }
 
 /*
@@ -25,15 +15,14 @@ body, html {
   background-color: #F7F7F7;
   /* just in case there no content*/
   padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
+  margin: 50px auto 25px;
   /* shadows and rounded borders */
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {
@@ -44,13 +33,6 @@ body, html {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-}
-
-.form-signin .form-control:focus {
-  border-color: rgb(104, 145, 162);
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
 }
 
 /* Shared */
@@ -94,8 +76,7 @@ a {
 
 /* Facebook */
 .loginBtn--facebook {
-  background-color: #4C69BA;
-  background-image: linear-gradient(#4C69BA, #3B55A0);
+  background: #4C69BA linear-gradient(#4C69BA, #3B55A0);
   /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
   text-shadow: 0 -1px 0 #354C8C;
 }
@@ -107,8 +88,7 @@ a {
 
 .loginBtn--facebook:hover,
 .loginBtn--facebook:focus {
-  background-color: #5B7BD5;
-  background-image: linear-gradient(#5B7BD5, #4864B1);
+  background: #5B7BD5 linear-gradient(#5B7BD5, #4864B1);
 }
 
 /* Google */

@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {UIChart} from "primeng/components/chart/chart";
-import {TempService} from "../services/temp/temp.service";
-import {PhService} from "../services/ph/ph.service";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {UIChart} from 'primeng/components/chart/chart';
+import {TempService} from '../services/temp/temp.service';
+import {PhService} from '../services/ph/ph.service';
 
 @Component({
   selector: 'app-reports',
@@ -53,16 +53,17 @@ export class ReportsComponent implements OnInit {
 
 
   loadTempInInterval(tempChart: UIChart) {
-    if (this.tempStartDate == null || this.tempEndDate == null)
+    if (this.tempStartDate == null || this.tempEndDate == null) {
       return;
-    let me = this;
-    let newData: number[] = [];
-    let newLabels: string[] = [];
+    }
+    const me = this;
+    const newData: number[] = [];
+    const newLabels: string[] = [];
     this.tempService.getTempsInInterval(this.tempStartDate.getTime(), this.tempEndDate.getTime())
       .subscribe(tempDOs => {
           tempDOs.forEach(function (item) {
             newData.push(item.tempvalue);
-            let date = new Date();
+            const date = new Date();
             date.setTime(item.tempdate);
             newLabels.push(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
           });
@@ -76,16 +77,17 @@ export class ReportsComponent implements OnInit {
   };
 
   loadPhsInInterval(phChart: UIChart) {
-    if (this.phStartDate == null || this.phEndDate == null)
+    if (this.phStartDate == null || this.phEndDate == null) {
       return;
-    let me = this;
-    let newData: number[] = [];
-    let newLabels: string[] = [];
+    }
+    const me = this;
+    const newData: number[] = [];
+    const newLabels: string[] = [];
     this.phService.getPhsInInterval(this.phStartDate.getTime(), this.phEndDate.getTime())
       .subscribe(phDOs => {
           phDOs.forEach(function (item) {
             newData.push(item.phvalue);
-            let date = new Date();
+            const date = new Date();
             date.setTime(item.phdate);
             newLabels.push(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
           });

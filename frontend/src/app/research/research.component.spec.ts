@@ -1,5 +1,5 @@
-import {async, TestBed} from "@angular/core/testing";
-import {ResearchComponent} from "./research.component";
+import {async, TestBed} from '@angular/core/testing';
+import {ResearchComponent} from './research.component';
 
 describe('ResearchComponent', () => {
   beforeEach(async(() => {

@@ -1,19 +1,19 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs";
-import {PhDO} from "../../model/ph";
+import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {PhDO} from '../../model/ph';
 
 @Injectable()
 export class PhService {
 
+  private baseUrl = '';
+
   constructor(private http: Http) {
   }
 
-  private baseUrl = '';
-
   getPh(): Observable<PhDO> {
 
-    return this.http.get(this.baseUrl + "/getph")
+    return this.http.get(this.baseUrl + '/getph')
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
@@ -21,21 +21,21 @@ export class PhService {
 
   getPhsInInterval(startDate: number, endDate: number): Observable<PhDO[]> {
 
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('datefrom', startDate.toString());
     params.set('dateto', endDate.toString());
 
 
-    return this.http.get(this.baseUrl + "/getPhinterval", {search: params})
+    return this.http.get(this.baseUrl + '/getPhinterval', {search: params})
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   setPhValue(phValue: number): Observable<any> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
 
-    return this.http.post(this.baseUrl + "/setphvalue", phValue, options)
+    return this.http.post(this.baseUrl + '/setphvalue', phValue, options)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
