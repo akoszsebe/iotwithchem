@@ -9,7 +9,7 @@ module.exports = (passport) => {
       //callbackURL: 'http://localhost:8081/login/facebook/return',
       clientID: '190103424780365',
       clientSecret: '6f2b8d730b04ae86285aac21bbfe1e41',
-      callbackURL: 'https://iotwithchem2.herokuapp.com/login/facebook/return',
+      callbackURL: 'localhost:3000/login/facebook/return',
       profileFields: ['id', 'name', 'link', 'about', 'email']
     },
     // facebook will send back the tokens and profile
