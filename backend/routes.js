@@ -1,15 +1,17 @@
 'use strict';
 
 let path = require('path');
-//	db = require(path.resolve('backend/models/downloadData.js')),
-//	mq = require(path.resolve('backend/models/messagequeue.js'))
+/*
+ db = require(path.resolve('backend/models/downloadData.js')),
+ mq = require(path.resolve('backend/models/messagequeue.js'))
 
 
-// Create DB WS
+ Create DB WS
+ */
 
 const DbWs = require(path.resolve('backend/models/db-ws'));
 const db = new DbWs();
-// Create new Message Queue  webservice -> pi
+/* Create new Message Queue  webservice -> pi*/
 
 const MQueueWS = require(path.resolve('backend/communication/mqueue-ws'));
 const mq = new MQueueWS();
