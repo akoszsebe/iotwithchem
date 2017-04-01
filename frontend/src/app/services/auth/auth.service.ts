@@ -38,12 +38,12 @@ export class AuthService {
     /*this.isLoggedIn = false;*/
   }
 
-  isLoggedIn(): boolean {
-    // this.checkAuthentication().subscribe();
-    // console.log(this.user);
-    // return this.user != null;
-    return true;
-  }
+  // isLoggedIn(): Observable<boolean> {
+  //   return this.checkAuthentication().map(user => {
+  //       return user !== null;
+  //     }
+  //   );
+  // }
 
   checkAuthentication(): Observable<any> {
     return this.http.get(this.baseUrl + '/checkAuth')
