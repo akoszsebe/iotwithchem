@@ -20,8 +20,8 @@ export class AuthGuardService implements CanActivate {
     /*console.log(this.authService.isLoggedIn());*/
 
     return this.authService.checkAuthentication().map(user => {
+      console.log(user);
       if (url === '/login') {
-
         return !user;
       } else {
         if (user) {
