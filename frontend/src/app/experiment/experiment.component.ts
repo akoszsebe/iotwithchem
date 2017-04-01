@@ -12,10 +12,10 @@ import {AuthService} from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'research.component.html',
-  styleUrls: ['research.component.css']
+  templateUrl: 'experiment.component.html',
+  styleUrls: ['experiment.component.css']
 })
-export class ResearchComponent implements OnInit, OnDestroy {
+export class ExperimentComponent implements OnInit, OnDestroy {
 
   progressBarTimer: any;
   countdownDate: Date;
@@ -111,7 +111,7 @@ export class ResearchComponent implements OnInit, OnDestroy {
       });
     this.jobService.getJob()
       .subscribe(job => {
-        ResearchComponent.setupJob(job, this.currentJob);
+        ExperimentComponent.setupJob(job, this.currentJob);
         if (this.currentJob.jobEndDate < (new Date())) {
           this.countdownDate = null;
         } else {
@@ -273,7 +273,7 @@ export class ResearchComponent implements OnInit, OnDestroy {
         if ((res[0]) != null) {
           this.jobService.setJob(new JobDO(new Date().getTime(), res[0].getTime(), res[1]))
             .subscribe(newJob => {
-              ResearchComponent.setupJob(newJob, this.currentJob);
+              ExperimentComponent.setupJob(newJob, this.currentJob);
               this.countdownDate = new Date();
               this.countdownDate = this.currentJob.jobEndDate;
               this.calculateProgBarValue();

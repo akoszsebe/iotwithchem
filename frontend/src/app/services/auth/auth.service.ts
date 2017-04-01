@@ -43,6 +43,11 @@ export class AuthService {
   //   );
   // }
 
+  setUser(user: UserDO) {
+    this.user = user;
+  }
+
+
   checkAuthentication(): Observable<UserDO> {
     return this.http.get(this.baseUrl + '/checkAuth')
       .map(AuthService.extractData)
@@ -50,7 +55,9 @@ export class AuthService {
   }
 
   constructor(private http: Http) {
-    this.checkAuthentication().subscribe(user => console.log(user));
+    //  this.checkAuthentication().subscribe(user => console.log(user));
+    console.log('auth constr');
+    this.user = new UserDO('asdad', 'istvan', 'asdasd@asdasd.com', 'asdasdasd');
   }
 
 }

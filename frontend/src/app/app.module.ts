@@ -15,7 +15,7 @@ import {AuthGuardService} from './services/auth-guard/auth-guard.service';
 import {DialogService} from './services/dialog/dialog.service';
 import {ChartModule} from 'primeng/components/chart/chart';
 import {PhService} from './services/ph/ph.service';
-import {ResearchComponent} from './research/research.component';
+import {ExperimentComponent} from './experiment/experiment.component';
 import {JobService} from './services/job/job.service';
 import {JobDialogComponent} from './dialogs/job-dialog/job-dialog.component';
 import {CountDown} from 'angular2-simple-countdown/lib/countdown';
@@ -28,7 +28,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    ResearchComponent,
+    ExperimentComponent,
     SidenavComponent,
     LoginComponent,
     ReportsComponent,

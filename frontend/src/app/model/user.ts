@@ -1,6 +1,8 @@
 export class UserDO {
-  id: string;
-  name: string;
-  email: string;
-  picUrl: string;
+
+  constructor(id: string,
+              name: string,
+              email: string,
+              picUrl: string) {
+  }
 }
