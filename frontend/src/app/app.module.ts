@@ -22,7 +22,7 @@ import {CountDown} from 'angular2-simple-countdown/lib/countdown';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {FeedbackService} from './services/feedback/feedback.service';
 import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
@@ -64,7 +64,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AuthGuardService,
     DialogService,
     JobService,
-    FeedbackService
+    FeedbackService,
+    { provide: LOCALE_ID, useValue: 'ro-RO' }
   ],
   bootstrap: [SidenavComponent]
 })

@@ -293,5 +293,11 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     }
   }
 
+  displayDate(date: Date): string {
+    return date.getFullYear() + '/' + (date.getMonth().valueOf() + 1) + '/' + date.getDate() +
+      '  -  ' +
+      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+  }
+
 
 }

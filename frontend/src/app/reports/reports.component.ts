@@ -110,6 +110,13 @@ export class ReportsComponent implements OnInit {
       this.phMinDate.setTime(dates.ph);
       this.phMaxDate = new Date();
     });
+
+    this.tempEndDate = new Date();
+    this.tempStartDate = new Date();
+    this.tempStartDate.setDate((new Date()).getDate() - 1);
+    this.phEndDate = new Date();
+    this.phStartDate = new Date();
+    this.phStartDate.setDate((new Date()).getDate() - 1);
   }
 
 }

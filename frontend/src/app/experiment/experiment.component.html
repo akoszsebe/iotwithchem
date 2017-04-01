@@ -5,9 +5,9 @@
     <p-progressBar [value]="progressBarValue"></p-progressBar>
     <br>
     <label>Job start date:</label>
-    <p> {{currentJob.jobStartDate}} </p><br>
+    <p> {{currentJob.jobStartDate.toLocaleString()}} </p><br>
     <label>Job end date:</label>
-    <p> {{currentJob.jobEndDate}} </p><br>
+    <p> {{currentJob.jobEndDate.toLocaleString()}} </p><br>
     <label>Remaining time:</label>
     <count-down *ngIf="countdownDate!=null" class="counter" [text]="text" units="Days | Hours | Minutes | Seconds "
                 end={{countdownDate}}></count-down>
