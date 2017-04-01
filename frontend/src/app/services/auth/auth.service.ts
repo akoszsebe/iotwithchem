@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   constructor(private http: Http) {
-    // this.checkAuthentication().subscribe(user => console.log(user));
+    this.checkAuthentication().subscribe(user => console.log(user));
   }
 
 }

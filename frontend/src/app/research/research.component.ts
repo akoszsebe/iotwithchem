@@ -7,6 +7,7 @@ import {JobDO} from '../model/job';
 import {TemperatureDO} from '../model/temperature';
 import {PhDO} from '../model/ph';
 import {JobDateDO} from '../model/job-date';
+import {AuthService} from '../services/auth/auth.service';
 
 
 @Component({
@@ -83,9 +84,15 @@ export class ResearchComponent implements OnInit, OnDestroy {
   constructor(private tempService: TempService,
               private phService: PhService,
               private jobService: JobService,
-              private dialogService: DialogService) {
+              private dialogService: DialogService,
+              private authService: AuthService) {
   }
 
+  checkAuth(): void {
+    this.authService.checkAuthentication().subscribe(user => {
+      console.log(user);
+    });
+  }
 
   ngOnDestroy(): void {
     clearInterval(this.tempTimer);
