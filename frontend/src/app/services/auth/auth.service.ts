@@ -11,13 +11,11 @@ export class AuthService {
 
   private baseUrl = '';
 
-  private extractData(res: Response) {
-    console.log(res);
-    this.user = res.json().user;
-    return res.json();
+  private static extractData(res: Response) {
+    return res.json().user;
   }
 
-  private handleError(error: any) {
+  private static handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
     const errMsg = (error.message) ? error.message :
@@ -45,10 +43,10 @@ export class AuthService {
   //   );
   // }
 
-  checkAuthentication(): Observable<any> {
+  checkAuthentication(): Observable<UserDO> {
     return this.http.get(this.baseUrl + '/checkAuth')
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(AuthService.extractData)
+      .catch(AuthService.handleError);
   }
 
   constructor(private http: Http) {
