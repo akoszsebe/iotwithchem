@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
+import {UserDO} from '../model/user';
 
 @Component({
   selector: 'app-sidenav',
@@ -8,7 +9,7 @@ import {AuthService} from '../services/auth/auth.service';
 })
 export class SidenavComponent implements OnInit {
 
-  name = '';
+  user: UserDO = new UserDO('', '', '', '');
 
   constructor(private authService: AuthService) {
     console.log('constructor');
@@ -18,7 +19,7 @@ export class SidenavComponent implements OnInit {
     console.log('init');
     this.authService.checkAuthentication().subscribe(user => {
       if (user !== null && user !== undefined) {
-        this.name = this.authService.getUser().name;
+        this.user = this.authService.getUser();
       }
     });
   }
