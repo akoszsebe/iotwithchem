@@ -10,16 +10,16 @@ export class SidenavComponent implements OnInit {
 
   name = '';
 
-  constructor(authService: AuthService) {
+  constructor(private authService: AuthService) {
     console.log('constructor');
-    const user = authService.getUser();
-    if (user !== null && user !== undefined) {
-      this.name = authService.getUser().name;
-    }
   }
 
   ngOnInit() {
     console.log('init');
+    const user = this.authService.getUser();
+    if (user !== null && user !== undefined) {
+      this.name = this.authService.getUser().name;
+    }
   }
 
 }
