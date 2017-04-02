@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
 
-  user: UserDO = null;
+  user: UserDO;
   redirectUrl: string;
 
   private baseUrl = '';
@@ -64,6 +64,7 @@ export class AuthService {
     //  this.checkAuthentication().subscribe(user => console.log(user));
     console.log('auth constr');
     // this.user = new UserDO('asdad', 'istvan', 'asdasd@asdasd.com', 'asdasdasd');
+    this.user = null;
   }
 
 }
