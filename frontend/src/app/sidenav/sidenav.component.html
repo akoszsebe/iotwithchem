@@ -13,9 +13,10 @@
       <md-list-item *ngIf="loggedIn"><a md-button> {{user.name}} </a></md-list-item>
       <md-list-item><a md-button routerLink="/experiment">Experiment</a></md-list-item>
       <md-list-item><a md-button routerLink="/reports">Reports</a></md-list-item>
-      <!--<md-list-item><a md-button routerLink="/login">Login</a></md-list-item>-->
       <md-list-item><a class="feedback" md-button routerLink="/feedback">Leave a feedback</a></md-list-item>
-
+      <md-list-item *ngIf="loggedIn; then logout else login"></md-list-item>
+      <ng-template #login><a md-button routerLink="/login">Login</a></ng-template>
+      <ng-template #logout><a md-button href="https://iotwithchem2.herokuapp.com/logout">Logout</a></ng-template>
     </md-list>
 
   </md-sidenav>
