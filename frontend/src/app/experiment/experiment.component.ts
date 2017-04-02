@@ -8,6 +8,7 @@ import {TemperatureDO} from '../model/temperature';
 import {PhDO} from '../model/ph';
 import {JobDateDO} from '../model/job-date';
 import {AuthService} from '../services/auth/auth.service';
+import {UserDO} from '../model/user';
 
 
 @Component({
@@ -89,9 +90,8 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   }
 
   checkAuth(): void {
-    this.authService.checkAuthentication().subscribe(user => {
-      console.log(user);
-    });
+   // this.authService.setUser(new UserDO('asdasd', 'asdas', 'asd12', 'skff9923'));
+    console.log(this.authService.getUser());
   }
 
   ngOnDestroy(): void {

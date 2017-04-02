@@ -6,14 +6,10 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
 
-  user: UserDO;
+  user: any;
   redirectUrl: string;
 
   private baseUrl = '';
-
-  private static extractData(res: Response) {
-    return res.json().user;
-  }
 
   private static handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
@@ -22,6 +18,12 @@ export class AuthService {
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
+  }
+
+  private  extractData(res: Response) {
+    const user = res.json().user;
+    this.user = user;
+    return user;
   }
 
 
@@ -47,10 +49,14 @@ export class AuthService {
     this.user = user;
   }
 
+  getUser() {
+    return this.user;
+  }
+
 
   checkAuthentication(): Observable<UserDO> {
     return this.http.get(this.baseUrl + '/checkAuth')
-      .map(AuthService.extractData)
+      .map(this.extractData)
       .catch(AuthService.handleError);
   }
 

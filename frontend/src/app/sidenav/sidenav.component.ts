@@ -8,8 +8,12 @@ import {AuthService} from '../services/auth/auth.service';
 })
 export class SidenavComponent implements OnInit {
 
+  name = '';
+
   constructor(authService: AuthService) {
     console.log('constructor');
+    console.log(authService.getUser());
+    this.name = authService.getUser().name;
   }
 
   ngOnInit() {
