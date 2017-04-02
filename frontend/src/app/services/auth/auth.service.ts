@@ -21,9 +21,7 @@ export class AuthService {
   }
 
   private  extractData(res: Response) {
-    const user = res.json().user;
-    this.user = user;
-    return user;
+    return res.json().user;
   }
 
 
