@@ -10,6 +10,7 @@ import {UserDO} from '../model/user';
 export class SidenavComponent implements OnInit {
 
   user: UserDO = new UserDO('', '', '', '');
+  loggedIn: boolean = false;
 
   constructor(private authService: AuthService) {
     console.log('constructor');
@@ -20,6 +21,7 @@ export class SidenavComponent implements OnInit {
     this.authService.checkAuthentication().subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user = this.authService.getUser();
+        this.loggedIn = true;
       }
     });
   }

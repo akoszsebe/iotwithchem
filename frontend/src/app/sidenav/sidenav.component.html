@@ -9,8 +9,8 @@
       <md-list-item>
         <h3>IoTwithChem v2</h3>
       </md-list-item>
-      <md-list-item *ngIf="user.picUrl!=''"><img src="{{user.picUrl}}" alt="profilepic"></md-list-item>
-      <md-list-item *ngIf="user.name!=''"><a md-button> {{user.name}} </a></md-list-item>
+      <md-list-item *ngIf="loggedIn"><img src="{{user.picUrl}}" alt="profilepic"></md-list-item>
+      <md-list-item *ngIf="loggedIn"><a md-button> {{user.name}} </a></md-list-item>
       <md-list-item><a md-button routerLink="/experiment">Experiment</a></md-list-item>
       <md-list-item><a md-button routerLink="/reports">Reports</a></md-list-item>
       <!--<md-list-item><a md-button routerLink="/login">Login</a></md-list-item>-->
