@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AuthGuardService]},
   {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
   {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService]},
-  {path: '**', component: ExperimentComponent},
+  {path: '**', component: ExperimentComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

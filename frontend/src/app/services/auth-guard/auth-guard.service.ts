@@ -14,6 +14,7 @@ export class AuthGuardService implements CanActivate {
 
     const url: string = state.url;
     return this.authService.checkAuthentication().map(user => {
+      localStorage.setItem('name', user.name);
       this.authService.setUser(user);
       console.log(user);
       if (url === '/login') {
