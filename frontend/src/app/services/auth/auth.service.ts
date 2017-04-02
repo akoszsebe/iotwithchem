@@ -63,7 +63,7 @@ export class AuthService {
   constructor(private http: Http) {
     //  this.checkAuthentication().subscribe(user => console.log(user));
     console.log('auth constr');
-    this.user = new UserDO('asdad', 'istvan', 'asdasd@asdasd.com', 'asdasdasd');
+   // this.user = new UserDO('asdad', 'istvan', 'asdasd@asdasd.com', 'asdasdasd');
   }
 
 }
