@@ -10,16 +10,6 @@ let express = require('express'),
   io = require('socket.io')(http);
 
 
-/*io.on('connection', (socket) => {
-  console.log('The user is connected');
-  socket.on('disconnect', function () {
-    console.log('The user is disconnected');
-  });
-  socket.on('add-message', (message) => {
-    io.emit('message', {type: 'new-message', text: message});
-  });
-});*/
-
 // set port
 app.set('port', process.env.PORT || 8081);
 
