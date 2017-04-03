@@ -27,7 +27,15 @@ const mail = new Mail();
 let raspiAlive = false;
 let time = 0;
 
-module.exports = (app, passport) => {
+module.exports = (app, passport, io) => {
+
+  io.on('connection', (socket) => {
+    console.log('The user is connected');
+    socket.on('disconnect', function () {
+      console.log('The user is disconnected');
+    });
+  });
+
 
   app.get('/getsensorids', (req, res) => {
     db.getTemperatureSensors(function (returndata) {
@@ -103,21 +111,15 @@ module.exports = (app, passport) => {
     }
   });
 
-  /**
-   * Implemented but never used in (raspbarry) mqueue-pi.js
-   *
+  app.get('/setheateron', function (req, res) {
+    io.emit('statusChange', req.query.isOn);
+    res.sendStatus(200);
+  });
 
-   app.get('/setheateron', function (req, res) {
-		mq.sendmsgtoRaspberry('Heater:ON')
-		res.json({ heater: true });
-	})
+  app.get('/setheateroff', function (req, res) {
+    res.json({heater: false})
+  });
 
-   app.get('/setheateroff', function (req, res) {
-		mq.sendmsgtoRaspberry('Heater:OFF')
-		res.json({ heater: false })
-	})
-
-   */
   app.post('/setheatertemperature', function (req, res) {
     mq.sendmsgtoRaspberry('Heater:Temperature:' + req.body.heatertemp);
     mq.getHeaterTemperature(function (returndata) {

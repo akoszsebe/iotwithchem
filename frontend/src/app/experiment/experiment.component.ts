@@ -8,7 +8,6 @@ import {TemperatureDO} from '../model/temperature';
 import {PhDO} from '../model/ph';
 import {JobDateDO} from '../model/job-date';
 import {AuthService} from '../services/auth/auth.service';
-import {UserDO} from '../model/user';
 
 
 @Component({
@@ -65,6 +64,10 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   progressBarValue: number;
 
+  connection;
+  isHeaterOn = false;
+  isPumpOn;
+
   text: any = {
     'Weeks': 'w',
     'Days': 'd', 'Hours': 'h',
@@ -90,8 +93,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   }
 
   checkAuth(): void {
-   // this.authService.setUser(new UserDO('asdasd', 'asdas', 'asd12', 'skff9923'));
-    console.log(this.authService.getUser());
+    this.isHeaterOn = !this.isHeaterOn;
   }
 
   ngOnDestroy(): void {
@@ -100,8 +102,17 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     clearInterval(this.progressBarTimer);
   }
 
+  /* sendMessage() {
+   this.tempService.sendMessage('test message');
+   }*/
+
 
   ngOnInit(): void {
+
+    this.connection = this.tempService.getHeaterStatus().subscribe(response => {
+      this.isHeaterOn = !this.isHeaterOn;
+    });
+
     this.toggleChecked = true;
     this.startSync();
     this.tempService.getHeaterTemp()

@@ -5,7 +5,20 @@ let express = require('express'),
   // Configuring Passport
   passport = require('passport'),
   expressSession = require('express-session'),
-  bodyParser = require('body-parser');
+  bodyParser = require('body-parser'),
+  http = require('http').Server(app),
+  io = require('socket.io')(http);
+
+
+/*io.on('connection', (socket) => {
+  console.log('The user is connected');
+  socket.on('disconnect', function () {
+    console.log('The user is disconnected');
+  });
+  socket.on('add-message', (message) => {
+    io.emit('message', {type: 'new-message', text: message});
+  });
+});*/
 
 // set port
 app.set('port', process.env.PORT || 8081);
@@ -16,14 +29,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials', 'true');
   next()
 });
 
 // run
-app.listen(app.get('port'), () => {
+http.listen(app.get('port'), () => {
   console.info('App is running on port ', app.get('port'))
 });
 
@@ -37,4 +51,4 @@ let initPassport = require('./backend/passport/init');
 initPassport(passport);
 
 // routing
-require('./backend/routes')(app, passport);
+require('./backend/routes')(app, passport, io);

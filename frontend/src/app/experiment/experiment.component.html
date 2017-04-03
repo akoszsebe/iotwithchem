@@ -19,6 +19,9 @@
     <button md-button (click)="checkJob()">
       <md-icon class="example-icon">add</md-icon>
     </button>
+    <button md-button (click)="sendMessage()">
+      <md-icon>send</md-icon>
+    </button>
   </md-card-actions>
 </md-card>
 <!--<div>-->
@@ -40,10 +43,7 @@
       <button md-button (click)="openTempSettings()">
         <md-icon class="example-icon">settings</md-icon>
       </button>
-
-      <button md-button (click)="checkAuth()">
-        Click
-      </button>
+      <md-icon *ngIf="isHeaterOn" class="example-icon"> whatshot </md-icon>
 
 
     </md-card-actions>
@@ -62,6 +62,7 @@
       <button md-button (click)="openPhSettings()">
         <md-icon class="example-icon">settings</md-icon>
       </button>
+      <md-icon *ngIf="isPumpOn" class="example-icon"> colorize </md-icon>
 
     </md-card-actions>
   </md-card>

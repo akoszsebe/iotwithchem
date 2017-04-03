@@ -5,11 +5,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {TemperatureDO} from '../../model/temperature';
 import {HeaterTempDO} from '../../model/heater-temp';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class TempService {
 
   private baseUrl = '';
+
+  private socketUrl = '';
+  private socket;
 
 
   private static extractData(res: Response) {
@@ -26,6 +30,23 @@ export class TempService {
   }
 
   constructor(private http: Http) {
+  }
+
+  /* sendMessage(message) {
+   // Make sure the "add-message" is written here because this is referenced in on() in our server
+   this.socket.emit('add-message', message);
+   }*/
+
+  getHeaterStatus() {
+    return new Observable<boolean>(observer => {
+      this.socket = io(this.socketUrl);
+      this.socket.on('statusChange', (value) => {
+        observer.next(value);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
   }
 
   getTemp(): Observable<TemperatureDO> {
