@@ -1,30 +1,30 @@
-'use strict'
+'use strict';
 
-var loaded = true;
+let loaded = true;
 
-let mongoose,Schema;
+let mongoose, Schema;
 
-try{
+try {
   mongoose = require('mongoose')
-}catch(e)
-{
-  loaded=false;
+} catch (e) {
+  loaded = false;
 }
 
-if(!loaded)
-{
-  try{
+if (!loaded) {
+  try {
     mongoose = require('../pi/node_modules/mongoose')
-  }catch(e){throw e}
+  } catch (e) {
+    throw e
+  }
 }
 
-Schema = mongoose.Schema
+Schema = mongoose.Schema;
 
 let phSchema = new Schema({
-	raspberryid : String,
-	sensorid : String,
-	phvalue : String,
-	phdate : String
-})
+  raspberryid: String,
+  sensorid: String,
+  phvalue: String,
+  phdate: String
+});
 
-module.exports = mongoose.model('Ph', phSchema)
+module.exports = mongoose.model('Ph', phSchema);

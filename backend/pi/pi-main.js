@@ -1,64 +1,62 @@
+// load the pi ap module
+const PiApp = require('./pi-app');
 
-// load the pi ap module 
-var PiApp = require('./pi-app')
-
-// load the Db module 
-var Db = require('./communication/db')
-var db = new Db(); 
+// load the Db module
+const Db = require('./communication/db');
+const db = new Db();
 
 // load the gateway module
-var Gateway = require('./devices/gateway')
-var gateway = new Gateway()
+const Gateway = require('./devices/gateway');
+const gateway = new Gateway();
 
-// Create new Temperature Device 
-var TemperatureDevice
+// Create new Temperature Device
+let TemperatureDevice;
 
-//  Create new HeatSource Device 
-var HeatSourceDevice;
-//  Create new PH Device 
-var PhDevice;
+//  Create new HeatSource Device
+let HeatSourceDevice;
+//  Create new PH Device
+let PhDevice;
 // Create new PumpDevice
-var PumpDevice;
+let PumpDevice;
 
 
-if(gateway.fingerPrint() == -1) // Mock for desktop testing
+if (gateway.fingerPrint() === -1) // Mock for desktop testing
 {
-	TemperatureDevice = require('./mocks/mockTemperature.device') 
-	HeatSourceDevice = require ('./mocks/mockHeatsource.device')
-	PhDevice =  require ('./mocks/mockPh.device')
-	PumpDevice = require('./mocks/mockPump.device')
-	
-	console.info('Device is not Raspberry! Using mock gateway instead');
+  TemperatureDevice = require('./mocks/mockTemperature.device');
+  HeatSourceDevice = require('./mocks/mockHeatsource.device');
+  PhDevice = require('./mocks/mockPh.device');
+  PumpDevice = require('./mocks/mockPump.device');
+
+  console.info('Device is not Raspberry! Using mock gateway instead');
 }
-else
-{
-	TemperatureDevice = require('./devices/temperature.device') 
-	HeatSourceDevice =  require ('./devices/heatsource.device')
-	PhDevice =  require ('./devices/ph.device')
-	PumpDevice = require('./devices/pump.device')
+else {
+  TemperatureDevice = require('./devices/temperature.device');
+  HeatSourceDevice = require('./devices/heatsource.device');
+  PhDevice = require('./devices/ph.device');
+  PumpDevice = require('./devices/pump.device')
 }
 
-var temperaturedevice = new TemperatureDevice 
-var heatsourcedevice = new HeatSourceDevice();
-var phdevice = new PhDevice()   
-var pumpdevice = new PumpDevice()
+const temperaturedevice = new TemperatureDevice;
+const heatsourcedevice = new HeatSourceDevice();
+const phdevice = new PhDevice();
+const pumpdevice = new PumpDevice();
 
-// Create new Sensor Values Context 
-var SensorValueContext = require ('../models/sensor-value-context')
-var sensorValueContext = new SensorValueContext () 
+// Create new Sensor Values Context
+const SensorValueContext = require('../models/sensor-value-context');
+const sensorValueContext = new SensorValueContext();
 
-// Create new Message Queue pi -> webservice 
-var MQueuePi = require ('./communication/mqueue-pi')
-var mQueuePi = new MQueuePi (sensorValueContext)  
+// Create new Message Queue pi -> webservice
+const MQueuePi = require('./communication/mqueue-pi');
+const mQueuePi = new MQueuePi(sensorValueContext);
 
-// create a new instance 
-// with the exernal dependencies 
-// db, devices, gateway 
-var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi)
+// create a new instance
+// with the exernal dependencies
+// db, devices, gateway
+const piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi);
 
-// Initialize the pi app 
-piapp.init()
-// start the event loop of the pi app 
-piapp.setEventLoop()
+// Initialize the pi app
+piapp.init();
+// start the event loop of the pi app
+piapp.setEventLoop();
 
 

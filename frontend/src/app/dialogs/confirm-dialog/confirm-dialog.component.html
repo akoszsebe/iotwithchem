@@ -1,0 +1,14 @@
+<md-list>
+  <md-list-item>
+    <p>There is an another job going on, do you want to start a new one?</p>
+  </md-list-item>
+
+  <md-list-item>
+    <button type="button" md-raised-button
+            (click)="dialogRef.close(true)">OK
+    </button>
+    <button type="button" md-button
+            (click)="dialogRef.close(false)">Cancel
+    </button>
+  </md-list-item>
+</md-list>

@@ -1,29 +1,29 @@
-'use strict'
-var loaded = true;
+'use strict';
+let loaded = true;
 
-let mongoose,Schema;
+let mongoose, Schema;
 
-try{
+try {
   mongoose = require('mongoose')
-}catch(e)
-{
-  loaded=false;
+} catch (e) {
+  loaded = false;
 }
 
-if(!loaded)
-{
-  try{
+if (!loaded) {
+  try {
     mongoose = require('../pi/node_modules/mongoose')
-  }catch(e){throw e}
+  } catch (e) {
+    throw e
+  }
 }
 
-Schema = mongoose.Schema
+Schema = mongoose.Schema;
 
 let temperatureSchema = new Schema({
-	raspberryid : String,
-	sensorid : String,
-	tempvalue : String,
-	tempdate : String
-})
+  raspberryid: String,
+  sensorid: String,
+  tempvalue: String,
+  tempdate: String
+});
 
-module.exports = mongoose.model('Temperatures', temperatureSchema)
+module.exports = mongoose.model('Temperatures', temperatureSchema);

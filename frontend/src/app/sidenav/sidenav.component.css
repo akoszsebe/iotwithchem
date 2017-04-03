@@ -1,0 +1,34 @@
+/*.example-container {*/
+/*width: 500px;*/
+/*height: 300px;*/
+/*border: 1px solid rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+.example-sidenav {
+  padding: 5px;
+  width: 50%;
+}
+
+@media screen and (min-width: 720px) {
+  .example-sidenav {
+    padding: 5px;
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .example-sidenav {
+    padding: 20px;
+    width: 20%;
+  }
+}
+
+#closeMenu {
+  float: right;
+}
+
+a.feedback {
+  color: #bb1d0c;
+  font-weight: bold;
+  font-style: italic;
+}

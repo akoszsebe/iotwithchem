@@ -1,26 +1,26 @@
-'use strict'
-var loaded = true;
+'use strict';
+let loaded = true;
 
-let mongoose,Schema;
+let mongoose, Schema;
 
-try{
+try {
   mongoose = require('mongoose')
-}catch(e)
-{
-  loaded=false;
+} catch (e) {
+  loaded = false;
 }
 
-if(!loaded)
-{
-  try{
+if (!loaded) {
+  try {
     mongoose = require('../pi/node_modules/mongoose')
-  }catch(e){throw e}
+  } catch (e) {
+    throw e
+  }
 }
 
-Schema = mongoose.Schema
+Schema = mongoose.Schema;
 let aliveSchema = new Schema({
-	raspberryid : String,
-	alivedate : String
-})
+  raspberryid: String,
+  alivedate: String
+});
 
-module.exports = mongoose.model('Alive', aliveSchema)
+module.exports = mongoose.model('Alive', aliveSchema);

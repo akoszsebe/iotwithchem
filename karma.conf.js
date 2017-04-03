@@ -1,67 +1,44 @@
-'use strict'
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/0.13/config/configuration-file.html
 
-module.exports = (config) => {
-	config.set({
-		basePath: './',
-
-		files: [
-      // Libraries
-			'node_modules/angular/angular.js',
-			'node_modules/angular-mocks/angular-mocks.js',
-			'node_modules/angular-ui-router/release/angular-ui-router.js',
-
-			// Angular app files
-			'frontend/src/app.js',
-			'frontend/src/app.config.js',
-			'frontend/src/app.route.js',
-			'frontend/src/home/home.controller.js',
-			'frontend/src/users/user.service.js',
-
-			// Tests
-			'test/unit/*.js'
-		],
-
-		exclude: [],
-
-		singleRun: true,
-
-		port: 9999,
-
-		colors: true,
-
-		autoWatch: false,
-
-		frameworks: ['jasmine'],
-
-		browsers: ['Chrome'],
-
-		preprocessors: {
-			'frontend/**/*.js': ['babel'],
-			'test/unit/**/*.js': ['babel'],
-			'frontend/**/!(*.mock|*.spec).js': ['coverage']
-		},
-
-		babelPreprocessor: {
-			options: {
-				presets: ['latest']
-			}
-		},
-
-		reporters: ['spec'],
-
-		coverageReporter: {
-			type: 'html',
-			// output coverage reports
-			dir: 'test/coverage/'
-		},
-
-		plugins: [
-			'karma-phantomjs2-launcher',
-			'karma-chrome-launcher',
-			'karma-jasmine',
-			'karma-coverage',
-			'karma-babel-preprocessor',
-			'karma-spec-reporter'
-		],
-	})
-}
+module.exports = function (config) {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular/cli'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular/cli/plugins/karma')
+    ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    files: [
+      {pattern: './frontend/src/test.ts', watched: false}
+    ],
+    preprocessors: {
+      './frontend/src/test.ts': ['@angular/cli']
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+    coverageIstanbulReporter: {
+      reports: ['html', 'lcovonly'],
+      fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      environment: 'dev'
+    },
+    reporters: config.angularCli && config.angularCli.codeCoverage
+      ? ['progress', 'coverage-istanbul']
+      : ['progress', 'kjhtml'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false
+  });
+};

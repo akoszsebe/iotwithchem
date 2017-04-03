@@ -1,0 +1,31 @@
+<md-sidenav-container fullscreen>
+  <md-sidenav #sidenav class="example-sidenav">
+    <md-list>
+      <md-list-item>
+        <button id="closeMenu" md-button (click)="sidenav.close()">
+          <md-icon>close</md-icon>
+        </button>
+      </md-list-item>
+      <md-list-item>
+        <h3>IoTwithChem v2</h3>
+      </md-list-item>
+      <md-list-item *ngIf="loggedIn"><img src="{{user.picUrl}}" alt="profilepic"></md-list-item>
+      <md-list-item *ngIf="loggedIn"><a md-button> {{user.name}} </a></md-list-item>
+      <md-list-item><a md-button routerLink="/experiment">Experiment</a></md-list-item>
+      <md-list-item><a md-button routerLink="/reports">Reports</a></md-list-item>
+      <md-list-item><a class="feedback" md-button routerLink="/feedback">Leave a feedback</a></md-list-item>
+      <md-list-item *ngIf="loggedIn; then logout else login"></md-list-item>
+      <ng-template #login><a md-button routerLink="/login">Login</a></ng-template>
+      <ng-template #logout><a md-button href="https://iotwithchem2.herokuapp.com/logout">Logout</a></ng-template>
+    </md-list>
+
+  </md-sidenav>
+
+  <div>
+    <button md-button (click)="sidenav.open()">
+      <md-icon>menu</md-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+
+</md-sidenav-container>

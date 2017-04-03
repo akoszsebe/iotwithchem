@@ -1,0 +1,37 @@
+html, body {
+  height: 100%;
+}
+
+edit-btn {
+  margin: auto;
+}
+
+.example-card {
+  width: 400px;
+  margin: 10px auto 10px auto;
+}
+
+p {
+  color: #dc655e;
+}
+
+.sensors-container {
+  display: flex;
+}
+
+.counter {
+  font-size: 14px !important;
+  color: #dc655e;
+}
+
+md-slide-toggle {
+  float: right;
+}
+
+table {
+  margin: auto;
+}
+
+.synctoggle {
+  margin-right: 10px;
+}
