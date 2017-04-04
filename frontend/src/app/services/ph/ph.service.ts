@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 export class PhService {
 
   private baseUrl = '';
-  private socketUrl = 'localhost:8081';
+  private socketUrl = '';
   private socket;
 
   constructor(private http: Http) {
