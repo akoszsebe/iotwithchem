@@ -6,11 +6,12 @@
  * webservice  toward gateway
  * via messagequeue
  */
-const MQueueWS = module.exports = function () {
+const MQueueWS = module.exports = function (io) {
   this.qR = 'qToRaspberry';
   this.qW = 'qToWebserver';
   this.channel = null;
   this.heatertemperature = 0;
+  this.io = io;
   // somewhere else to put?
   this.init()
 };
@@ -30,7 +31,13 @@ MQueueWS.prototype.init = function () {
       console.info("channel created");
       self.receivemsgfromRaspberry()
     });
-  }).then(null, console.warn)
+  }).then(null, console.warn);
+  this.io.on('connection', (socket) => {
+    console.log('The user is connected');
+    socket.on('disconnect', function () {
+      console.log('The user is disconnected');
+    });
+  });
 
 };
 
@@ -67,11 +74,25 @@ MQueueWS.prototype.MessageRouting = function (message) {
     case 'Heater':
       switch (splitMessage[1]) {
         case 'Temperature':
-
           this.heatertemperature = splitMessage[2];
-          break
+          break;
+        case 'ON':
+          io.emit('heaterStatusChange', true);
+          break;
+        case 'OFF':
+          io.emit('heaterStatusChange', false);
+          break;
       }
-      break
+      break;
+    case 'Pump':
+      switch (splitMessage[1]) {
+        case 'ON':
+          io.emit('pumpStatusChange', true);
+          break;
+        case 'OFF':
+          io.emit('pumpStatusChange', false);
+          break;
+      }
   }
 };
 
