@@ -64,7 +64,8 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   progressBarValue: number;
 
-  connection;
+  connection1;
+  connection2;
   isHeaterOn = false;
   isPumpOn;
 
@@ -109,8 +110,11 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.connection = this.tempService.getHeaterStatus().subscribe(response => {
+    this.connection1 = this.tempService.getHeaterStatus().subscribe(response => {
       this.isHeaterOn = !this.isHeaterOn;
+    });
+    this.connection2 = this.phService.getPumpStatus().subscribe(response => {
+      this.isPumpOn = !this.isPumpOn;
     });
 
     this.toggleChecked = true;
@@ -303,6 +307,4 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       this.progressBarValue = 100;
     }
   }
-
-
 }

@@ -4,6 +4,7 @@ let path = require('path'),
   Temperature = require(path.resolve('backend/models/temperature.js')),
   Ph = require(path.resolve('backend/models/ph.js')),
   Alive = require(path.resolve('backend/models/alive.js')),
+  Job = require(path.resolve('./backend/models/job.js')),
   mongoose = require('mongoose');
 
 

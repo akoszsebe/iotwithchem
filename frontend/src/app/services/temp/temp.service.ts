@@ -40,7 +40,7 @@ export class TempService {
   getHeaterStatus() {
     return new Observable<boolean>(observer => {
       this.socket = io(this.socketUrl);
-      this.socket.on('statusChange', (value) => {
+      this.socket.on('heaterStatusChange', (value) => {
         observer.next(value);
       });
       return () => {

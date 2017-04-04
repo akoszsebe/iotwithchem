@@ -65,7 +65,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     DialogService,
     JobService,
     FeedbackService,
-    { provide: LOCALE_ID, useValue: 'ro-RO' }
+    {provide: LOCALE_ID, useValue: 'ro-RO'}
   ],
   bootstrap: [SidenavComponent]
 })

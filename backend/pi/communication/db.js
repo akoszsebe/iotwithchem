@@ -1,6 +1,5 @@
 'use strict';
 
-
 let path = require('path'),
   Temperature = require(path.resolve('../models/temperature.js')),
   Alive = require(path.resolve('../models/alive.js')),
@@ -60,7 +59,7 @@ Db.prototype.close = function () {
   })
 };
 
-/*
+/**
  * createTemperatureMessage   method is responsabile for ...
  *
  * rid:
@@ -69,7 +68,6 @@ Db.prototype.close = function () {
  * td:
  * callback:
  */
-
 
 Db.prototype.createTemperatureMessage = function (rid, sid, tv, td, _callback) {
 
