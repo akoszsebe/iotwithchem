@@ -1,10 +1,9 @@
 'use strict';
 
 let path = require('path'),
-  Temperature = require(path.resolve('./backend/models/temperature.js')),
-  Alive = require(path.resolve('./backend/models/alive.js')),
-  Ph = require(path.resolve('./backend/models/ph.js')),
-  Job = require(path.resolve('./backend/models/job.js')),
+  Temperature = require(path.resolve('../models/temperature.js')),
+  Alive = require(path.resolve('../models/alive.js')),
+  Ph = require(path.resolve('../models/ph.js')),
   mongoose = require('mongoose');
 
 /**
@@ -83,9 +82,10 @@ Db.prototype.createTemperatureMessage = function (rid, sid, tv, td, _callback) {
   // call the Temperature class save operator
   t.save(function (err) {
     if (err)
-      return _callback(err)
-  });
-  return _callback(null)
+      return _callback(err);
+    return _callback(null)
+  })
+
 };
 
 /**
@@ -111,9 +111,10 @@ Db.prototype.createPhMessage = function (rid, sid, pv, pd, _callback) {
   // call the Temperature class save operator
   t.save(function (err) {
     if (err)
-      return _callback(err)
-  });
-  return _callback(null)
+      return _callback(err);
+    return _callback(null)
+  })
+
 };
 
 /**
@@ -131,45 +132,23 @@ Db.prototype.createAliveMessage = function (rid, td, _callback) {
     alivedate: td
   });
 
-  // call the Alive class save operator
-  Alive.find((error, alivedata) => {
-    if (alivedata.length !== 0) {
-      alivedata[0].remove();
+  Alive.find({}, (error, alivedata) => {
+    if (error || alivedata === null) {
+      a.save(function (err) {
+        if (err)
+          return _callback(err);
+        return _callback('successful');
+      })
     }
-
-    a.save(function (err) {
-      if (err)
-        return _callback(err)
-    });
-    return _callback(null)
-  })
-};
-
-/**
- * createJobMessage method is responsabile ...
- * callback
- */
-Db.prototype.createJobMessage = function (jsd, jed, jd, _callback) {
-
-
-  // creae a new Alive object
-  const a = new Job({
-    jobStartDate: jsd,
-    jobEndDate: jed,
-    jobDescription: jd
-  });
-
-  // call the Job class save operator
-  Job.find((error, jobdata) => {
-    if (jobdata.length !== 0) {
-      jobdata[0].remove();
+    else {
+      if (alivedata.length !== 0)
+        alivedata[0].remove();
+      a.save(function (err) {
+        if (err)
+          return _callback(err);
+        return _callback('successful');
+      })
     }
-
-    a.save(function (err) {
-      if (err)
-        return _callback(err)
-    });
-    return _callback(null)
   })
 };
 

@@ -1,8 +1,3 @@
-const gpio = require('rpi-gpio');
-
-/**
- * Class to handle all the required devices, sensors
- */
 const HeatSourceDevice = module.exports = function () {
   this.init()
 };
@@ -13,12 +8,7 @@ HeatSourceDevice.prototype.init = function () {
   this.lowerHeatTolerance = 0;
   this.heatingValue = 0;
   this.upperHeatTolerance = 0;
-  this.heatToleranceDelta = 2;
-  try {
-
-    gpio.setup(this.heatRelayPin, gpio.DIR_OUT, this.turnOffHeatRelay.bind(this))
-  } catch (e) {
-  }
+  this.heatToleranceDelta = 2
 };
 /*
  * @returns the lowerHeatTolerance
@@ -47,11 +37,8 @@ HeatSourceDevice.prototype.chekcHeatRelayStatus = function () {
  */
 HeatSourceDevice.prototype.turnOnHeatRelay = function () {
   if (!this.heatSourceWorking) {
+    console.info('Turned ON HEATING!');
     this.heatSourceWorking = true;
-    gpio.write(this.heatRelayPin, false, function (err) {
-      if (err) throw err;
-      console.info('Turned ON HEATING!')
-    })
   }
 };
 
@@ -60,11 +47,8 @@ HeatSourceDevice.prototype.turnOnHeatRelay = function () {
  */
 HeatSourceDevice.prototype.turnOffHeatRelay = function () {
   if (this.heatSourceWorking) {
+    console.info('Turned OFF HEATING!');
     this.heatSourceWorking = false;
-    gpio.write(this.heatRelayPin, true, function (err) {
-      if (err) throw err;
-      console.info('Turned OFF HEATING!')
-    })
   }
 };
 

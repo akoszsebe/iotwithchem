@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Class to handle the communication
  * pi gateway toward webservice
@@ -28,7 +27,7 @@ MQueuePI.prototype.init = function () {
   this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz';
   const self = this;
   this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn) {
-    const ok = conn.createChannel();
+    let ok = conn.createChannel();
     ok.then(function (ch) {
       self.channel = ch;
       console.info("channel created");

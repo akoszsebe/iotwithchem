@@ -1,4 +1,4 @@
-const ds18b20 = require('./ds18b20');
+const ds18b20 = require('ds18b20');
 
 
 /**

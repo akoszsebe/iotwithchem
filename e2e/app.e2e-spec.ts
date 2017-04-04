@@ -6,9 +6,4 @@ describe('angular-cli App', () => {
   beforeEach(() => {
     page = new AngularCLIPage();
   });
-
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
 });

@@ -76,10 +76,12 @@ PiApp.prototype.heatingCheck = function () {
   this.temperaturedevice.actualValue(function (err, value) {
     console.log('Current temperature', value);
     if (value < self.heatsourcedevice.lowerHeatTolerance) {
-      self.heatsourcedevice.turnOnHeatRelay()
+      self.heatsourcedevice.turnOnHeatRelay();
+      this.messagequeue.sendmsgtoWebserver('Heater:ON')
     }
     else if (value > self.heatsourcedevice.upperHeatTolerance) {
-      self.heatsourcedevice.turnOffHeatRelay()
+      self.heatsourcedevice.turnOffHeatRelay();
+      this.messagequeue.sendmsgtoWebserver('Heater:OFF')
     }
   })
 };
@@ -94,9 +96,11 @@ PiApp.prototype.phCheck = function () {
     self.ph = phvalue;
     if (phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
       phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)) {
-      self.pumpdevice.turnOnPump()
+      self.pumpdevice.turnOnPump();
+      this.messagequeue.sendmsgtoWebserver('Pump:ON')
     } else {
-      self.pumpdevice.turnOffPump()
+      self.pumpdevice.turnOffPump();
+      this.messagequeue.sendmsgtoWebserver('Pump:OFF')
     }
   });
   this.phcheckTimeout = setTimeout(this.phCheck.bind(this), this.phCheckInterval)
@@ -105,13 +109,14 @@ PiApp.prototype.phCheck = function () {
 /**
  * Calibrate Low Ph sensor (ph = 4.00 )
  */
-PiApp.prototype.phCallibrateLow = function () {
+PiApp.prototype.phCalibrateLow = function () {
   const self = this;
   clearTimeout(self.phcheckTimeout);
   const ph = '4.00';
   setTimeout(function () {
     self.phdevice.calibrateLow(ph, function (callbackmsg) {
       console.log('Calibration Low on PhSensor was ' + callbackmsg);
+      this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Low:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -120,13 +125,14 @@ PiApp.prototype.phCallibrateLow = function () {
 /**
  * Calibrate Middle Ph sensor (ph = 7.00 )
  */
-PiApp.prototype.phCallibrateMid = function () {
+PiApp.prototype.phCalibrateMid = function () {
   const self = this;
   clearTimeout(self.phcheckTimeout);
   const ph = '7.00';
   setTimeout(function () {
     self.phdevice.calibrateMiddle(ph, function (callbackmsg) {
       console.log('Calibration Mid on PhSensor was ' + callbackmsg);
+      this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Mid:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -135,13 +141,14 @@ PiApp.prototype.phCallibrateMid = function () {
 /**
  * Calibrate High Ph sensor (ph = 10.00 )
  */
-PiApp.prototype.phCallibrateHigh = function () {
+PiApp.prototype.phCalibrateHigh = function () {
   const self = this;
   clearTimeout(self.phcheckTimeout);
   const ph = '10.00';
   setTimeout(function () {
     self.phdevice.calibrateHigh(ph, function (callbackmsg) {
       console.log('Calibration High on PhSensor was ' + callbackmsg);
+      this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:High:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -158,8 +165,7 @@ PiApp.prototype.messagequeueCheck = function () {
   console.info('LastTempInQueue', lastTempInQueue);
   console.info('CurrentHeatValue', currentHeatingValue);
   if (lastTempInQueue !== currentHeatingValue) {
-    this.heatsourcedevice.setHeatingTo(lastTempInQueue);
-    this.messagequeue.sendmsgtoWebserver('Heater:Temperature:' + lastTempInQueue)
+    this.heatsourcedevice.setHeatingTo(lastTempInQueue)
   }
   const lastUploadIntervalinQueue = parseInt(this.messagequeue.sensorValueContext.getUploadInterval());
   if (lastUploadIntervalinQueue !== this.temperatureUploadInterval) {
@@ -176,15 +182,15 @@ PiApp.prototype.messagequeueCheck = function () {
   const calibrate = this.messagequeue.sensorValueContext.getCalibration();
   switch (calibrate) {
     case 'L':
-      this.phCallibrateLow();
+      this.phCalibrateLow();
       this.messagequeue.sensorValueContext.resetCalibration();
       break;
     case 'M':
-      this.phCallibrateMid();
+      this.phCalibrateMid();
       this.messagequeue.sensorValueContext.resetCalibration();
       break;
     case 'H':
-      this.phCallibrateHigh();
+      this.phCalibrateHigh();
       this.messagequeue.sensorValueContext.resetCalibration();
       break
   }

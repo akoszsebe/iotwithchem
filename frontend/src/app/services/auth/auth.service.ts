@@ -20,7 +20,7 @@ export class AuthService {
     return Observable.throw(errMsg);
   }
 
-  private  extractData(res: Response) {
+  private static extractData(res: Response) {
     return res.json().user;
   }
 
@@ -54,7 +54,7 @@ export class AuthService {
 
   checkAuthentication(): Observable<UserDO> {
     return this.http.get(this.baseUrl + '/checkAuth')
-      .map(this.extractData)
+      .map(AuthService.extractData)
       .catch(AuthService.handleError);
   }
 
