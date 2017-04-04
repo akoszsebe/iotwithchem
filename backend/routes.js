@@ -14,7 +14,6 @@ const db = new DbWs();
 /* Create new Message Queue  webservice -> pi*/
 
 const MQueueWS = require(path.resolve('backend/communication/mqueue-ws'));
-const mq = new MQueueWS();
 
 const Mail = require(path.resolve('backend/communication/mail'));
 const mail = new Mail();
@@ -29,13 +28,7 @@ let time = 0;
 
 module.exports = (app, passport, io) => {
 
-  io.on('connection', (socket) => {
-    console.log('The user is connected');
-    socket.on('disconnect', function () {
-      console.log('The user is disconnected');
-    });
-  });
-
+  const mq = new MQueueWS(io);
 
   app.get('/getsensorids', (req, res) => {
     db.getTemperatureSensors(function (returndata) {
@@ -104,32 +97,7 @@ module.exports = (app, passport, io) => {
   });
 
   app.get('/checkAuth', (req, res) => {
-    if (req.isAuthenticated()) {
-      res.json({'user': req.user.fb});
-    } else {
-      res.json({'user': null})
-    }
-  });
-
-  app.get('/setheateron', function (req, res) {
-    io.emit('heaterStatusChange', req.query.isOn);
-    res.sendStatus(200);
-  });
-
-  app.get('/setheateroff', function (req, res) {
-    res.json({heater: false})
-  });
-
-  app.get('/setpumpon', function (req, res) {
-    time = new Date();
-    io.emit('pumpStatusChange', req.query.isOn);
-    // mq.sendmsgtoRaspberry('Pump:ON');
-    res.sendStatus(200);
-  });
-  app.get('/setpumpoff', function (req, res) {
-    time = new Date() - time;
-    // mq.sendmsgtoRaspberry('Pump:OFF');
-    res.sendStatus(200);
+    req.isAuthenticated() ? res.json({'user': req.user.fb}) : res.json({'user': null});
   });
 
   app.post('/setheatertemperature', function (req, res) {
@@ -193,7 +161,7 @@ module.exports = (app, passport, io) => {
   });
 
   app.post('/setJob', function (req, res) {
-    let newJob = {
+    const newJob = {
       jobStartDate: req.body.jobStartDate,
       jobEndDate: req.body.jobEndDate,
       jobDescription: req.body.jobDescription

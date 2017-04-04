@@ -170,7 +170,6 @@ DbWs.prototype.getPulse = function (_callback) {
   })
 };
 
-
 DbWs.prototype.getOldestTemp = function (sensorid, _callback) {
 
   Temperature.findOne({}, '-_id -__v', (error, temperature) => {
