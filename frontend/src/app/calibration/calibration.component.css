@@ -1,0 +1,13 @@
+.calibrationcard {
+  width: 400px;
+  margin: auto;
+}
+
+.level{
+  margin-left: 40px;
+  margin-right: 10px;
+}
+
+.spinner{
+  margin: auto;
+}

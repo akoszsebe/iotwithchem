@@ -6,6 +6,7 @@ import {LoginComponent} from '../login/login.component';
 import {ReportsComponent} from '../reports/reports.component';
 import {AuthGuardService} from '../services/auth-guard/auth-guard.service';
 import {FeedbackComponent} from '../feedback/feedback.component';
+import {CalibrationComponent} from '../calibration/calibration.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'experiment', component: ExperimentComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuardService]},
   {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
+  {path: 'calibration', component: CalibrationComponent, canActivate: [AuthGuardService]},
   {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService]},
   {path: '**', component: ExperimentComponent, canActivate: [AuthGuardService]},
 ];

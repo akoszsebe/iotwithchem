@@ -124,18 +124,8 @@ module.exports = (app, passport, io) => {
   });
 
 
-  app.get('/calibratephsensorlow', function (req, res) {
-    mq.sendmsgtoRaspberry('Ph:Calibrate:Low');
-    res.json({sent: true})
-  });
-
-  app.get('/calibratephsensormid', function (req, res) {
-    mq.sendmsgtoRaspberry('Ph:Calibrate:Mid');
-    res.json({sent: true})
-  });
-
-  app.get('/calibratephsensorhigh', function (req, res) {
-    mq.sendmsgtoRaspberry('Ph:Calibrate:High');
+  app.post('/calibratephsensor', function (req, res) {
+    mq.sendmsgtoRaspberry('Ph:Calibrate:' + req.body.level);
     res.json({sent: true})
   });
 
