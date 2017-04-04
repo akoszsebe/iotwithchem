@@ -24,6 +24,8 @@ import {FeedbackService} from './services/feedback/feedback.service';
 import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CalibrationComponent} from './calibration/calibration.component';
+import {CalibrationService} from './services/calibration/calibration.service';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     JobDialogComponent,
     CountDown,
     FeedbackComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CalibrationComponent
   ],
   entryComponents: [
     SettingsDialogComponent,
@@ -65,6 +68,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     DialogService,
     JobService,
     FeedbackService,
+    CalibrationService,
     {provide: LOCALE_ID, useValue: 'ro-RO'}
   ],
   bootstrap: [SidenavComponent]

@@ -1,0 +1,28 @@
+<md-card class="calibrationcard">
+
+  <md-card-title>
+    <h1>Calibration</h1>
+  </md-card-title>
+
+  <md-card-content>
+    <md-list>
+      <md-list-item>
+        <p class="level">Low</p>
+        <md-icon *ngIf="currentLevel > 0">check</md-icon>
+        <p class="level">Mid</p>
+        <md-icon *ngIf="currentLevel > 1">check</md-icon>
+        <p class="level">High</p>
+        <md-icon *ngIf="currentLevel > 2">check</md-icon>
+      </md-list-item>
+      <md-list-item></md-list-item>
+      <md-list-item>
+        <md-spinner *ngIf="buttonDisabled" class="spinner" [color]="color"></md-spinner>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+
+  <md-card-actions>
+    <button md-raised-button [disabled]="buttonDisabled" (click)="calibrate()">Calibrate {{levels[currentLevel]}}
+    </button>
+  </md-card-actions>
+</md-card>
