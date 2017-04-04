@@ -112,12 +112,24 @@ module.exports = (app, passport, io) => {
   });
 
   app.get('/setheateron', function (req, res) {
-    io.emit('statusChange', req.query.isOn);
+    io.emit('heaterStatusChange', req.query.isOn);
     res.sendStatus(200);
   });
 
   app.get('/setheateroff', function (req, res) {
     res.json({heater: false})
+  });
+
+  app.get('/setpumpon', function (req, res) {
+    time = new Date();
+    io.emit('pumpStatusChange', req.query.isOn);
+    // mq.sendmsgtoRaspberry('Pump:ON');
+    res.sendStatus(200);
+  });
+  app.get('/setpumpoff', function (req, res) {
+    time = new Date() - time;
+    // mq.sendmsgtoRaspberry('Pump:OFF');
+    res.sendStatus(200);
   });
 
   app.post('/setheatertemperature', function (req, res) {
@@ -143,16 +155,6 @@ module.exports = (app, passport, io) => {
     res.json({sent: true})
   });
 
-  app.get('/setpumpon', function (req, res) {
-    time = new Date();
-    mq.sendmsgtoRaspberry('Pump:ON');
-    res.json({sent: true})
-  });
-  app.get('/setpumpoff', function (req, res) {
-    time = new Date() - time;
-    mq.sendmsgtoRaspberry('Pump:OFF');
-    res.json({time: time})
-  });
 
   app.get('/calibratephsensorlow', function (req, res) {
     mq.sendmsgtoRaspberry('Ph:Calibrate:Low');

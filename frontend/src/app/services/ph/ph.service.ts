@@ -2,13 +2,28 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {PhDO} from '../../model/ph';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class PhService {
 
   private baseUrl = '';
+  private socketUrl = 'localhost:8081';
+  private socket;
 
   constructor(private http: Http) {
+  }
+
+  getPumpStatus() {
+    return new Observable<boolean>(observer => {
+      this.socket = io(this.socketUrl);
+      this.socket.on('pumpStatusChange', (value) => {
+        observer.next(value);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
   }
 
   getPh(): Observable<PhDO> {
