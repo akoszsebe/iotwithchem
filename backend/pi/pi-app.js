@@ -77,11 +77,11 @@ PiApp.prototype.heatingCheck = function () {
     console.log('Current temperature', value);
     if (value < self.heatsourcedevice.lowerHeatTolerance) {
       self.heatsourcedevice.turnOnHeatRelay();
-      this.messagequeue.sendmsgtoWebserver('Heater:ON')
+      self.messagequeue.sendmsgtoWebserver('Heater:ON')
     }
     else if (value > self.heatsourcedevice.upperHeatTolerance) {
       self.heatsourcedevice.turnOffHeatRelay();
-      this.messagequeue.sendmsgtoWebserver('Heater:OFF')
+      self.messagequeue.sendmsgtoWebserver('Heater:OFF')
     }
   })
 };
@@ -97,10 +97,10 @@ PiApp.prototype.phCheck = function () {
     if (phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
       phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)) {
       self.pumpdevice.turnOnPump();
-      this.messagequeue.sendmsgtoWebserver('Pump:ON')
+      self.messagequeue.sendmsgtoWebserver('Pump:ON')
     } else {
       self.pumpdevice.turnOffPump();
-      this.messagequeue.sendmsgtoWebserver('Pump:OFF')
+      self.messagequeue.sendmsgtoWebserver('Pump:OFF')
     }
   });
   this.phcheckTimeout = setTimeout(this.phCheck.bind(this), this.phCheckInterval)
@@ -116,7 +116,7 @@ PiApp.prototype.phCalibrateLow = function () {
   setTimeout(function () {
     self.phdevice.calibrateLow(ph, function (callbackmsg) {
       console.log('Calibration Low on PhSensor was ' + callbackmsg);
-      this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Low:' + callbackmsg);
+      self.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Low:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -132,7 +132,7 @@ PiApp.prototype.phCalibrateMid = function () {
   setTimeout(function () {
     self.phdevice.calibrateMiddle(ph, function (callbackmsg) {
       console.log('Calibration Mid on PhSensor was ' + callbackmsg);
-      this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Mid:' + callbackmsg);
+      self.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Mid:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -148,7 +148,7 @@ PiApp.prototype.phCalibrateHigh = function () {
   setTimeout(function () {
     self.phdevice.calibrateHigh(ph, function (callbackmsg) {
       console.log('Calibration High on PhSensor was ' + callbackmsg);
-      this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:High:' + callbackmsg);
+      self.messagequeue.sendmsgtoWebserver('Ph:Calibrate:High:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);

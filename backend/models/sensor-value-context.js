@@ -27,11 +27,11 @@ SensorValueContext.prototype.setUploadInterval = function (value) {
 };
 
 
-SensorValueContext.prototype.isPumpWorking = function () {
+SensorValueContext.prototype.setPumpIsWorking = function () {
   return this.pumpIsWorking
 };
 
-SensorValueContext.prototype.setPumpWorking = function (value) {
+SensorValueContext.prototype.setPumpIsWorking = function (value) {
   this.pumpIsWorking = value
 };
 
