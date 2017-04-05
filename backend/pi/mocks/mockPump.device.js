@@ -1,6 +1,8 @@
 /**
  * Class to handle all the required devices, sensors
- */
+ * */
+
+'use strict';
 const PumpDevice = module.exports = function () {
   this.init()
 };
