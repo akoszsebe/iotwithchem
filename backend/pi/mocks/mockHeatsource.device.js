@@ -1,3 +1,5 @@
+'use strict';
+
 const HeatSourceDevice = module.exports = function () {
   this.init()
 };

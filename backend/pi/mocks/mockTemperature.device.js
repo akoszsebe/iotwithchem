@@ -6,6 +6,7 @@
  It will go from the middle of the 2 intervals, increasing to the max interval then decreasing to min interval, and repeating the same sequence.
  */
 
+'use strict';
 const config = {
   type: 'interval', //fix or interval
   fixPoint: 15, // ignore this if using interval

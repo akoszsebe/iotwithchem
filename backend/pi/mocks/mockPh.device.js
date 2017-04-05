@@ -5,6 +5,8 @@
  If you want to simulate a changing in the given interval, change the type to 'interval' and modify the interval value to your [minimum,maximum] and the intervalDiff to the change in difference.
  It will go from the middle of the 2 intervals, increasing to the max interval then decreasing to min interval, and repeating the same sequence.
  */
+'use strict';
+
 
 const config = {
   type: 'interval', //fix or interval
