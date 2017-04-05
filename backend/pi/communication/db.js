@@ -137,7 +137,6 @@ Db.prototype.createAliveMessage = function (rid, td, _callback) {
       a.save(function (err) {
         if (err)
           return _callback(err);
-        return _callback('successful');
       })
     }
     else {
@@ -146,7 +145,6 @@ Db.prototype.createAliveMessage = function (rid, td, _callback) {
       a.save(function (err) {
         if (err)
           return _callback(err);
-        return _callback('successful');
       })
     }
   })

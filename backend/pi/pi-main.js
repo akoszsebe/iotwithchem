@@ -1,3 +1,4 @@
+'use strict'
 // load the pi ap module
 const PiApp = require('./pi-app');
 
