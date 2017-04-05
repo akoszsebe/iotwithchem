@@ -17,21 +17,21 @@ HeatSourceDevice.prototype.init = function () {
  * @returns the lowerHeatTolerance
  */
 HeatSourceDevice.prototype.lowerHeatTolerance = function () {
-  return this.lowerHeatTolerance
+  return this.lowerHeatTolerance;
 };
 
 /*
  * @returns the upperHeatTolerance
  */
 HeatSourceDevice.prototype.upperHeatTolerance = function () {
-  return this.upperHeatTolerance
+  return this.upperHeatTolerance;
 };
 
 /*
  * @returns true if heat source is working, false if not
  */
 HeatSourceDevice.prototype.chekcHeatRelayStatus = function () {
-  return this.heatSourceWorking
+  return this.heatSourceWorking;
 };
 
 
@@ -62,7 +62,7 @@ HeatSourceDevice.prototype.turnOffHeatRelay = function () {
 HeatSourceDevice.prototype.setHeatingTo = function (value) {
   this.heatingValue = value;
   this.upperHeatTolerance = value + this.heatToleranceDelta;
-  this.lowerHeatTolerance = value - this.heatToleranceDelta
+  this.lowerHeatTolerance = value - this.heatToleranceDelta;
 };
 
 /*
@@ -70,5 +70,5 @@ HeatSourceDevice.prototype.setHeatingTo = function (value) {
  * Sets heatToleranceDelta to value
  */
 HeatSourceDevice.prototype.setHeatingDelta = function (value) {
-  this.heatToleranceDelta = value
+  this.heatToleranceDelta = value;
 };

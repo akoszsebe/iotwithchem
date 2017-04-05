@@ -5,7 +5,7 @@
  If you want to simulate a changing in the given interval, change the type to 'interval' and modify the interval value to your [minimum,maximum] and the intervalDiff to the change in difference.
  It will go from the middle of the 2 intervals, increasing to the max interval then decreasing to min interval, and repeating the same sequence.
  */
-'use strict'
+'use strict';
 
 const config = {
   type: 'interval', //fix or interval
@@ -30,13 +30,13 @@ const TemperatureDevice = module.exports = function () {
  */
 TemperatureDevice.prototype.actualValue = function (_callback) {
   if (config['type'] === 'fix') {
-    return _callback(null, config['fixPoint'])
+    return _callback(null, config['fixPoint']);
   }
   else {
-    this.myCurrentValue = (myCurrentValue + config['intervalDiff']);
+    myCurrentValue = (myCurrentValue + config['intervalDiff']);
     if (myCurrentValue > config['interval'][1] || myCurrentValue < config['interval'][0]) {
-      config['intervalDiff'] = -config['intervalDiff']
+      config['intervalDiff'] = -config['intervalDiff'];
     }
-    return _callback(null, myCurrentValue.toFixed(2))
+    return _callback(null, myCurrentValue.toFixed(2));
   }
 };

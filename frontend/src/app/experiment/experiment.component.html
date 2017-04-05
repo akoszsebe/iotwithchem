@@ -40,7 +40,8 @@
       <button md-button (click)="openTempSettings()">
         <md-icon class="example-icon">settings</md-icon>
       </button>
-      <md-icon *ngIf="isHeaterOn" class="example-icon"> whatshot</md-icon>
+      <!--md-icon *ngIf="isHeaterOn" class="example-icon"> whatshot</md-icon>-->
+      <img class="devicestatus" *ngIf="isHeaterOn" src="../../assets/icons/heater.png">
 
 
     </md-card-actions>
@@ -59,7 +60,8 @@
       <button md-button (click)="openPhSettings()">
         <md-icon class="example-icon">settings</md-icon>
       </button>
-      <md-icon *ngIf="isPumpOn" class="example-icon"> colorize</md-icon>
+      <!--<md-icon *ngIf="isPumpOn" class="example-icon"> colorize</md-icon>-->
+      <img class="devicestatus" *ngIf="isPumpOn" src="../../assets/icons/pump.png">
 
     </md-card-actions>
   </md-card>
