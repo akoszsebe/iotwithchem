@@ -55,11 +55,12 @@ MQueueWS.prototype.sendmsgtoRaspberry = function (msg) {
  * Received message from teh  Gateway (PI)
  */
 MQueueWS.prototype.receivemsgfromRaspberry = function () {
+  const self = this;
   this.channel.assertQueue(this.qW);
   this.channel.consume(this.qW, function (msg) {
     if (msg !== null) {
       this.MessageRouting(msg.content.toString());
-      channel.ack(msg)
+      self.channel.ack(msg)
     }
   });
 };
@@ -77,20 +78,20 @@ MQueueWS.prototype.MessageRouting = function (message) {
           this.heatertemperature = splitMessage[2];
           break;
         case 'ON':
-          io.emit('heaterStatusChange', true);
+          this.io.emit('heaterStatusChange', true);
           break;
         case 'OFF':
-          io.emit('heaterStatusChange', false);
+          this.io.emit('heaterStatusChange', false);
           break;
       }
       break;
     case 'Pump':
       switch (splitMessage[1]) {
         case 'ON':
-          io.emit('pumpStatusChange', true);
+          this.io.emit('pumpStatusChange', true);
           break;
         case 'OFF':
-          io.emit('pumpStatusChange', false);
+          this.io.emit('pumpStatusChange', false);
           break;
       }
   }
