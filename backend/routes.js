@@ -130,7 +130,7 @@ module.exports = (app, passport, io) => {
   });
 
   app.post('/setphvalue', function (req, res) {
-    mq.sendmsgtoRaspberry('Ph:Value:' + req.body.phvalue);
+    mq.sendmsgtoRaspberry('Ph:Value:' + req.body.phValue);
     res.json({sent: true})
   });
 
