@@ -11,7 +11,7 @@ HeatSourceDevice.prototype.init = function () {
   this.heatingValue = 0;
   this.upperHeatTolerance = 0;
   this.heatToleranceDelta = 2;
-  this.setPumpIsWorking
+  this.setPumpIsWorking;
 };
 /*
  * @returns the lowerHeatTolerance

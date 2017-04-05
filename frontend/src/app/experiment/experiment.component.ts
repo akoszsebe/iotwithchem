@@ -67,7 +67,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   connection1;
   connection2;
   isHeaterOn = false;
-  isPumpOn;
+  isPumpOn = false;
 
   text: any = {
     'Weeks': 'w',
@@ -111,10 +111,12 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.connection1 = this.tempService.getHeaterStatus().subscribe(response => {
-      this.isHeaterOn = !this.isHeaterOn;
+      response ? console.log('Heater turned on'):console.log('Heater turned off');
+      this.isHeaterOn = response;
     });
     this.connection2 = this.phService.getPumpStatus().subscribe(response => {
-      this.isPumpOn = !this.isPumpOn;
+      response ? console.log('Pump turned on'):console.log('Pump turned off');
+      this.isPumpOn = response;
     });
 
     this.toggleChecked = true;
