@@ -11,6 +11,19 @@ export class PhService {
   private socketUrl = '';
   private socket;
 
+  private static extractData(res: Response) {
+    return res.json();
+  }
+
+  private static handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    const errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
+  }
+
   constructor(private http: Http) {
   }
 
@@ -29,10 +42,9 @@ export class PhService {
   getPh(): Observable<PhDO> {
 
     return this.http.get(this.baseUrl + '/getph')
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .map(PhService.extractData)
+      .catch(PhService.handleError);
   }
-
 
   getPhsInInterval(startDate: number, endDate: number): Observable<PhDO[]> {
 
@@ -42,16 +54,16 @@ export class PhService {
 
 
     return this.http.get(this.baseUrl + '/getPhinterval', {search: params})
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .map(PhService.extractData)
+      .catch(PhService.handleError);
   }
 
   setPhValue(phValue: number): Observable<any> {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
 
-    return this.http.post(this.baseUrl + '/setphvalue', phValue, options)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    return this.http.post(this.baseUrl + '/setphvalue', {'phValue': phValue}, options)
+      .map(PhService.extractData)
+      .catch(PhService.handleError);
   }
 }
