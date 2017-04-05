@@ -74,16 +74,16 @@ PiApp.prototype.IsAlive = function () {
 PiApp.prototype.heatingCheck = function () {
   const self = this;
   this.temperaturedevice.actualValue(function (err, value) {
-    console.log('Current temperature', value);
-    if (value < self.heatsourcedevice.lowerHeatTolerance) {
+    console.log('Current temperature ----------- ', value);
+    if( value < self.heatsourcedevice.lowerHeatTolerance && !self.heatsourcedevice.heatSourceWorking){
       self.heatsourcedevice.turnOnHeatRelay();
       self.messagequeue.sendmsgtoWebserver('Heater:ON')
-      console.log("---------------------------------Heater on")
+      console.log("---------------------------------Heater on ")
     }
-    else if (value > self.heatsourcedevice.upperHeatTolerance) {
+    else if (value > self.heatsourcedevice.lowerHeatTolerance && self.heatsourcedevice.heatSourceWorking) {
       self.heatsourcedevice.turnOffHeatRelay();
       self.messagequeue.sendmsgtoWebserver('Heater:OFF')
-      console.log("---------------------------------Heater off")
+      console.log("---------------------------------Heater off ")
     }
   })
 };
@@ -98,14 +98,20 @@ PiApp.prototype.phCheck = function () {
     self.ph = phvalue;
     if (phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
       phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)) {
-      self.pumpdevice.turnOnPump();
-      self.messagequeue.sendmsgtoWebserver('Pump:ON')
-      console.log("---------------------------------pump on")
-    } else {
-      self.pumpdevice.turnOffPump();
-      self.messagequeue.sendmsgtoWebserver('Pump:OFF')
-      console.log("---------------------------------pump off")
-    }
+      if (!self.pumpdevice.pumpWorking)
+        {
+          self.pumpdevice.turnOnPump();
+          self.messagequeue.sendmsgtoWebserver('Pump:ON')
+          console.log("---------------------------------pump on")
+        }
+      } else {
+        if (self.pumpdevice.pumpWorking)
+        {
+          self.pumpdevice.turnOffPump();
+          self.messagequeue.sendmsgtoWebserver('Pump:OFF')
+          console.log("---------------------------------pump off")
+        }
+      }
   });
   this.phcheckTimeout = setTimeout(this.phCheck.bind(this), this.phCheckInterval)
 };
