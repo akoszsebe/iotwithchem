@@ -59,8 +59,8 @@ MQueueWS.prototype.receivemsgfromRaspberry = function () {
   this.channel.assertQueue(this.qW);
   this.channel.consume(this.qW, function (msg) {
     if (msg !== null) {
-      this.MessageRouting(msg.content.toString());
-      self.channel.ack(msg)
+      self.MessageRouting(msg.content.toString());
+      self.channel.ack(msg);
     }
   });
 };
