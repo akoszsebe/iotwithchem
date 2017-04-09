@@ -16,6 +16,8 @@ export class JobDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.jobEndDate = new Date();
+    this.jobEndDate.setDate((new Date()).getDate() + 1);
   }
 
 }
