@@ -48,19 +48,19 @@ PhDevice.prototype.getPh = function (_callback) {
  * @return if calibration was Successful or not
  */
 PhDevice.prototype.calibrateHigh = function (value, callback) {
-
+    return callback(true)
 };
 
 /*
  * @return if calibration was Successful or not
  */
 PhDevice.prototype.calibrateMiddle = function (value, callback) {
-
+    return callback(true)
 };
 
 /*
  * @return if calibration was Successful or not
  */
 PhDevice.prototype.calibrateLow = function (value, callback) {
-
+    return callback(true)
 };
