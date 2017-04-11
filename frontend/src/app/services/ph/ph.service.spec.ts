@@ -1,10 +1,12 @@
-import {inject, TestBed} from '@angular/core/testing';
-import {PhService} from './ph.service';
+import {inject, TestBed} from "@angular/core/testing";
+import {PhService} from "./ph.service";
+import {HttpModule} from "@angular/http";
 
 describe('PhService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PhService]
+      providers: [PhService],
+      imports: [HttpModule]
     });
   });
 

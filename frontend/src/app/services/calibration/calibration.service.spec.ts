@@ -1,15 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CalibrationServiceService } from './calibration.service';
+import { CalibrationService } from './calibration.service';
+import {MaterialModule} from "@angular/material";
 
 describe('CalibrationServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CalibrationServiceService]
+      providers: [CalibrationService],
+      imports: [MaterialModule.forRoot()]
     });
   });
 
-  it('should ...', inject([CalibrationServiceService], (service: CalibrationServiceService) => {
+  it('should ...', inject([CalibrationService], (service: CalibrationService) => {
     expect(service).toBeTruthy();
   }));
 });

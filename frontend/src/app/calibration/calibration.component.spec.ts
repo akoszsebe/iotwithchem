@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 
-import { CalibrationComponent } from './calibration.component';
+import {CalibrationComponent} from "./calibration.component";
+import {MaterialModule} from "@angular/material";
+import {CalibrationService} from "../services/calibration/calibration.service";
+import {PhService} from "../services/ph/ph.service";
 
 describe('CalibrationComponent', () => {
   let component: CalibrationComponent;
@@ -8,9 +11,11 @@ describe('CalibrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CalibrationComponent ]
+      declarations: [CalibrationComponent],
+      imports: [MaterialModule.forRoot()],
+      providers: [CalibrationService, PhService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

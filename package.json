@@ -33,7 +33,7 @@
     "@types/node": "^7.0.12",
     "@types/socket.io-client": "^1.4.29",
     "amqplib": "^0.5.1",
-    "angular2-justgage": "^0.1.3",
+    "angular2-justgage": "^0.2.0",
     "angular2-simple-countdown": "0.0.6",
     "body-parser": "^1.17.1",
     "chart.js": "^2.5.0",
@@ -63,7 +63,7 @@
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
     "ts-node": "^3.0.2",
-    "tslint": "^5.0.0",
+    "tslint": "^5.1.0",
     "typescript": "^2.2.2",
     "zone.js": "^0.8.5"
   },

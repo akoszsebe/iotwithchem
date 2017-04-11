@@ -1,21 +1,34 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {SettingsDialogComponent} from './settings-dialog.component';
+import {async, TestBed} from "@angular/core/testing";
+import {SettingsDialogComponent} from "./settings-dialog.component";
+import {MaterialModule, MdDialog} from "@angular/material";
+import {FormsModule} from "@angular/forms";
+import {NgModule} from "@angular/core";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
+@NgModule({
+  declarations: [SettingsDialogComponent],
+  imports:[FormsModule, MaterialModule.forRoot(), BrowserAnimationsModule],
+  entryComponents: [SettingsDialogComponent],
+  exports: [SettingsDialogComponent],
+})
+
+class TestModule {
+}
 
 describe('SettingsDialogComponent', () => {
   let component: SettingsDialogComponent;
-  let fixture: ComponentFixture<SettingsDialogComponent>;
+  let dialog: MdDialog;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SettingsDialogComponent]
+      imports: [TestModule],
     })
-      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    dialog = TestBed.get(MdDialog);
+    let dialogRef = dialog.open(SettingsDialogComponent);
+    component = dialogRef.componentInstance;
   });
 
   it('should create', () => {

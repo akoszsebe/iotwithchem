@@ -1,22 +1,35 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, TestBed} from "@angular/core/testing";
 
-import {ConfirmDialogComponent} from './confirm-dialog.component';
+import {ConfirmDialogComponent} from "./confirm-dialog.component";
+import {MaterialModule, MdDialog} from "@angular/material";
+import {NgModule} from "@angular/core";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
+
+@NgModule({
+  declarations: [ConfirmDialogComponent],
+  imports: [MaterialModule.forRoot(), BrowserAnimationsModule],
+  entryComponents: [ConfirmDialogComponent],
+  exports: [ConfirmDialogComponent],
+})
+
+class TestModule {
+}
 
 describe('ConfirmDialogComponent', () => {
   let component: ConfirmDialogComponent;
-  let fixture: ComponentFixture<ConfirmDialogComponent>;
+  let dialog: MdDialog;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmDialogComponent]
+      imports: [TestModule],
     })
-      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfirmDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    dialog = TestBed.get(MdDialog);
+    let dialogRef = dialog.open(ConfirmDialogComponent);
+    component = dialogRef.componentInstance;
   });
 
   it('should create', () => {
