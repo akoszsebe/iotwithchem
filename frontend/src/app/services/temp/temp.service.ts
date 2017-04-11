@@ -74,7 +74,7 @@ export class TempService {
     const options = new RequestOptions({headers: headers});
 
     return this.http.post(this.baseUrl + '/settemperaturesensorsuploadinterval', {'upinterval': seconds}, options)
-      .map(TempService.extractData)
+      .map((res: Response) => {return res.json().sent})
       .catch(TempService.handleError);
   }
 

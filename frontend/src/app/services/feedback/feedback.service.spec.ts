@@ -1,11 +1,13 @@
-import {inject, TestBed} from '@angular/core/testing';
+import {inject, TestBed} from "@angular/core/testing";
 
-import {FeedbackService} from './feedback.service';
+import {FeedbackService} from "./feedback.service";
+import {HttpModule} from "@angular/http";
 
 describe('FeedbackService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FeedbackService]
+      providers: [FeedbackService],
+      imports: [HttpModule]
     });
   });
 
