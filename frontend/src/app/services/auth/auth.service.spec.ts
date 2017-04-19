@@ -1,7 +1,7 @@
-import {inject, TestBed} from "@angular/core/testing";
-import {AuthService} from "./auth.service";
-import {HttpModule} from "@angular/http";
-import {RouterTestingModule} from "@angular/router/testing";
+import {inject, TestBed} from '@angular/core/testing';
+import {AuthService} from './auth.service';
+import {HttpModule} from '@angular/http';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('AuthService', () => {
   beforeEach(() => {

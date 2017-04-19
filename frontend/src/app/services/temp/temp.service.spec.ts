@@ -1,7 +1,7 @@
-import {inject, TestBed} from "@angular/core/testing";
-import {TempService} from "./temp.service";
-import {HttpModule, Response, ResponseOptions, XHRBackend} from "@angular/http";
-import {MockBackend, MockConnection} from "@angular/http/testing";
+import {inject, TestBed} from '@angular/core/testing';
+import {TempService} from './temp.service';
+import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
+import {MockBackend, MockConnection} from '@angular/http/testing';
 
 describe('TempService', () => {
 

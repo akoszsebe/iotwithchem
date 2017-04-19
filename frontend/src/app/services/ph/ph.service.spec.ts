@@ -1,7 +1,7 @@
-import {inject, TestBed} from "@angular/core/testing";
-import {PhService} from "./ph.service";
-import {HttpModule, Response, ResponseOptions, XHRBackend} from "@angular/http";
-import {MockBackend, MockConnection} from "@angular/http/testing";
+import {inject, TestBed} from '@angular/core/testing';
+import {PhService} from './ph.service';
+import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
+import {MockBackend, MockConnection} from '@angular/http/testing';
 
 describe('PhService', () => {
   beforeEach(() => {

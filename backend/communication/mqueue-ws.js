@@ -11,6 +11,7 @@ const MQueueWS = module.exports = function (io) {
   this.qW = 'qToWebserver';
   this.channel = null;
   this.heatertemperature = 0;
+  this.pumpValue = 1;
   this.io = io;
   // somewhere else to put?
   this.init()
@@ -87,6 +88,9 @@ MQueueWS.prototype.MessageRouting = function (message) {
       break;
     case 'Pump':
       switch (splitMessage[1]) {
+        case 'PH':
+          this.pumpPhValue = splitMessage[2];
+          break;
         case 'ON':
           this.io.emit('pumpStatusChange', true);
           break;
@@ -102,5 +106,9 @@ MQueueWS.prototype.MessageRouting = function (message) {
  * Get the heater temperature
  */
 MQueueWS.prototype.getHeaterTemperature = function (_callback) {
-  return _callback(this.heatertemperature)
+  return _callback(this.heatertemperature);
+};
+
+MQueueWS.prototype.getPumpValue = function (_callback) {
+  return _callback(this.pumpValue);
 };

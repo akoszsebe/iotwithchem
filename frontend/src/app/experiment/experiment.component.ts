@@ -25,7 +25,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     symbol: '°C',
     min: 0,
     max: 100,
-    decimals: 3,
+    decimals: 2,
     gaugeWidthScale: 0.6,
     customSectors: [],
     counter: true
@@ -35,7 +35,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     label: 'pH',
     min: 1,
     max: 14,
-    decimals: 3,
+    decimals: 2,
     gaugeWidthScale: 0.6,
     customSectors: [],
     counter: true
@@ -111,11 +111,11 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.connection1 = this.tempService.getHeaterStatus().subscribe(response => {
-      response ? console.log('Heater turned on'):console.log('Heater turned off');
+      response ? console.log('Heater turned on') : console.log('Heater turned off');
       this.isHeaterOn = response;
     });
     this.connection2 = this.phService.getPumpStatus().subscribe(response => {
-      response ? console.log('Pump turned on'):console.log('Pump turned off');
+      response ? console.log('Pump turned on') : console.log('Pump turned off');
       this.isPumpOn = response;
     });
 
@@ -123,8 +123,13 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     this.startSync();
     this.tempService.getHeaterTemp()
       .subscribe(temp => {
-        this.tempSetValue = temp.heatertemperature;
-        console.log(temp.heatertemperature);
+        this.tempSetValue = temp.sensorSetValue;
+        console.log(temp.sensorSetValue);
+      });
+    this.phService.getPhValue()
+      .subscribe(ph => {
+        this.phSetValue = ph.sensorSetValue;
+        console.log(ph.sensorSetValue);
       });
     this.jobService.getJob()
       .subscribe(job => {
@@ -198,6 +203,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       if (res != null) {
 
         this.tempReadInt = res[0];
+        this.tempSetValue = res[1];
 
         this.optionsTempGauge = {
           id: 'tempGauge',
@@ -205,7 +211,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
           symbol: '°C',
           min: 0,
           max: 100,
-          decimals: 3,
+          decimals: 2,
           gaugeWidthScale: 0.6,
           customSectors: [{
             color: '#ff0000', lo: 0, hi: this.tempSetValue - 3
@@ -226,7 +232,6 @@ export class ExperimentComponent implements OnInit, OnDestroy {
           });
         this.tempService.setHeaterTemp(res[1])
           .subscribe(result => {
-            this.tempSetValue = result.heatertemperature;
             console.log(res);
           });
       }
@@ -241,25 +246,26 @@ export class ExperimentComponent implements OnInit, OnDestroy {
         this.phSetValue = res[1];
 
         this.phService.setPhValue(res[1])
-          .subscribe(result => {
-            console.log(result.sent);
+          .subscribe(ph => {
+            console.log(ph.sensorSetValue);
           });
+
 
         this.optionsPHGauge = {
           id: 'phGauge',
           label: 'pH',
           min: 1,
           max: 14,
-          decimals: 3,
+          decimals: 2,
           gaugeWidthScale: 0.6,
           customSectors: [{
             color: '#ff0000', lo: 1, hi: this.phSetValue - 2
           }, {
-            color: '#ffd50e', lo: this.phSetValue - 2, hi: this.phSetValue - 0.5
+            color: '#ffd50e', lo: this.phSetValue - 2, hi: this.phSetValue - 1
           }, {
-            color: '#00ff00', lo: this.phSetValue - 0.5, hi: this.phSetValue + 0.5
+            color: '#00ff00', lo: this.phSetValue - 1, hi: this.phSetValue + 1
           }, {
-            color: '#ffd50e', lo: this.phSetValue + 0.5, hi: this.phSetValue + 2
+            color: '#ffd50e', lo: this.phSetValue + 1, hi: this.phSetValue + 2
           }, {
             color: '#ff1105', lo: this.phSetValue + 2, hi: 14
           }],

@@ -1,8 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import {PhDO} from "../../model/ph";
-import * as io from "socket.io-client";
+import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {PhDO} from '../../model/ph';
+import * as io from 'socket.io-client';
+import {SensorDO} from '../../model/sensor';
 
 @Injectable()
 export class PhService {
@@ -58,7 +59,7 @@ export class PhService {
       .catch(PhService.handleError);
   }
 
-  setPhValue(phValue: number): Observable<any> {
+  setPhValue(phValue: number): Observable<SensorDO> {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
 
@@ -66,4 +67,12 @@ export class PhService {
       .map(PhService.extractData)
       .catch(PhService.handleError);
   }
+
+  getPhValue(): Observable<SensorDO> {
+    return this.http.get(this.baseUrl + '/getpumpvalue')
+      .map(PhService.extractData)
+      .catch(PhService.handleError);
+  }
+
+
 }

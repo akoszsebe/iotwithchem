@@ -100,20 +100,20 @@ module.exports = (app, passport, io) => {
     req.isAuthenticated() ? res.json({'user': req.user.fb}) : res.json({'user': null});
   });
 
-  app.post('/setheatertemperature', function (req, res) {
+  app.post('/setheatertemperature', (req, res) => {
     mq.sendmsgtoRaspberry('Heater:Temperature:' + req.body.heatertemp);
     mq.getHeaterTemperature(function (returndata) {
       res.json({heatertemperature: returndata})
     })
   });
 
-  app.get('/getheatertemperature', function (req, res) {
+  app.get('/getheatertemperature', (req, res) => {
     mq.getHeaterTemperature(function (returndata) {
-      res.json({heatertemperature: returndata})
+      res.json({sensorSetValue: returndata})
     })
   });
 
-  app.post('/settemperaturesensorsuploadinterval', function (req, res) {
+  app.post('/settemperaturesensorsuploadinterval', (req, res) => {
     let upinterval = req.body.upinterval;
     console.log(upinterval);
     let sensorid = req.body.sensorid;
@@ -124,17 +124,25 @@ module.exports = (app, passport, io) => {
   });
 
 
-  app.post('/calibratephsensor', function (req, res) {
+  app.post('/calibratephsensor', (req, res) => {
     mq.sendmsgtoRaspberry('Ph:Calibrate:' + req.body.level);
     res.json({sent: true})
   });
 
-  app.post('/setphvalue', function (req, res) {
+  app.post('/setphvalue', (req, res) => {
     mq.sendmsgtoRaspberry('Ph:Value:' + req.body.phValue);
-    res.json({sent: true})
+    mq.getPumpValue((returndata) => {
+      res.json({sensorSetValue: returndata});
+    })
   });
 
-  app.get('/getOldestReadDates', function (req, res) {
+  app.get('/getphvalue', (req, res) => {
+    mq.getPumpValue((returndata) => {
+      res.json({sensorSetValue: returndata});
+    })
+  });
+
+  app.get('/getOldestReadDates', (req, res) => {
     let sensorid = req.params.sensorid;
     if (typeof sensorid === 'undefined') sensorid = '1';
     db.getOldestTemp(sensorid, function (temp) {
@@ -144,13 +152,13 @@ module.exports = (app, passport, io) => {
     });
   });
 
-  app.get('/getJob', function (req, res) {
+  app.get('/getJob', (req, res) => {
     db.getJob(function (job) {
       res.json(job);
     })
   });
 
-  app.post('/setJob', function (req, res) {
+  app.post('/setJob', (req, res) => {
     const newJob = {
       jobStartDate: req.body.jobStartDate,
       jobEndDate: req.body.jobEndDate,
@@ -161,7 +169,7 @@ module.exports = (app, passport, io) => {
     })
   });
 
-  app.post('/sendFeedback', function (req, res) {
+  app.post('/sendFeedback', (req, res) => {
     mail.sendMail(req.body.from, req.body.message);
     res.json({sent: true});
   });

@@ -1,11 +1,11 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {ReportsComponent} from "./reports.component";
-import {MaterialModule} from "@angular/material";
-import {FormsModule} from "@angular/forms";
-import {CalendarModule, ChartModule, UIChart} from "primeng/primeng";
-import {TempService} from "../services/temp/temp.service";
-import {PhService} from "../services/ph/ph.service";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ReportsComponent} from './reports.component';
+import {MaterialModule} from '@angular/material';
+import {FormsModule} from '@angular/forms';
+import {CalendarModule, ChartModule} from 'primeng/primeng';
+import {TempService} from '../services/temp/temp.service';
+import {PhService} from '../services/ph/ph.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ReportsComponent', () => {
   let component: ReportsComponent;

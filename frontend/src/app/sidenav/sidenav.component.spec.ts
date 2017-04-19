@@ -1,8 +1,8 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {SidenavComponent} from "./sidenav.component";
-import {MaterialModule} from "@angular/material";
-import {RouterTestingModule} from "@angular/router/testing";
-import {AuthService} from "../services/auth/auth.service";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {SidenavComponent} from './sidenav.component';
+import {MaterialModule} from '@angular/material';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AuthService} from '../services/auth/auth.service';
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;

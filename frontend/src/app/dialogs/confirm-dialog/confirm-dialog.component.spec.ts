@@ -1,9 +1,9 @@
-import {async, TestBed} from "@angular/core/testing";
+import {async, TestBed} from '@angular/core/testing';
 
-import {ConfirmDialogComponent} from "./confirm-dialog.component";
-import {MaterialModule, MdDialog} from "@angular/material";
-import {NgModule} from "@angular/core";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ConfirmDialogComponent} from './confirm-dialog.component';
+import {MaterialModule, MdDialog} from '@angular/material';
+import {NgModule} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({

@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {TemperatureDO} from '../../model/temperature';
-import {HeaterTempDO} from '../../model/heater-temp';
+import {SensorDO} from '../../model/sensor';
 import * as io from 'socket.io-client';
 
 @Injectable()
@@ -74,11 +74,13 @@ export class TempService {
     const options = new RequestOptions({headers: headers});
 
     return this.http.post(this.baseUrl + '/settemperaturesensorsuploadinterval', {'upinterval': seconds}, options)
-      .map((res: Response) => {return res.json().sent})
+      .map((res: Response) => {
+        return res.json().sent;
+      })
       .catch(TempService.handleError);
   }
 
-  setHeaterTemp(temp: number): Observable<HeaterTempDO> {
+  setHeaterTemp(temp: number): Observable<SensorDO> {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
 
@@ -87,7 +89,7 @@ export class TempService {
       .catch(TempService.handleError);
   }
 
-  getHeaterTemp(): Observable<HeaterTempDO> {
+  getHeaterTemp(): Observable<SensorDO> {
 
     return this.http.get(this.baseUrl + '/getheatertemperature')
       .map(TempService.extractData)

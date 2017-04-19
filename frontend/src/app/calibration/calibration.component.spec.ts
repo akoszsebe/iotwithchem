@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CalibrationComponent} from "./calibration.component";
-import {MaterialModule} from "@angular/material";
-import {CalibrationService} from "../services/calibration/calibration.service";
-import {PhService} from "../services/ph/ph.service";
+import {CalibrationComponent} from './calibration.component';
+import {MaterialModule} from '@angular/material';
+import {CalibrationService} from '../services/calibration/calibration.service';
+import {PhService} from '../services/ph/ph.service';
 
 describe('CalibrationComponent', () => {
   let component: CalibrationComponent;

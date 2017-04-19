@@ -1,7 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { CalibrationService } from './calibration.service';
-import {MaterialModule} from "@angular/material";
+import {CalibrationService} from './calibration.service';
+import {MaterialModule} from '@angular/material';
 
 describe('CalibrationServiceService', () => {
   beforeEach(() => {

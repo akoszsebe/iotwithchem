@@ -1,11 +1,11 @@
-import {async, TestBed} from "@angular/core/testing";
+import {async, TestBed} from '@angular/core/testing';
 
-import {JobDialogComponent} from "./job-dialog.component";
-import {MaterialModule, MdDialog} from "@angular/material";
-import {FormsModule} from "@angular/forms";
-import {NgModule} from "@angular/core";
-import {CalendarModule} from "primeng/primeng";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {JobDialogComponent} from './job-dialog.component';
+import {MaterialModule, MdDialog} from '@angular/material';
+import {FormsModule} from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CalendarModule} from 'primeng/primeng';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [JobDialogComponent],

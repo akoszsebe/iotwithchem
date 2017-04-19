@@ -1,15 +1,15 @@
-import {async, TestBed} from "@angular/core/testing";
-import {ExperimentComponent} from "./experiment.component";
-import {MaterialModule} from "@angular/material";
-import {FormsModule} from "@angular/forms";
-import {ProgressBarModule} from "primeng/primeng";
-import {CountDown} from "angular2-simple-countdown/lib/countdown";
-import {JustgageModule} from "angular2-justgage";
-import {TempService} from "../services/temp/temp.service";
-import {PhService} from "../services/ph/ph.service";
-import {JobService} from "../services/job/job.service";
-import {DialogService} from "../services/dialog/dialog.service";
-import {AuthService} from "../services/auth/auth.service";
+import {async, TestBed} from '@angular/core/testing';
+import {ExperimentComponent} from './experiment.component';
+import {MaterialModule} from '@angular/material';
+import {FormsModule} from '@angular/forms';
+import {ProgressBarModule} from 'primeng/primeng';
+import {CountDown} from 'angular2-simple-countdown/lib/countdown';
+import {JustgageModule} from 'angular2-justgage';
+import {TempService} from '../services/temp/temp.service';
+import {PhService} from '../services/ph/ph.service';
+import {JobService} from '../services/job/job.service';
+import {DialogService} from '../services/dialog/dialog.service';
+import {AuthService} from '../services/auth/auth.service';
 
 
 describe('ExperimentComponent', () => {

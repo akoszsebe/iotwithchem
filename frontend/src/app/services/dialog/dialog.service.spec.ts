@@ -1,6 +1,6 @@
 import {inject, TestBed} from '@angular/core/testing';
 import {DialogService} from './dialog.service';
-import {MaterialModule, MdDialog} from "@angular/material";
+import {MaterialModule} from '@angular/material';
 
 describe('DialogService', () => {
   beforeEach(() => {
