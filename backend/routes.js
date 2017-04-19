@@ -169,6 +169,16 @@ module.exports = (app, passport, io) => {
     })
   });
 
+  app.get('/startjob', (req, res) => {
+    mq.sendmsgtoRaspberry("Work:Start:3650");
+    res.sendStatus(200);
+  });
+
+  app.get('/stopjob', (req, res) => {
+    mq.sendmsgtoRaspberry("Work:Stop");
+    res.sendStatus(200);
+  });
+
   app.post('/sendFeedback', (req, res) => {
     mail.sendMail(req.body.from, req.body.message);
     res.json({sent: true});

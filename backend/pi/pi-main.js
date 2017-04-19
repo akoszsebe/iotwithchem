@@ -1,6 +1,7 @@
 'use strict';
 // load the pi ap module
 const PiApp = require('./pi-app');
+const PiWatcher = require('./pi-watcher');
 
 // load the Db module
 const Db = require('./communication/db');
@@ -54,6 +55,10 @@ const mQueuePi = new MQueuePi(sensorValueContext);
 // with the exernal dependencies
 // db, devices, gateway
 const piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi);
+
+const piwatcher = new PiWatcher(mQueuePi,piapp);
+
+piwatcher.startWatcher();
 
 // Initialize the pi app
 piapp.init();

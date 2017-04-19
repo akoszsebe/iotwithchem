@@ -69,18 +69,29 @@ MQueuePI.prototype.MessageRouting = function (message) {
   const splitMessage = message.split(':');
 
   switch (splitMessage[0]) {
+    case 'Work':
+      switch (splitMessage[1]) {
+        case 'Start':
+          this.sensorValueContext.setWorkInProgress(true);
+          this.sensorValueContext.setWorkDuration(parseInt(splitMessage[2]));
+          break;
+        case 'Stop':
+          this.sensorValueContext.setWorkInProgress(false);
+          break;
+      }
+      break;
     case 'Heater':
       switch (splitMessage[1]) {
         case 'Temperature':
           this.sensorValueContext.setHeaterTemperature(splitMessage[2]);
-          break
+          break;
       }
       break;
     case 'Sensor':
       switch (splitMessage[1]) {
         case 'UpInterval':
           this.sensorValueContext.setUploadInterval(splitMessage[3]);
-          break
+          break;
       }
       break;
     case 'Ph':
@@ -91,7 +102,7 @@ MQueuePI.prototype.MessageRouting = function (message) {
           break;
         case 'Value':
           this.sensorValueContext.setPhValue(splitMessage[2]);
-          break
+          break;
       }
       break;
     case 'Pump':
@@ -101,9 +112,9 @@ MQueuePI.prototype.MessageRouting = function (message) {
           break;
         case 'OFF':
           this.sensorValueContext.setPumpIsWorking(false);
-          break
+          break;
       }
-      break
+      break;
   }
 
 };
