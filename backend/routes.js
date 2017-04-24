@@ -158,20 +158,16 @@ module.exports = (app, passport, io) => {
     })
   });
 
-  app.post('/setJob', (req, res) => {
+  app.post('/startjob', (req, res) => {
     const newJob = {
       jobStartDate: req.body.jobStartDate,
       jobEndDate: req.body.jobEndDate,
       jobDescription: req.body.jobDescription
     };
+    mq.sendmsgtoRaspberry("Work:Start:" + (newJob.jobEndDate - newJob.jobStartDate) / 1000);
     db.setJob(newJob, function (job) {
       res.json(job);
-    })
-  });
-
-  app.get('/startjob', (req, res) => {
-    mq.sendmsgtoRaspberry("Work:Start:3650");
-    res.sendStatus(200);
+    });
   });
 
   app.get('/stopjob', (req, res) => {
