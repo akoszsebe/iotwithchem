@@ -56,13 +56,13 @@ const mQueuePi = new MQueuePi(sensorValueContext);
 // db, devices, gateway
 const piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi);
 
-const piwatcher = new PiWatcher(mQueuePi,piapp);
+const piwatcher = new PiWatcher(mQueuePi, piapp);
 
 piwatcher.startWatcher();
 
 // Initialize the pi app
 piapp.init();
 // start the event loop of the pi app
-piapp.setEventLoop();
+//piapp.setEventLoop();
 
 

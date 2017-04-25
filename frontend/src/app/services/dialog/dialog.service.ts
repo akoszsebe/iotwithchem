@@ -29,10 +29,10 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
 
-  public openConfirmation(): Observable<boolean> {
+  public openConfirmation(message: String): Observable<boolean> {
     let dialogRef: MdDialogRef<ConfirmDialogComponent>;
     dialogRef = this.dialog.open(ConfirmDialogComponent, {disableClose: true});
-
+    dialogRef.componentInstance.message = message;
     return dialogRef.afterClosed();
   }
 

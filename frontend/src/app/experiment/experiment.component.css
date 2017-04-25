@@ -19,6 +19,19 @@ p {
   display: flex;
 }
 
+@media screen and (max-aspect-ratio: 16/10) {
+
+  .sensors-container {
+    display: block;
+  }
+
+  .example-card {
+    width: 90%;
+    margin: 10px auto 10px auto;
+
+  }
+}
+
 .counter {
   font-size: 14px !important;
   color: #dc655e;

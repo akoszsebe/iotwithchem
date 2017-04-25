@@ -159,20 +159,38 @@ module.exports = (app, passport, io) => {
   });
 
   app.post('/startjob', (req, res) => {
-    const newJob = {
-      jobStartDate: req.body.jobStartDate,
-      jobEndDate: req.body.jobEndDate,
-      jobDescription: req.body.jobDescription
-    };
-    mq.sendmsgtoRaspberry("Work:Start:" + (newJob.jobEndDate - newJob.jobStartDate) / 1000);
-    db.setJob(newJob, function (job) {
-      res.json(job);
-    });
+    db.getJob(function (job) {
+      if (job.jobEndDate > (new Date()).getTime()) {
+        mq.sendmsgtoRaspberry("Work:Stop");
+      }
+      setTimeout(() => {
+        console.log('waiting to stop the previous job if there is any');
+        const newJob = {
+          jobStartDate: req.body.jobStartDate,
+          jobEndDate: req.body.jobEndDate,
+          jobDescription: req.body.jobDescription
+        };
+        mq.sendmsgtoRaspberry("Work:Start:" + (newJob.jobEndDate - newJob.jobStartDate) / 1000);
+        db.setJob(newJob, function (job) {
+          res.json(job);
+        });
+      }, 5000);
+    })
   });
 
-  app.get('/stopjob', (req, res) => {
+  app.post('/stopjob', (req, res) => {
+
     mq.sendmsgtoRaspberry("Work:Stop");
-    res.sendStatus(200);
+    db.getJob(function (job) {
+      if (job.jobEndDate > (new Date()).getTime()) {
+        job.jobEndDate = (new Date()).getTime();
+        db.setJob(job, (stoppedJob) => {
+          res.json(stoppedJob);
+        });
+      } else {
+        res.json(job);
+      }
+    });
   });
 
   app.post('/sendFeedback', (req, res) => {

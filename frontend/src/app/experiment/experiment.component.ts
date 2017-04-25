@@ -143,7 +143,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
         this.progressBarTimer = setInterval(() => {
           this.calculateProgBarValue();
           console.log('progressbar updated');
-        }, 30000);
+        }, 10000);
       });
 
   }
@@ -279,7 +279,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   checkJob() {
     if ((new Date()) < this.currentJob.jobEndDate) {
-      this.dialogService.openConfirmation().subscribe(response => {
+      this.dialogService.openConfirmation('There is an another job going on, do you want to start a new one?').subscribe(response => {
         if (response) {
           this.openNewJob();
         }
@@ -287,6 +287,19 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     } else {
       this.openNewJob();
     }
+  }
+
+  stopJob() {
+    this.dialogService.openConfirmation('There is a job going on, do you want to stop it?').subscribe(response => {
+      if (response) {
+        this.jobService.stopJob().subscribe(newJob => {
+          ExperimentComponent.setupJob(newJob, this.currentJob);
+          this.countdownDate = new Date();
+          this.countdownDate = null;
+          this.calculateProgBarValue();
+        });
+      }
+    });
   }
 
   openNewJob() {
@@ -313,6 +326,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       / (this.currentJob.jobEndDate.getTime() - this.currentJob.jobStartDate.getTime())).toFixed(3));
     } else {
       this.progressBarValue = 100;
+      this.countdownDate = null;
     }
   }
 }

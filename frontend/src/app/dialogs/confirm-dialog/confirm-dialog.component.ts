@@ -8,6 +8,8 @@ import {MdDialogRef} from '@angular/material';
 })
 export class ConfirmDialogComponent implements OnInit {
 
+  public message: String;
+
   constructor(public dialogRef: MdDialogRef<ConfirmDialogComponent>) {
   }
 

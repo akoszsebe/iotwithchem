@@ -1,32 +1,37 @@
 <md-slide-toggle class="synctoggle" [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
 <br>
-<md-card class="example-card">
-  <md-card-content>
-    <p-progressBar [value]="progressBarValue"></p-progressBar>
-    <br>
-    <label>Job start date:</label>
-    <p> {{currentJob.jobStartDate.toLocaleString()}} </p><br>
-    <label>Job end date:</label>
-    <p> {{currentJob.jobEndDate.toLocaleString()}} </p><br>
-    <label>Remaining time:</label>
-    <count-down *ngIf="countdownDate!=null" class="counter" [text]="text" units="Days | Hours | Minutes | Seconds "
-                end={{countdownDate}}></count-down>
-    <p *ngIf="countdownDate==null"> - </p>
-    <label>Job description: </label>
-    <p>{{currentJob.jobDescription}}</p>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button (click)="checkJob()">
-      <md-icon class="example-icon">add</md-icon>
-    </button>
-  </md-card-actions>
-</md-card>
+
 <!--<div>-->
 <!--<justgage class='timer' [options]="optionsTimerGauge" [max]="maxTime" [value]="valueTimer"></justgage>-->
 <!--</div>-->
 
 
 <div class="sensors-container">
+
+  <md-card class="example-card">
+    <md-card-content>
+      <p-progressBar [value]="progressBarValue"></p-progressBar>
+      <br>
+      <label>Job start date:</label>
+      <p> {{currentJob.jobStartDate.toLocaleString()}} </p><br>
+      <label>Job end date:</label>
+      <p> {{currentJob.jobEndDate.toLocaleString()}} </p><br>
+      <label>Remaining time:</label>
+      <count-down *ngIf="countdownDate!=null" class="counter" [text]="text" units="Days | Hours | Minutes | Seconds "
+                  end={{countdownDate}}></count-down>
+      <p *ngIf="countdownDate==null"> - </p>
+      <label>Job description: </label>
+      <p>{{currentJob.jobDescription}}</p>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button (click)="checkJob()">
+        <md-icon class="example-icon">add</md-icon>
+      </button>
+      <button md-button [disabled]="countdownDate==null" (click)="stopJob()">
+        <md-icon class="example-icon">cancel</md-icon>
+      </button>
+    </md-card-actions>
+  </md-card>
 
   <md-card class="example-card">
     <md-card-content>
