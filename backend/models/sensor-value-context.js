@@ -20,11 +20,19 @@ SensorValueContext.prototype.setHeaterTemperature = function (value) {
   this.heatertemperature = value
 };
 
-SensorValueContext.prototype.getUploadInterval = function () {
+SensorValueContext.prototype.getTempUploadInterval = function () {
   return this.uploadTempInterval
 };
 
-SensorValueContext.prototype.setUploadInterval = function (value) {
+SensorValueContext.prototype.setTempUploadInterval = function (value) {
+  this.uploadTempInterval = value
+};
+
+SensorValueContext.prototype.getPhUploadInterval = function () {
+  return this.uploadTempInterval
+};
+
+SensorValueContext.prototype.setPhUploadInterval = function (value) {
   this.uploadTempInterval = value
 };
 
@@ -59,17 +67,17 @@ SensorValueContext.prototype.setPhValue = function (value) {
 };
 
 SensorValueContext.prototype.isWorkInProgress = function () {
-	return this.workInProgress
+  return this.workInProgress
 };
 
-SensorValueContext.prototype.setWorkInProgress = function(value) {
-	this.workInProgress = value
+SensorValueContext.prototype.setWorkInProgress = function (value) {
+  this.workInProgress = value
 };
 
 SensorValueContext.prototype.getWorkDuration = function () {
-	return this.workDuration
+  return this.workDuration
 };
 
-SensorValueContext.prototype.setWorkDuration = function(value) {
-	this.workDuration = value
+SensorValueContext.prototype.setWorkDuration = function (value) {
+  this.workDuration = value
 };

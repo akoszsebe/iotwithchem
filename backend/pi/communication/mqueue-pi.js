@@ -80,17 +80,13 @@ MQueuePI.prototype.MessageRouting = function (message) {
           break;
       }
       break;
-    case 'Heater':
+    case 'Temp':
       switch (splitMessage[1]) {
-        case 'Temperature':
+        case 'Value':
           this.sensorValueContext.setHeaterTemperature(splitMessage[2]);
           break;
-      }
-      break;
-    case 'Sensor':
-      switch (splitMessage[1]) {
         case 'UpInterval':
-          this.sensorValueContext.setUploadInterval(splitMessage[3]);
+          this.sensorValueContext.setTempUploadInterval(splitMessage[3]);
           break;
       }
       break;
@@ -102,6 +98,9 @@ MQueuePI.prototype.MessageRouting = function (message) {
           break;
         case 'Value':
           this.sensorValueContext.setPhValue(splitMessage[2]);
+          break;
+        case 'UpInterval':
+          this.sensorValueContext.setPhUploadInterval(splitMessage[3]);
           break;
       }
       break;

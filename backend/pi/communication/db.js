@@ -4,6 +4,7 @@ let path = require('path'),
   Temperature = require(path.resolve('../models/temperature.js')),
   Alive = require(path.resolve('../models/alive.js')),
   Ph = require(path.resolve('../models/ph.js')),
+  Job = require(path.resolve('../models/job.js')),
   mongoose = require('mongoose');
 
 /**
@@ -149,4 +150,16 @@ Db.prototype.createAliveMessage = function (rid, td, _callback) {
     }
   })
 };
+
+
+Db.prototype.getJob = function (_callback) {
+
+  Job.findOne({}, '-_id', (error, job) => {
+    if (error) {
+      return _callback(null)
+    }
+    return _callback(job)
+  });
+};
+
 

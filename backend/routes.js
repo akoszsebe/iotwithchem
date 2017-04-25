@@ -1,13 +1,6 @@
 'use strict';
 
 let path = require('path');
-/*
- db = require(path.resolve('backend/models/downloadData.js')),
- mq = require(path.resolve('backend/models/messagequeue.js'))
-
-
- Create DB WS
- */
 
 const DbWs = require(path.resolve('backend/models/db-ws'));
 const db = new DbWs();
@@ -18,13 +11,6 @@ const MQueueWS = require(path.resolve('backend/communication/mqueue-ws'));
 const Mail = require(path.resolve('backend/communication/mail'));
 const mail = new Mail();
 
-/* ********
- * REVIEW requested by LASZLO  : END
- * **********
- */
-
-let raspiAlive = false;
-let time = 0;
 
 module.exports = (app, passport, io) => {
 
@@ -77,8 +63,10 @@ module.exports = (app, passport, io) => {
   });
 
 
-  app.get('/isalive', (req, res) => {
-    res.json({alive: raspiAlive})
+  app.get('/getDeviceStatus', (req, res) => {
+    mq.getDeviceStatus(status =>{
+      res.json({alive: status});
+    })
   });
 
   app.get('/login/facebook',
@@ -101,7 +89,7 @@ module.exports = (app, passport, io) => {
   });
 
   app.post('/setheatertemperature', (req, res) => {
-    mq.sendmsgtoRaspberry('Heater:Temperature:' + req.body.heatertemp);
+    mq.sendmsgtoRaspberry('Temp:Value:' + req.body.heatertemp);
     mq.getHeaterTemperature(function (returndata) {
       res.json({heatertemperature: returndata})
     })
@@ -113,13 +101,12 @@ module.exports = (app, passport, io) => {
     })
   });
 
-  app.post('/settemperaturesensorsuploadinterval', (req, res) => {
+  app.post('/settempuploadinterval', (req, res) => {
     let upinterval = req.body.upinterval;
-    console.log(upinterval);
     let sensorid = req.body.sensorid;
     if (typeof sensorid === 'undefined') sensorid = '1';
     if (typeof upinterval === 'undefined') upinterval = '30000';
-    mq.sendmsgtoRaspberry('Sensor:UpInterval:' + sensorid + ':' + upinterval);
+    mq.sendmsgtoRaspberry('Temp:UpInterval:' + sensorid + ':' + upinterval);
     res.json({sent: true})
   });
 
@@ -140,6 +127,15 @@ module.exports = (app, passport, io) => {
     mq.getPumpValue((returndata) => {
       res.json({sensorSetValue: returndata});
     })
+  });
+
+  app.post('/setphuploadinterval', (req, res) => {
+    let upinterval = req.body.upinterval;
+    let sensorid = req.body.sensorid;
+    if (typeof sensorid === 'undefined') sensorid = '1';
+    if (typeof upinterval === 'undefined') upinterval = '30000';
+    mq.sendmsgtoRaspberry('Ph:UpInterval:' + sensorid + ':' + upinterval);
+    res.json({sent: true})
   });
 
   app.get('/getOldestReadDates', (req, res) => {
@@ -205,10 +201,3 @@ module.exports = (app, passport, io) => {
 
 
 };
-
-setInterval(() => {
-  db.getPulse((returndata) => {
-      raspiAlive = returndata
-    }
-  )
-}, 3000);

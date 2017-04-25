@@ -1,7 +1,8 @@
-const PiWatcher = module.exports = function (messagequeue, piapp) {
+const PiWatcher = module.exports = function (messagequeue, piapp, db) {
   this.messagequeue = messagequeue;
   this.piapp = piapp;
 
+  this.db = db;
   this.started = false;
   this.watcherInterval = 3000;
 };
@@ -57,5 +58,14 @@ PiWatcher.prototype.workInProgressWatcher = function () {
 
 PiWatcher.prototype.startWatcher = function () {
   console.log("Waiting for a job...");
-  setInterval(this.workInProgressWatcher.bind(this), this.watcherInterval);
+  const self = this;
+  const now = (new Date).getTime();
+  this.db.getJob(job => {
+    if (job.jobEndDate > now) {
+      self.messagequeue.sensorValueContext.setWorkInProgress(true);
+      self.messagequeue.sensorValueContext.setWorkDuration((job.jobEndDate - now) / 1000);
+    }
+    setInterval(this.workInProgressWatcher.bind(this), this.watcherInterval);
+  });
+
 };

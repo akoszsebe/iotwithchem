@@ -8,7 +8,7 @@ import {HttpModule} from '@angular/http';
 import {JustgageModule} from 'angular2-justgage';
 import {MaterialModule, MdIconRegistry} from '@angular/material';
 import {AppRoutingModule} from './app-routing/app-routing.module';
-import {CalendarModule, ProgressBarModule} from 'primeng/primeng';
+import {CalendarModule, MessagesModule, ProgressBarModule} from 'primeng/primeng';
 import {TempService} from './services/temp/temp.service';
 import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth-guard/auth-guard.service';
@@ -26,6 +26,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CalibrationComponent} from './calibration/calibration.component';
 import {CalibrationService} from './services/calibration/calibration.service';
+import {DeviceService} from './services/device/device.service';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {CalibrationService} from './services/calibration/calibration.service';
     AppRoutingModule,
     CalendarModule,
     ChartModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MessagesModule
   ],
   providers: [
     TempService,
@@ -69,6 +71,7 @@ import {CalibrationService} from './services/calibration/calibration.service';
     JobService,
     FeedbackService,
     CalibrationService,
+    DeviceService,
     {provide: LOCALE_ID, useValue: 'ro-RO'}
   ],
   bootstrap: [SidenavComponent]

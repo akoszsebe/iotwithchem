@@ -8,6 +8,8 @@ import {TemperatureDO} from '../model/temperature';
 import {PhDO} from '../model/ph';
 import {JobDateDO} from '../model/job-date';
 import {AuthService} from '../services/auth/auth.service';
+import {DeviceService} from '../services/device/device.service';
+import {Message} from 'primeng/primeng';
 
 
 @Component({
@@ -66,8 +68,11 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   connection1;
   connection2;
+  connection3;
   isHeaterOn = false;
   isPumpOn = false;
+
+  msg: Message[] = [];
 
   text: any = {
     'Weeks': 'w',
@@ -90,7 +95,8 @@ export class ExperimentComponent implements OnInit, OnDestroy {
               private phService: PhService,
               private jobService: JobService,
               private dialogService: DialogService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private deviceService: DeviceService) {
   }
 
   checkAuth(): void {
@@ -101,6 +107,9 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     clearInterval(this.tempTimer);
     clearInterval(this.phTimer);
     clearInterval(this.progressBarTimer);
+    this.connection1.unsubscribe();
+    this.connection2.unsubscribe();
+    this.connection3.unsubscribe();
   }
 
   /* sendMessage() {
@@ -117,6 +126,12 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     this.connection2 = this.phService.getPumpStatus().subscribe(response => {
       response ? console.log('Pump turned on') : console.log('Pump turned off');
       this.isPumpOn = response;
+    });
+    this.connection3 = this.deviceService.getDeviceStatusChanges().subscribe(response => {
+      this.msg = [];
+      response ? this.msg = [{severity: 'success', summary: 'Device', detail: 'Pi connected'}]
+        :
+        this.msg = [{severity: 'error', summary: 'Device', detail: 'Pi disconnected'}];
     });
 
     this.toggleChecked = true;

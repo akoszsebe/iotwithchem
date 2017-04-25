@@ -7,12 +7,14 @@
  * via messagequeue
  */
 const MQueueWS = module.exports = function (io) {
+
   this.qR = 'qToRaspberry';
   this.qW = 'qToWebserver';
   this.channel = null;
   this.heatertemperature = 0;
   this.pumpValue = 1;
   this.io = io;
+  this.deviceList = [];
   // somewhere else to put?
   this.init()
 };
@@ -35,9 +37,21 @@ MQueueWS.prototype.init = function () {
   }).then(null, console.warn);
   this.io.on('connection', (socket) => {
     console.log('The user is connected');
+    if (self.deviceList.length > 0) {
+      self.io.emit('pi connected', true);
+    }
     socket.on('disconnect', function () {
       console.log('The user is disconnected');
+      if (self.deviceList.indexOf(socket) > -1) {
+        self.io.emit('pi disconnected', false);
+        self.deviceList.splice(self.deviceList.indexOf(socket), 1);
+      }
     });
+    socket.on('new pi', function () {
+      console.log('New pi connected');
+      self.deviceList.push(socket);
+      self.io.emit('pi connected', true);
+    })
   });
 
 };
@@ -88,8 +102,8 @@ MQueueWS.prototype.MessageRouting = function (message) {
       break;
     case 'Pump':
       switch (splitMessage[1]) {
-        case 'PH':
-          this.pumpPhValue = splitMessage[2];
+        case 'Ph':
+          this.pumpValue = splitMessage[2];
           break;
         case 'ON':
           this.io.emit('pumpStatusChange', true);
@@ -98,6 +112,7 @@ MQueueWS.prototype.MessageRouting = function (message) {
           this.io.emit('pumpStatusChange', false);
           break;
       }
+      break;
   }
 };
 
@@ -111,4 +126,8 @@ MQueueWS.prototype.getHeaterTemperature = function (_callback) {
 
 MQueueWS.prototype.getPumpValue = function (_callback) {
   return _callback(this.pumpValue);
+};
+
+MQueueWS.prototype.getDeviceStatus = function (_callback) {
+  return _callback(this.deviceList.length > 0);
 };

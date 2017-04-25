@@ -73,7 +73,7 @@ export class TempService {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
 
-    return this.http.post(this.baseUrl + '/settemperaturesensorsuploadinterval', {'upinterval': seconds}, options)
+    return this.http.post(this.baseUrl + '/settempuploadinterval', {'upinterval': seconds}, options)
       .map((res: Response) => {
         return res.json().sent;
       })

@@ -69,7 +69,7 @@ export class PhService {
   }
 
   getPhValue(): Observable<SensorDO> {
-    return this.http.get(this.baseUrl + '/getpumpvalue')
+    return this.http.get(this.baseUrl + '/getphvalue')
       .map(PhService.extractData)
       .catch(PhService.handleError);
   }

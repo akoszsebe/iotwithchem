@@ -30,9 +30,9 @@ PiApp.prototype.init = function () {
 
 
 /**
- * Uploads data to database
+ * Uploads temp to database
  */
-PiApp.prototype.uploadDataToDatabase = function () {
+PiApp.prototype.uploadTempToDatabase = function () {
   const self = this;
   this.temperaturedevice.actualValue(function (err, value) {
     console.info('Raspberry -', self.serialnumber);
@@ -42,6 +42,14 @@ PiApp.prototype.uploadDataToDatabase = function () {
     })
   });
 
+  this.uploadTempTimeout = setTimeout(this.uploadTempToDatabase.bind(this), this.temperatureUploadInterval)
+};
+
+/**
+ * Uploads ph to database
+ */
+PiApp.prototype.uploadPhToDatabase = function () {
+  const self = this;
   if (this.ph !== 0) {
     console.info('Raspberry -', self.serialnumber);
     console.info('-----Current ph on sensor is: ' + self.ph);
@@ -52,7 +60,6 @@ PiApp.prototype.uploadDataToDatabase = function () {
   else {
     console.info('-----Phsensor is not connected !!!')
   }
-  this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this), this.temperatureUploadInterval)
 };
 
 /**
@@ -69,7 +76,7 @@ PiApp.prototype.IsAlive = function () {
 };
 
 /**
- * Keeps the temperature betweet tolerance values
+ * Keeps the temperature between tolerance values
  */
 PiApp.prototype.heatingCheck = function () {
   const self = this;
@@ -89,7 +96,7 @@ PiApp.prototype.heatingCheck = function () {
 };
 
 /**
- * Keeps the ph betweet tolerance values
+ * Keeps the ph between tolerance values
  */
 PiApp.prototype.phCheck = function () {
   const self = this;
@@ -176,17 +183,23 @@ PiApp.prototype.messagequeueCheck = function () {
     this.heatsourcedevice.setHeatingTo(lastTempInQueue);
     this.messagequeue.sendmsgtoWebserver('Heater:Temperature:' + lastTempInQueue);
   }
-  const lastUploadIntervalinQueue = parseInt(this.messagequeue.sensorValueContext.getUploadInterval());
-  if (lastUploadIntervalinQueue !== this.temperatureUploadInterval) {
-    this.temperatureUploadInterval = lastUploadIntervalinQueue;
-    clearTimeout(this.uploadDataTimeout);
-    this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this), this.temperatureUploadInterval)
+  const lastTempUploadIntervalInQueue = parseInt(this.messagequeue.sensorValueContext.getTempUploadInterval());
+  if (lastTempUploadIntervalInQueue !== this.temperatureUploadInterval) {
+    this.temperatureUploadInterval = lastTempUploadIntervalInQueue;
+    clearTimeout(this.uploadTempTimeout);
+    this.uploadTempTimeout = setTimeout(this.uploadTempToDatabase.bind(this), this.temperatureUploadInterval)
   }
 
   const phValue = parseFloat(this.messagequeue.sensorValueContext.getPhValue());
   if (phValue !== this.pumpdevice.pumpPhValue) {
     this.pumpdevice.setPumpPh(phValue);
-    this.messagequeue.sendmsgtoWebserver('Heater:Temperature:' + lastTempInQueue);
+    this.messagequeue.sendmsgtoWebserver('Pump:Ph:' + phValue);
+  }
+  const lastPhUploadIntervalInQueue = parseInt(this.messagequeue.sensorValueContext.getPhUploadInterval());
+  if (lastPhUploadIntervalInQueue !== this.phUploadInterval) {
+    this.phUploadInterval = lastPhUploadIntervalInQueue;
+    clearTimeout(this.uploadPhTimeout);
+    this.uploadPhTimeout = setTimeout(this.uploadPhToDatabase.bind(this), this.phUploadInterval)
   }
 
   const calibrate = this.messagequeue.sensorValueContext.getCalibration();
@@ -213,20 +226,26 @@ PiApp.prototype.messagequeueCheck = function () {
 PiApp.prototype.setEventLoop = function () {
 
   this.aliveReporter = setInterval(this.IsAlive.bind(this), this.hearthBeatInterval);
-  this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this), this.temperatureUploadInterval);
+  this.uploadTempTimeout = setTimeout(this.uploadTempToDatabase.bind(this), this.temperatureUploadInterval);
+  this.uploadPhTimeout = setTimeout(this.uploadPhToDatabase.bind(this), this.phUploadInterval);
   this.heatReporter = setInterval(this.heatingCheck.bind(this), this.heatingCheckInterval);
   this.phcheckTimeout = setTimeout(this.phCheck.bind(this), this.phCheckInterval);
   this.messageQueueWatcher = setInterval(this.messagequeueCheck.bind(this), this.messagequeueCheckInterval)
 
 };
 
-
+/**
+ *  Cancel the main event loop
+ */
 PiApp.prototype.unsetEventLoop = function () {
   clearInterval(this.aliveReporter);
-  clearTimeout(this.uploadDataTimeout);
+  clearTimeout(this.uploadTempTimeout);
+  clearTimeout(this.uploadPhTimeout);
   clearInterval(this.heatReporter);
   clearTimeout(this.phcheckTimeout);
   clearInterval(this.messageQueueWatcher);
   this.pumpdevice.turnOffPump();
+  this.messagequeue.sendmsgtoWebserver('Pump:OFF');
   this.heatsourcedevice.turnOffHeatRelay();
+  this.messagequeue.sendmsgtoWebserver('Heater:OFF');
 };

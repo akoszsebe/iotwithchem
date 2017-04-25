@@ -11,6 +11,11 @@ edit-btn {
   margin: 10px auto 10px auto;
 }
 
+.mat-card-actions {
+  bottom: 5%;
+  position: absolute;
+}
+
 p {
   color: #dc655e;
 }
@@ -19,7 +24,7 @@ p {
   display: flex;
 }
 
-@media screen and (max-aspect-ratio: 16/10) {
+@media screen and (max-aspect-ratio: 1/1) {
 
   .sensors-container {
     display: block;

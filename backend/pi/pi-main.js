@@ -21,6 +21,16 @@ let PhDevice;
 // Create new PumpDevice
 let PumpDevice;
 
+let socket = require('socket.io-client')('http://iotwithchem2.herokuapp.com');
+
+socket.on('connect', function () {
+  console.log('Connected');
+  socket.emit('new pi');
+});
+socket.on('disconnect', function () {
+  console.log('Disconnected');
+});
+
 
 if (gateway.fingerPrint() === -1) // Mock for desktop testing
 {
@@ -56,7 +66,7 @@ const mQueuePi = new MQueuePi(sensorValueContext);
 // db, devices, gateway
 const piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi);
 
-const piwatcher = new PiWatcher(mQueuePi, piapp);
+const piwatcher = new PiWatcher(mQueuePi, piapp, db);
 
 piwatcher.startWatcher();
 
@@ -64,5 +74,7 @@ piwatcher.startWatcher();
 piapp.init();
 // start the event loop of the pi app
 //piapp.setEventLoop();
+
+
 
 
