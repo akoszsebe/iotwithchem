@@ -37,9 +37,9 @@
     <md-card-content>
       <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="temp.tempvalue"></justgage>
       <label> Set Temperature: </label>
-      <p>{{tempSetValue}}°C</p>
+      <p>{{currentJob.heaterValue}}°C</p>
       <label> Set read interval: </label>
-      <p>{{tempReadInt}}s</p>
+      <p>{{currentJob.tempReadInt}}s</p>
     </md-card-content>
     <md-card-actions>
       <button md-button (click)="openTempSettings()">
@@ -57,9 +57,9 @@
     <md-card-content>
       <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="ph.phvalue"></justgage>
       <label> Set pH value: </label>
-      <p>{{phSetValue}}</p>
+      <p>{{currentJob.pumpValue}}</p>
       <label> Set read interval: </label>
-      <p>{{phReadInt}}s</p>
+      <p>{{currentJob.phReadInt}}s</p>
     </md-card-content>
     <md-card-actions>
       <button md-button (click)="openPhSettings()">

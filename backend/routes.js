@@ -64,7 +64,7 @@ module.exports = (app, passport, io) => {
 
 
   app.get('/getDeviceStatus', (req, res) => {
-    mq.getDeviceStatus(status =>{
+    mq.getDeviceStatus(status => {
       res.json({alive: status});
     })
   });
@@ -90,14 +90,17 @@ module.exports = (app, passport, io) => {
 
   app.post('/setheatertemperature', (req, res) => {
     mq.sendmsgtoRaspberry('Temp:Value:' + req.body.heatertemp);
-    mq.getHeaterTemperature(function (returndata) {
-      res.json({heatertemperature: returndata})
-    })
+    db.getJob((job) => {
+      job.heaterValue = req.body.heatertemp;
+      db.setJob(job, (newJob) => {
+        res.json({sensorSetValue: newJob.heaterValue});
+      });
+    });
   });
 
   app.get('/getheatertemperature', (req, res) => {
-    mq.getHeaterTemperature(function (returndata) {
-      res.json({sensorSetValue: returndata})
+    db.getJob((job) => {
+      res.json({sensorSetValue: job.heaterValue});
     })
   });
 
@@ -107,7 +110,12 @@ module.exports = (app, passport, io) => {
     if (typeof sensorid === 'undefined') sensorid = '1';
     if (typeof upinterval === 'undefined') upinterval = '30000';
     mq.sendmsgtoRaspberry('Temp:UpInterval:' + sensorid + ':' + upinterval);
-    res.json({sent: true})
+    db.getJob((job) => {
+      job.tempReadInt = upinterval;
+      db.setJob(job, (newJob) => {
+        res.json({sensorSetValue: newJob.tempReadInt});
+      });
+    });
   });
 
 
@@ -118,14 +126,17 @@ module.exports = (app, passport, io) => {
 
   app.post('/setphvalue', (req, res) => {
     mq.sendmsgtoRaspberry('Ph:Value:' + req.body.phValue);
-    mq.getPumpValue((returndata) => {
-      res.json({sensorSetValue: returndata});
-    })
+    db.getJob((job) => {
+      job.pumpValue = req.body.phValue;
+      db.setJob(job, (newJob) => {
+        res.json({sensorSetValue: newJob.pumpValue});
+      });
+    });
   });
 
   app.get('/getphvalue', (req, res) => {
-    mq.getPumpValue((returndata) => {
-      res.json({sensorSetValue: returndata});
+    db.getJob((job) => {
+      res.json({sensorSetValue: job.pumpValue});
     })
   });
 
@@ -133,9 +144,14 @@ module.exports = (app, passport, io) => {
     let upinterval = req.body.upinterval;
     let sensorid = req.body.sensorid;
     if (typeof sensorid === 'undefined') sensorid = '1';
-    if (typeof upinterval === 'undefined') upinterval = '30000';
+    if (typeof upinterval === 'undefined') upinterval = '30';
     mq.sendmsgtoRaspberry('Ph:UpInterval:' + sensorid + ':' + upinterval);
-    res.json({sent: true})
+    db.getJob((job) => {
+      job.phReadInt = upinterval;
+      db.setJob(job, (newJob) => {
+        res.json({sensorSetValue: newJob.phReadInt});
+      });
+    });
   });
 
   app.get('/getOldestReadDates', (req, res) => {
@@ -149,7 +165,7 @@ module.exports = (app, passport, io) => {
   });
 
   app.get('/getJob', (req, res) => {
-    db.getJob(function (job) {
+    db.getJob((job) => {
       res.json(job);
     })
   });
@@ -161,14 +177,14 @@ module.exports = (app, passport, io) => {
       }
       setTimeout(() => {
         console.log('waiting to stop the previous job if there is any');
-        const newJob = {
-          jobStartDate: req.body.jobStartDate,
-          jobEndDate: req.body.jobEndDate,
-          jobDescription: req.body.jobDescription
-        };
-        mq.sendmsgtoRaspberry("Work:Start:" + (newJob.jobEndDate - newJob.jobStartDate) / 1000);
-        db.setJob(newJob, function (job) {
-          res.json(job);
+        db.getJob((job) => {
+          job.jobStartDate = req.body.jobStartDate;
+          job.jobEndDate = req.body.jobEndDate;
+          job.jobDescription = req.body.jobDescription;
+          mq.sendmsgtoRaspberry("Work:Start:" + (job.jobEndDate - job.jobStartDate) / 1000);
+          db.setJob(job, (newJob) => {
+            res.json(newJob);
+          });
         });
       }, 5000);
     })

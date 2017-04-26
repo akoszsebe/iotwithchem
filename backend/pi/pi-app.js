@@ -25,7 +25,17 @@ PiApp.prototype.init = function () {
   this.heatingCheckInterval = 2000;
   this.phCheckInterval = 2000;
   this.messagequeueCheckInterval = 3000;
-  this.ph = 0
+  this.ph = 0;
+
+  const self = this;
+  this.db.getJob(job => {
+    if (job) {
+      self.messagequeue.sensorValueContext.setHeaterTemperature(job.heaterValue);
+      self.messagequeue.sensorValueContext.setTempUploadInterval(job.tempReadInt);
+      self.messagequeue.sensorValueContext.setPhValue(job.pumpValue);
+      self.messagequeue.sensorValueContext.setPhUploadInterval(job.phReadInt);
+    }
+  });
 };
 
 
@@ -181,7 +191,6 @@ PiApp.prototype.messagequeueCheck = function () {
   console.info('CurrentHeatValue', currentHeatingValue);
   if (lastTempInQueue !== currentHeatingValue) {
     this.heatsourcedevice.setHeatingTo(lastTempInQueue);
-    this.messagequeue.sendmsgtoWebserver('Heater:Temperature:' + lastTempInQueue);
   }
   const lastTempUploadIntervalInQueue = parseInt(this.messagequeue.sensorValueContext.getTempUploadInterval());
   if (lastTempUploadIntervalInQueue !== this.temperatureUploadInterval) {
@@ -193,7 +202,6 @@ PiApp.prototype.messagequeueCheck = function () {
   const phValue = parseFloat(this.messagequeue.sensorValueContext.getPhValue());
   if (phValue !== this.pumpdevice.pumpPhValue) {
     this.pumpdevice.setPumpPh(phValue);
-    this.messagequeue.sendmsgtoWebserver('Pump:Ph:' + phValue);
   }
   const lastPhUploadIntervalInQueue = parseInt(this.messagequeue.sensorValueContext.getPhUploadInterval());
   if (lastPhUploadIntervalInQueue !== this.phUploadInterval) {

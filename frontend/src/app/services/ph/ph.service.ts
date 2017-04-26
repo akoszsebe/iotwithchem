@@ -74,5 +74,14 @@ export class PhService {
       .catch(PhService.handleError);
   }
 
+  setReadInterval(seconds: number): Observable<SensorDO> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.post(this.baseUrl + '/setphuploadinterval', {'upinterval': seconds}, options)
+      .map(PhService.extractData)
+      .catch(PhService.handleError);
+  }
+
 
 }
