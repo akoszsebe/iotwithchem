@@ -37,9 +37,8 @@ MQueueWS.prototype.init = function () {
   }).then(null, console.warn);
   this.io.on('connection', (socket) => {
     console.log('The user is connected');
-    if (self.deviceList.length > 0) {
-      self.io.emit('pi connected', true);
-    }
+    self.deviceList.length > 0 ? self.io.emit('pi connected', true) : self.io.emit('pi disconnected', false);
+
     socket.on('disconnect', function () {
       console.log('The user is disconnected');
       if (self.deviceList.indexOf(socket) > -1) {
@@ -89,9 +88,6 @@ MQueueWS.prototype.MessageRouting = function (message) {
   switch (splitMessage[0]) {
     case 'Heater':
       switch (splitMessage[1]) {
-        case 'Temperature':
-          this.heatertemperature = splitMessage[2];
-          break;
         case 'ON':
           this.io.emit('heaterStatusChange', true);
           break;
@@ -102,9 +98,6 @@ MQueueWS.prototype.MessageRouting = function (message) {
       break;
     case 'Pump':
       switch (splitMessage[1]) {
-        case 'Ph':
-          this.pumpValue = splitMessage[2];
-          break;
         case 'ON':
           this.io.emit('pumpStatusChange', true);
           break;
@@ -116,17 +109,6 @@ MQueueWS.prototype.MessageRouting = function (message) {
   }
 };
 
-
-/**
- * Get the heater temperature
- */
-MQueueWS.prototype.getHeaterTemperature = function (_callback) {
-  return _callback(this.heatertemperature);
-};
-
-MQueueWS.prototype.getPumpValue = function (_callback) {
-  return _callback(this.pumpValue);
-};
 
 MQueueWS.prototype.getDeviceStatus = function (_callback) {
   return _callback(this.deviceList.length > 0);

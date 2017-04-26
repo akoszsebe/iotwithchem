@@ -25,7 +25,7 @@ SensorValueContext.prototype.getTempUploadInterval = function () {
 };
 
 SensorValueContext.prototype.setTempUploadInterval = function (value) {
-  this.uploadTempInterval = value
+  this.uploadTempInterval = value * 1000;
 };
 
 SensorValueContext.prototype.getPhUploadInterval = function () {
@@ -33,7 +33,7 @@ SensorValueContext.prototype.getPhUploadInterval = function () {
 };
 
 SensorValueContext.prototype.setPhUploadInterval = function (value) {
-  this.uploadTempInterval = value
+  this.uploadTempInterval = value * 1000;
 };
 
 

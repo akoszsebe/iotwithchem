@@ -43,16 +43,10 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     counter: true
   };
 
-
   maxTemp = 100;
-  tempReadInt = 3;
-  tempSetValue: number;
-
   maxPH = 14;
-  phReadInt = 3;
-  phSetValue = 1;
 
-  currentJob = new JobDateDO(new Date(), new Date(), '');
+  currentJob = new JobDateDO(new Date(), new Date(), '', 0, 0, 0, 0);
 
   syncLabel = 'Sync is on';
   toggleChecked: boolean;
@@ -89,6 +83,10 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     date2.setTime(job.jobEndDate);
     currentJob.jobEndDate = date2;
     currentJob.jobDescription = job.jobDescription;
+    currentJob.heaterValue = job.heaterValue;
+    currentJob.tempReadInt = job.tempReadInt;
+    currentJob.pumpValue = job.pumpValue;
+    currentJob.phReadInt = job.phReadInt;
   }
 
   constructor(private tempService: TempService,
@@ -135,17 +133,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     });
 
     this.toggleChecked = true;
-    this.startSync();
-    this.tempService.getHeaterTemp()
-      .subscribe(temp => {
-        this.tempSetValue = temp.sensorSetValue;
-        console.log(temp.sensorSetValue);
-      });
-    this.phService.getPhValue()
-      .subscribe(ph => {
-        this.phSetValue = ph.sensorSetValue;
-        console.log(ph.sensorSetValue);
-      });
+
     this.jobService.getJob()
       .subscribe(job => {
         ExperimentComponent.setupJob(job, this.currentJob);
@@ -159,6 +147,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
           this.calculateProgBarValue();
           console.log('progressbar updated');
         }, 10000);
+        this.startSync();
       });
 
   }
@@ -181,7 +170,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   getTemp() {
     this.tempTimer = setInterval(() => {
-      if (!this.toggleChecked) {
+      if (!this.toggleChecked || !this.countdownDate) {
         return;
       }
       this.tempService.getTemp()
@@ -192,12 +181,12 @@ export class ExperimentComponent implements OnInit, OnDestroy {
           error => {
             console.log(error);
           });
-    }, this.tempReadInt * 1000);
+    }, this.currentJob.tempReadInt * 1000);
   }
 
   getPh() {
     this.phTimer = setInterval(() => {
-      if (!this.toggleChecked) {
+      if (!this.toggleChecked || !this.countdownDate) {
         return;
       }
       this.phService.getPh()
@@ -208,85 +197,85 @@ export class ExperimentComponent implements OnInit, OnDestroy {
           error => {
             console.log(error);
           });
-    }, this.phReadInt * 1000);
+    }, this.currentJob.phReadInt * 1000);
   }
 
 
   openTempSettings() {
 
-    this.dialogService.openSettings(this.tempReadInt, this.tempSetValue).subscribe(res => {
+    this.dialogService.openSettings(this.currentJob.tempReadInt, this.currentJob.heaterValue).subscribe(res => {
       if (res != null) {
 
-        this.tempReadInt = res[0];
-        this.tempSetValue = res[1];
+        this.tempService.setReadInterval(res[0])
+          .subscribe(result => {
+            this.currentJob.tempReadInt = result.sensorSetValue;
 
-        this.optionsTempGauge = {
-          id: 'tempGauge',
-          label: 'Temp',
-          symbol: '°C',
-          min: 0,
-          max: 100,
-          decimals: 2,
-          gaugeWidthScale: 0.6,
-          customSectors: [{
-            color: '#ff0000', lo: 0, hi: this.tempSetValue - 3
-          }, {
-            color: '#ffd50e', lo: this.tempSetValue - 3, hi: this.tempSetValue - 1
-          }, {
-            color: '#00ff00', lo: this.tempSetValue - 1, hi: this.tempSetValue + 1
-          }, {
-            color: '#ffd50e', lo: this.tempSetValue + 1, hi: this.tempSetValue + 3
-          }, {
-            color: '#ff0000', lo: this.tempSetValue + 3, hi: 100
-          }],
-          counter: true
-        };
-        this.tempService.setReadInterval(res[0] * 1000)
-          .subscribe(result => {
-            console.log(result);
-          });
-        this.tempService.setHeaterTemp(res[1])
-          .subscribe(result => {
-            console.log(res);
+            this.tempService.setHeaterTemp(res[1])
+              .subscribe(result => {
+                this.currentJob.heaterValue = result.sensorSetValue;
+                const newValue = result.sensorSetValue;
+                this.optionsTempGauge = {
+                  id: 'tempGauge',
+                  label: 'Temp',
+                  symbol: '°C',
+                  min: 0,
+                  max: 100,
+                  decimals: 2,
+                  gaugeWidthScale: 0.6,
+                  customSectors: [{
+                    color: '#ff0000', lo: 0, hi: newValue - 3
+                  }, {
+                    color: '#ffd50e', lo: newValue - 3, hi: newValue - 1
+                  }, {
+                    color: '#00ff00', lo: newValue - 1, hi: newValue + 1
+                  }, {
+                    color: '#ffd50e', lo: newValue + 1, hi: newValue + 3
+                  }, {
+                    color: '#ff0000', lo: newValue + 3, hi: 100
+                  }],
+                  counter: true
+                };
+              });
           });
       }
     });
   }
 
   openPhSettings() {
-    this.dialogService.openSettings(this.phReadInt, this.phSetValue).subscribe(res => {
+    this.dialogService.openSettings(this.currentJob.phReadInt, this.currentJob.pumpValue).subscribe(res => {
 
       if (res != null) {
-        this.phReadInt = res[0];
-        this.phSetValue = res[1];
 
-        this.phService.setPhValue(res[1])
-          .subscribe(ph => {
-            console.log(ph.sensorSetValue);
+        this.phService.setReadInterval(res[0])
+          .subscribe(result => {
+            this.currentJob.phReadInt = result.sensorSetValue;
+
+            this.phService.setPhValue(res[1])
+              .subscribe(result => {
+                this.currentJob.pumpValue = result.sensorSetValue;
+                const newValue = result.sensorSetValue;
+                this.optionsPHGauge = {
+                  id: 'phGauge',
+                  label: 'pH',
+                  min: 1,
+                  max: 14,
+                  decimals: 2,
+                  gaugeWidthScale: 0.6,
+                  customSectors: [{
+                    color: '#ff0000', lo: 1, hi: newValue - 2
+                  }, {
+                    color: '#ffd50e', lo: newValue - 2, hi: newValue - 1
+                  }, {
+                    color: '#00ff00', lo: newValue - 1, hi: newValue + 1
+                  }, {
+                    color: '#ffd50e', lo: newValue + 1, hi: newValue + 2
+                  }, {
+                    color: '#ff1105', lo: newValue + 2, hi: 14
+                  }],
+                  counter: true
+                };
+              });
           });
-
-
-        this.optionsPHGauge = {
-          id: 'phGauge',
-          label: 'pH',
-          min: 1,
-          max: 14,
-          decimals: 2,
-          gaugeWidthScale: 0.6,
-          customSectors: [{
-            color: '#ff0000', lo: 1, hi: this.phSetValue - 2
-          }, {
-            color: '#ffd50e', lo: this.phSetValue - 2, hi: this.phSetValue - 1
-          }, {
-            color: '#00ff00', lo: this.phSetValue - 1, hi: this.phSetValue + 1
-          }, {
-            color: '#ffd50e', lo: this.phSetValue + 1, hi: this.phSetValue + 2
-          }, {
-            color: '#ff1105', lo: this.phSetValue + 2, hi: 14
-          }],
-          counter: true
-        };
-        console.log(res);
       }
     });
   }
@@ -322,7 +311,8 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         console.log(res);
         if ((res[0]) != null) {
-          this.jobService.setJob(new JobDO(new Date().getTime(), res[0].getTime(), res[1]))
+          this.jobService.setJob(new JobDO(new Date().getTime(), res[0].getTime(), res[1],
+            this.currentJob.heaterValue, this.currentJob.tempReadInt, this.currentJob.pumpValue, this.currentJob.phReadInt))
             .subscribe(newJob => {
               ExperimentComponent.setupJob(newJob, this.currentJob);
               this.countdownDate = new Date();

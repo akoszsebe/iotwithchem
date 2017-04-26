@@ -49,10 +49,10 @@ PiWatcher.prototype.workInProgressWatcher = function () {
     this.startWork();
     this.workDuration = this.messagequeue.sensorValueContext.getWorkDuration();
     this.debugCountdownTimeout = setInterval(this.debugCounter.bind(this), 1000);
-    this.workStopTimeout = setTimeout(this.stopWork.bind(this), this.workDuration * 1000) // Stop after timeout
+    this.workStopTimeout = setTimeout(this.stopWork.bind(this), this.workDuration * 1000); // Stop after timeout
   }
   else if (!workinprogress && this.started) {
-    this.stopWork()
+    this.stopWork();
   }
 };
 
@@ -61,11 +61,10 @@ PiWatcher.prototype.startWatcher = function () {
   const self = this;
   const now = (new Date).getTime();
   this.db.getJob(job => {
-    if (job.jobEndDate > now) {
+    if (job && job.jobEndDate > now) {
       self.messagequeue.sensorValueContext.setWorkInProgress(true);
       self.messagequeue.sensorValueContext.setWorkDuration((job.jobEndDate - now) / 1000);
     }
     setInterval(this.workInProgressWatcher.bind(this), this.watcherInterval);
   });
-
 };

@@ -23,7 +23,11 @@ Schema = mongoose.Schema;
 let jobSchema = new Schema({
   jobStartDate: String,
   jobEndDate: String,
-  jobDescription: String
+  jobDescription: String,
+  heaterValue: String,
+  tempReadInt: String,
+  pumpValue: String,
+  phReadInt: String
 });
 
 module.exports = mongoose.model('Job', jobSchema);
