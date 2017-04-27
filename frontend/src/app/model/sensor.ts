@@ -1,3 +1,5 @@
 export class SensorDO {
-  sensorSetValue: number;
+
+  constructor(public sensorSetValue: number) {
+  }
 }

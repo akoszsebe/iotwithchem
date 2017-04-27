@@ -178,7 +178,7 @@ module.exports = (app, passport, io) => {
       setTimeout(() => {
         console.log('waiting to stop the previous job if there is any');
         db.getJob((job) => {
-          job.jobStartDate = req.body.jobStartDate;
+          job.jobStartDate = (new Date()).getTime();
           job.jobEndDate = req.body.jobEndDate;
           job.jobDescription = req.body.jobDescription;
           mq.sendmsgtoRaspberry("Work:Start:" + (job.jobEndDate - job.jobStartDate) / 1000);
@@ -186,7 +186,7 @@ module.exports = (app, passport, io) => {
             res.json(newJob);
           });
         });
-      }, 5000);
+      }, 4000);
     })
   });
 

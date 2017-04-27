@@ -8,7 +8,7 @@ import {HttpModule} from '@angular/http';
 import {JustgageModule} from 'angular2-justgage';
 import {MaterialModule, MdIconRegistry} from '@angular/material';
 import {AppRoutingModule} from './app-routing/app-routing.module';
-import {CalendarModule, MessagesModule, ProgressBarModule} from 'primeng/primeng';
+import {CalendarModule, MenuItem, MessagesModule, ProgressBarModule, StepsModule} from 'primeng/primeng';
 import {TempService} from './services/temp/temp.service';
 import {AuthService} from './services/auth/auth.service';
 import {AuthGuardService} from './services/auth-guard/auth-guard.service';
@@ -59,7 +59,8 @@ import {DeviceService} from './services/device/device.service';
     CalendarModule,
     ChartModule,
     ProgressBarModule,
-    MessagesModule
+    MessagesModule,
+    StepsModule
   ],
   providers: [
     TempService,

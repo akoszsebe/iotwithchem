@@ -1,6 +1,16 @@
 .calibrationcard {
-  width: 400px;
-  margin: auto;
+  margin: 5% auto;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+  .calibrationcard {
+    width: 50%;
+  }
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: center;
 }
 
 .level {

@@ -3,7 +3,7 @@ import {inject, TestBed} from '@angular/core/testing';
 import {JobService} from './job.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-
+import {JobDO} from '../../model/job';
 
 describe('JobService', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('JobService', () => {
     it('should return an Observable<JobDO>', inject([JobService, MockBackend],
       (service: JobService, backend: MockBackend) => {
 
-        const mockResponse = {jobStartDate: 2000100, jobEndDate: 2000200, jobDescription: 'Test job'};
+        const mockResponse = new JobDO(2000100, 2000200, 'Test job', 30, 5, 7, 5);
 
         prepareResponse(backend, mockResponse);
 
@@ -40,7 +40,7 @@ describe('JobService', () => {
     it('should return the newly set job as Observable<JobDO>', inject([JobService, MockBackend],
       (service: JobService, backend: MockBackend) => {
 
-        const job = {jobStartDate: 2000100, jobEndDate: 2000200, jobDescription: 'Test job'};
+        const job = new JobDO(2000100, 2000200, 'Test job', 30, 5, 7, 5);
         const mockResponse = job;
 
         prepareResponse(backend, mockResponse);

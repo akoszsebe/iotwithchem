@@ -1,11 +1,13 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { DeviceService } from './device.service';
+import {DeviceService} from './device.service';
+import {HttpModule} from '@angular/http';
 
 describe('DeviceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DeviceService]
+      providers: [DeviceService],
+      imports: [HttpModule]
     });
   });
 
