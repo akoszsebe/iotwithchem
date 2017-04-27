@@ -1,3 +1,4 @@
+'use strict';
 const PiWatcher = module.exports = function (messagequeue, piapp, db) {
   this.messagequeue = messagequeue;
   this.piapp = piapp;

@@ -2,6 +2,6 @@
 @import '../../node_modules/material-design-icons/iconfont/material-icons.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-html, body {
-  height: 100%;
+.mat-dialog-container {
+  max-width: none !important;
 }

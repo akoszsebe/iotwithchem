@@ -1,14 +1,10 @@
 <md-slide-toggle class="synctoggle" [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
 <br>
 
-<!--<div>-->
-<!--<justgage class='timer' [options]="optionsTimerGauge" [max]="maxTime" [value]="valueTimer"></justgage>-->
-<!--</div>-->
-
 <p-messages [value]="msg"></p-messages>
 <div class="sensors-container">
 
-  <md-card class="example-card">
+  <md-card class="sensor-card">
     <md-card-content>
       <p-progressBar [value]="progressBarValue"></p-progressBar>
       <br>
@@ -25,15 +21,15 @@
     </md-card-content>
     <md-card-actions>
       <button md-button (click)="checkJob()">
-        <md-icon class="example-icon">add</md-icon>
+        <md-icon>add</md-icon>
       </button>
       <button md-button [disabled]="countdownDate==null" (click)="stopJob()">
-        <md-icon class="example-icon">cancel</md-icon>
+        <md-icon>cancel</md-icon>
       </button>
     </md-card-actions>
   </md-card>
 
-  <md-card class="example-card">
+  <md-card class="sensor-card">
     <md-card-content>
       <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="temp.tempvalue"></justgage>
       <label> Set Temperature: </label>
@@ -42,18 +38,15 @@
       <p>{{currentJob.tempReadInt}}s</p>
     </md-card-content>
     <md-card-actions>
-      <button md-button (click)="openTempSettings()">
-        <md-icon class="example-icon">settings</md-icon>
-      </button>
-      <!--md-icon *ngIf="isHeaterOn" class="example-icon"> whatshot</md-icon>-->
       <img class="devicestatus" *ngIf="isHeaterOn" src="../../assets/icons/heater.png">
-
-
-    </md-card-actions>
+      <button md-button (click)="openTempSettings()">
+        <md-icon>settings</md-icon>
+      </button>
+     </md-card-actions>
   </md-card>
 
 
-  <md-card class="example-card">
+  <md-card class="sensor-card">
     <md-card-content>
       <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="ph.phvalue"></justgage>
       <label> Set pH value: </label>
@@ -62,12 +55,10 @@
       <p>{{currentJob.phReadInt}}s</p>
     </md-card-content>
     <md-card-actions>
-      <button md-button (click)="openPhSettings()">
-        <md-icon class="example-icon">settings</md-icon>
-      </button>
-      <!--<md-icon *ngIf="isPumpOn" class="example-icon"> colorize</md-icon>-->
       <img class="devicestatus" *ngIf="isPumpOn" src="../../assets/icons/pump.png">
-
+      <button md-button (click)="openPhSettings()">
+        <md-icon>settings</md-icon>
+      </button>
     </md-card-actions>
   </md-card>
 

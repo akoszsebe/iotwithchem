@@ -3,14 +3,10 @@ p-chart {
   padding-right: 30px;
 }
 
-md-tab-group {
-  min-height: 720px !important;
-}
-
-@media screen and (min-width: 1280px) {
+@media screen and (min-aspect-ratio: 1/1) {
   div.chart {
     margin: auto;
-    width: 85%;
+    width: 80%;
   }
 }
 
@@ -19,11 +15,6 @@ md-tab-group {
   justify-content: center;
   align-items: center;
   overflow: visible;
-}
-
-/deep/
-.mat-tab-body-wrapper {
-  min-height: 720px !important;
 }
 
 

@@ -1,18 +1,11 @@
-html, body {
-  height: 100%;
-}
-
-edit-btn {
-  margin: auto;
-}
-
-.example-card {
+.sensor-card {
   width: 400px;
-  margin: 10px auto 10px auto;
+  margin: 10px 0;
 }
 
 .mat-card-actions {
   bottom: 5%;
+  right: 5%;
   position: absolute;
 }
 
@@ -22,6 +15,7 @@ p {
 
 .sensors-container {
   display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-aspect-ratio: 1/1) {
@@ -30,10 +24,8 @@ p {
     display: block;
   }
 
-  .example-card {
+  .sensor-card {
     width: 90%;
-    margin: 10px auto 10px auto;
-
   }
 }
 
@@ -51,6 +43,7 @@ table {
 }
 
 .synctoggle {
+  margin-top: 10px;
   margin-right: 10px;
 }
 
