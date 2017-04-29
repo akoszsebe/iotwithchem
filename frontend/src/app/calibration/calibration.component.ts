@@ -10,7 +10,7 @@ import {MenuItem} from 'primeng/primeng';
 })
 export class CalibrationComponent implements OnInit {
 
-  colors = ["warn", "accent", "primary"];
+  colors = ['warn', 'accent', 'primary'];
   mode = 'indeterminate';
   currentLevel = 0;
   levels = ['Low', 'Mid', 'High', 'again'];

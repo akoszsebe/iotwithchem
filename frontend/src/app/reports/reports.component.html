@@ -6,6 +6,7 @@
       <p-calendar [(ngModel)]="tempEndDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
                   showTime="true"></p-calendar>
       <button md-button (click)="loadTempInInterval(tempchart)"> Load</button>
+      <button md-button (click)="exportTempsInInterval()"> Export</button>
     </div>
     <div class="chart">
       <p-chart #tempchart type="line" [data]="tempChartData"></p-chart>
@@ -16,6 +17,7 @@
       <p-calendar [(ngModel)]="phStartDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
       <p-calendar [(ngModel)]="phEndDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
       <button md-button (click)="loadPhsInInterval(phchart)"> Load</button>
+      <button md-button (click)="exportPhsInInterval()"> Export</button>
     </div>
     <br>
     <div class="chart">

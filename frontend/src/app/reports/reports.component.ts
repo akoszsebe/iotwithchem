@@ -76,6 +76,14 @@ export class ReportsComponent implements OnInit {
         });
   };
 
+  exportTempsInInterval() {
+    this.tempService.exportTempsInInterval(this.tempStartDate.getTime(), this.tempEndDate.getTime());
+  }
+
+  exportPhsInInterval() {
+    this.phService.exportPhsInInterval(this.phStartDate.getTime(), this.phEndDate.getTime());
+  }
+
   loadPhsInInterval(phChart: UIChart) {
     if (this.phStartDate == null || this.phEndDate == null) {
       return;

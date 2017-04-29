@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Headers, Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {TemperatureDO} from '../../model/temperature';
 import {SensorDO} from '../../model/sensor';
 import * as io from 'socket.io-client';
+import * as fileSaver from 'file-saver';
 
 @Injectable()
 export class TempService {
@@ -59,14 +60,26 @@ export class TempService {
 
   getTempsInInterval(startDate: number, endDate: number): Observable<TemperatureDO[]> {
 
-    console.log(startDate);
     const params: URLSearchParams = new URLSearchParams();
     params.set('datefrom', startDate.toString());
     params.set('dateto', endDate.toString());
 
-    return this.http.get(this.baseUrl + '/gettemperatureinterval', {search: params})
+    return this.http.get(this.baseUrl + '/gettempsbetween', {search: params})
       .map(TempService.extractData)
       .catch(TempService.handleError);
+  }
+
+  exportTempsInInterval(startDate: number, endDate: number) {
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('datefrom', startDate.toString());
+    params.set('dateto', endDate.toString());
+
+    this.http.get(this.baseUrl + '/exporttempsbetween', {search: params, responseType: ResponseContentType.Blob}).subscribe(
+      (response) => {
+        const blob = new Blob([response.blob()], {type: 'application/vnd.ms-excel'});
+        const filename = `temp-${new Date()}.xlsx`;
+        fileSaver.saveAs(blob, filename);
+      });
   }
 
   setReadInterval(seconds: number): Observable<SensorDO> {

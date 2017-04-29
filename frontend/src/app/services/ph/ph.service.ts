@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Headers, Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {PhDO} from '../../model/ph';
 import * as io from 'socket.io-client';
 import {SensorDO} from '../../model/sensor';
+import * as fileSaver from 'file-saver';
 
 @Injectable()
 export class PhService {
@@ -54,9 +55,22 @@ export class PhService {
     params.set('dateto', endDate.toString());
 
 
-    return this.http.get(this.baseUrl + '/getPhinterval', {search: params})
+    return this.http.get(this.baseUrl + '/getphsbetween', {search: params})
       .map(PhService.extractData)
       .catch(PhService.handleError);
+  }
+
+  exportPhsInInterval(startDate: number, endDate: number) {
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('datefrom', startDate.toString());
+    params.set('dateto', endDate.toString());
+
+    this.http.get(this.baseUrl + '/exportphsbetween', {search: params, responseType: ResponseContentType.Blob}).subscribe(
+      (response) => {
+        const blob = new Blob([response.blob()], {type: 'application/vnd.ms-excel'});
+        const filename = `ph-${new Date()}.xlsx`;
+        fileSaver.saveAs(blob, filename);
+      });
   }
 
   setPhValue(phValue: number): Observable<SensorDO> {

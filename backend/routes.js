@@ -11,13 +11,16 @@ const MQueueWS = require(path.resolve('backend/communication/mqueue-ws'));
 const Mail = require(path.resolve('backend/communication/mail'));
 const mail = new Mail();
 
+const ExcelExport = require(path.resolve('backend/models/excel-export'));
+const excelExport = new ExcelExport(db);
+
 
 module.exports = (app, passport, io) => {
 
   const mq = new MQueueWS(io);
 
   app.get('/getsensorids', (req, res) => {
-    db.getTemperatureSensors(function (returndata) {
+    db.getTemperatureSensors((returndata) => {
       res.json(returndata)
     })
   });
@@ -26,40 +29,61 @@ module.exports = (app, passport, io) => {
   app.get('/gettemperature', (req, res) => {
     let sensorid = req.query.sensorid;
     if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getTemperature(sensorid, function (returndata) {
+    db.getTemperature(sensorid, (returndata) => {
       res.json(returndata)
     })
   });
 
 
-  app.get('/gettemperatureinterval', (req, res) => {
+  app.get('/gettempsbetween', (req, res) => {
     let sensorid = req.query.sensorid;
     let datefrom = req.query.datefrom;
     let dateto = req.query.dateto;
     if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getTemperatureInterval(sensorid, datefrom, dateto, function (returndata) {
+    db.getTemperatureInterval(sensorid, datefrom, dateto, (returndata) => {
       res.json(returndata)
     })
+  });
 
+  app.get('/exporttempsbetween', (req, res) => {
+    let datefrom = req.query.datefrom;
+    let dateto = req.query.dateto;
+
+    excelExport.exportTemps(datefrom, dateto, (report) => {
+      res.setHeader('Content-disposition', `attachment; filename=temps-${new Date()}.xlsx`);
+      res.setHeader('Content-type', 'application/vnd.ms-excel');
+      return res.send(report);
+    });
   });
 
   app.get('/getph', (req, res) => {
     let sensorid = req.query.sensorid;
     if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getPh(sensorid, function (returndata) {
+    db.getPh(sensorid, (returndata) => {
       res.json(returndata)
     })
   });
 
 
-  app.get('/getphinterval', (req, res) => {
+  app.get('/getphsbetween', (req, res) => {
     let sensorid = req.query.sensorid;
     const datefrom = req.query.datefrom;
     const dateto = req.query.dateto;
     if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getPhInterval(sensorid, datefrom, dateto, function (returndata) {
+    db.getPhInterval(sensorid, datefrom, dateto, (returndata) => {
       res.json(returndata)
     })
+  });
+
+  app.get('/exportphsbetween', (req, res) => {
+    let datefrom = req.query.datefrom;
+    let dateto = req.query.dateto;
+
+    excelExport.exportPhs(datefrom, dateto, (report) => {
+      res.setHeader('Content-disposition', `attachment; filename=temps-${new Date()}.xlsx`);
+      res.setHeader('Content-type', 'application/vnd.ms-excel');
+      return res.send(report);
+    });
   });
 
 
@@ -157,8 +181,8 @@ module.exports = (app, passport, io) => {
   app.get('/getOldestReadDates', (req, res) => {
     let sensorid = req.params.sensorid;
     if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getOldestTemp(sensorid, function (temp) {
-      db.getOldestPh(sensorid, function (ph) {
+    db.getOldestTemp(sensorid, (temp) => {
+      db.getOldestPh(sensorid, (ph) => {
         res.json({temp: temp.tempdate, ph: ph.phdate});
       });
     });
