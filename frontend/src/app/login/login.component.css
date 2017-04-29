@@ -6,23 +6,13 @@ body, html {
 .card-container.card {
   max-width: 350px;
   padding: 40px 40px;
+  text-align: center;
 }
 
-/*
- * Card component
- */
 .card {
   background-color: #F7F7F7;
-  /* just in case there no content*/
   padding: 20px 25px 30px;
   margin: 50px auto 25px;
-  /* shadows and rounded borders */
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {
@@ -35,13 +25,10 @@ body, html {
   border-radius: 50%;
 }
 
-/* Shared */
 .loginBtn {
   box-sizing: border-box;
   position: relative;
-  /* width: 13em;  - apply for fixed size */
-  margin: 0.2em;
-
+  margin: auto;
   padding: 0 15px 0 46px;
   border: none;
   text-align: left;
@@ -74,10 +61,8 @@ a {
   box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
 }
 
-/* Facebook */
 .loginBtn--facebook {
   background: #4C69BA linear-gradient(#4C69BA, #3B55A0);
-  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
   text-shadow: 0 -1px 0 #354C8C;
 }
 
@@ -89,20 +74,4 @@ a {
 .loginBtn--facebook:hover,
 .loginBtn--facebook:focus {
   background: #5B7BD5 linear-gradient(#5B7BD5, #4864B1);
-}
-
-/* Google */
-.loginBtn--google {
-  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
-  background: #DD4B39;
-}
-
-.loginBtn--google:before {
-  border-right: #BB3F30 1px solid;
-  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
-}
-
-.loginBtn--google:hover,
-.loginBtn--google:focus {
-  background: #E74B37;
 }
