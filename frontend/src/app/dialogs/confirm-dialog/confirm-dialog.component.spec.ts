@@ -28,7 +28,7 @@ describe('ConfirmDialogComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    let dialogRef = dialog.open(ConfirmDialogComponent);
+    const dialogRef = dialog.open(ConfirmDialogComponent);
     component = dialogRef.componentInstance;
   });
 

@@ -23,19 +23,7 @@ export class CalibrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.items = [{
-      label: 'Low'
-    },
-      {
-        label: 'Middle'
-      },
-      {
-        label: 'High'
-      },
-      {
-        label: 'Done'
-      }
-    ];
+    this.items = [{label: 'Low'}, {label: 'Middle'}, {label: 'High'}, {label: 'Done'}];
   }
 
   calibrate() {
@@ -43,7 +31,6 @@ export class CalibrationComponent implements OnInit {
 
       this.buttonDisabled = true;
       this.calibrationService.calibratePhSensor(this.levels[this.currentLevel]).subscribe(response => {
-        console.log(response);
         setTimeout(() => {
           this.buttonDisabled = false;
           this.currentLevel = (this.currentLevel + 1) % 4;

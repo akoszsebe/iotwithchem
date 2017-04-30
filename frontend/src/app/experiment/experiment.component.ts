@@ -149,7 +149,6 @@ export class ExperimentComponent implements OnInit, OnDestroy {
         }, 10000);
         this.startSync();
       });
-
   }
 
 
@@ -207,13 +206,13 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       if (res != null) {
 
         this.tempService.setReadInterval(res[0])
-          .subscribe(result => {
-            this.currentJob.tempReadInt = result.sensorSetValue;
+          .subscribe(result1 => {
+            this.currentJob.tempReadInt = result1.sensorSetValue;
 
             this.tempService.setHeaterTemp(res[1])
-              .subscribe(result => {
-                this.currentJob.heaterValue = result.sensorSetValue;
-                const newValue = result.sensorSetValue;
+              .subscribe(result2 => {
+                this.currentJob.heaterValue = result2.sensorSetValue;
+                const newValue = result2.sensorSetValue;
                 this.optionsTempGauge = {
                   id: 'tempGauge',
                   label: 'Temp',
@@ -237,6 +236,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
                 };
               });
           });
+
       }
     });
   }
@@ -247,13 +247,13 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       if (res != null) {
 
         this.phService.setReadInterval(res[0])
-          .subscribe(result => {
-            this.currentJob.phReadInt = result.sensorSetValue;
+          .subscribe(result1 => {
+            this.currentJob.phReadInt = result1.sensorSetValue;
 
             this.phService.setPhValue(res[1])
-              .subscribe(result => {
-                this.currentJob.pumpValue = result.sensorSetValue;
-                const newValue = result.sensorSetValue;
+              .subscribe(result2 => {
+                this.currentJob.pumpValue = result2.sensorSetValue;
+                const newValue = result2.sensorSetValue;
                 this.optionsPHGauge = {
                   id: 'phGauge',
                   label: 'pH',

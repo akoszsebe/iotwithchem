@@ -27,7 +27,7 @@ describe('SettingsDialogComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    let dialogRef = dialog.open(SettingsDialogComponent);
+    const dialogRef = dialog.open(SettingsDialogComponent);
     component = dialogRef.componentInstance;
   });
 

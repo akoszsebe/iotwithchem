@@ -6,26 +6,11 @@
 
   <p-steps [model]="items" [(activeIndex)]="currentLevel" class="custom-steps"></p-steps>
   <md-card-content>
-    <md-list>
-
-      <!-- <p class="level">Low</p>
-       <md-icon *ngIf="currentLevel > 0">check</md-icon>
-       <p class="level">Mid</p>
-       <md-icon *ngIf="currentLevel > 1">check</md-icon>
-       <p class="level">High</p>
-       <md-icon *ngIf="currentLevel > 2">check</md-icon>
-    -->
-
-
-      <md-list-item></md-list-item>
-
-      <md-spinner *ngIf="buttonDisabled" class="spinner" color={{colors[currentLevel]}}></md-spinner>
-
-    </md-list>
+    <md-spinner *ngIf="buttonDisabled" class="spinner" color={{colors[currentLevel]}}></md-spinner>
   </md-card-content>
 
   <md-card-actions>
-    <button md-raised-button [disabled]="buttonDisabled" (click)="calibrate()">Calibrate {{levels[currentLevel]}}
+    <button md-raised-button *ngIf="!buttonDisabled" (click)="calibrate()">Calibrate {{levels[currentLevel]}}
     </button>
   </md-card-actions>
 </md-card>

@@ -10,16 +10,14 @@ import {UserDO} from '../model/user';
 export class SidenavComponent implements OnInit {
 
   user: UserDO = new UserDO('', '', '', '');
-  loggedIn: boolean = false;
+  loggedIn = false;
 
   constructor(private authService: AuthService) {
-    console.log('constructor');
   }
 
   ngOnInit() {
-    console.log('init');
     this.authService.checkAuthentication().subscribe(user => {
-      if (user !== null && user !== undefined) {
+      if (user) {
         this.user = this.authService.getUser();
         this.loggedIn = true;
       }

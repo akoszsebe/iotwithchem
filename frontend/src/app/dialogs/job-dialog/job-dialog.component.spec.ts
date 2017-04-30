@@ -30,7 +30,7 @@ describe('JobDialogComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    let dialogRef = dialog.open(JobDialogComponent);
+    const dialogRef = dialog.open(JobDialogComponent);
     component = dialogRef.componentInstance;
   });
 

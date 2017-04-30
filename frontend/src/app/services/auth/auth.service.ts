@@ -12,36 +12,15 @@ export class AuthService {
   private baseUrl = '';
 
   private static handleError(error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
+    console.error(errMsg);
     return Observable.throw(errMsg);
   }
 
   private static extractData(res: Response) {
     return res.json().user;
   }
-
-
-  /*
-   login(): Observable<any> {
-   return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
-   return this.http.get(this.baseUrl + "/login/facebook");
-   }
-   */
-
-  logout(): void {
-    /*this.isLoggedIn = false;*/
-  }
-
-  // isLoggedIn(): Observable<boolean> {
-  //   return this.checkAuthentication().map(user => {
-  //       return user !== null;
-  //     }
-  //   );
-  // }
 
   setUser(user: UserDO) {
     this.user = user;
@@ -59,9 +38,6 @@ export class AuthService {
   }
 
   constructor(private http: Http) {
-    //  this.checkAuthentication().subscribe(user => console.log(user));
-    console.log('auth constr');
-    // this.user = new UserDO('asdad', 'istvan', 'asdasd@asdasd.com', 'asdasdasd');
     this.checkAuthentication().subscribe(user => this.user = user);
   }
 
