@@ -3,6 +3,7 @@ import {TempService} from './temp.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
 import {SensorDO} from '../../model/sensor';
+import {TemperatureDO} from '../../model/temperature';
 
 describe('TempService', () => {
 
@@ -15,7 +16,7 @@ describe('TempService', () => {
   });
 
 
-  it('should ...', inject([TempService], (service: TempService) => {
+  it('should create', inject([TempService], (service: TempService) => {
     expect(service).toBeTruthy();
   }));
 
@@ -24,7 +25,7 @@ describe('TempService', () => {
     it('should return an Observable<TemperatureDO>', inject([TempService, MockBackend],
       (service: TempService, backend: MockBackend) => {
 
-        const mockResponse = {raspberryid: '1', sensorid: '1', tempvalue: 25, tempdate: 2123123};
+        const mockResponse = new TemperatureDO('1', '1', 25, 2123123);
 
         prepareResponse(backend, mockResponse);
 
@@ -43,9 +44,9 @@ describe('TempService', () => {
       (service: TempService, backend: MockBackend) => {
 
         const mockResponse = [
-          {raspberryid: '1', sensorid: '1', tempvalue: 25, tempdate: 2123123},
-          {raspberryid: '1', sensorid: '1', tempvalue: 26, tempdate: 2123124},
-          {raspberryid: '1', sensorid: '1', tempvalue: 27, tempdate: 2123126}
+          new TemperatureDO('1', '1', 25, 2123123),
+          new TemperatureDO('1', '1', 26, 2123124),
+          new TemperatureDO('1', '1', 27, 2123126)
         ];
 
         prepareResponse(backend, mockResponse);
@@ -61,25 +62,26 @@ describe('TempService', () => {
 
   describe('setReadInterval()', () => {
 
-    it('should return True if successful', inject([TempService, MockBackend],
+    it('should return an Observable<SensorDO> if successful', inject([TempService, MockBackend],
       (service: TempService, backend: MockBackend) => {
 
-        const mockResponse = new SensorDO(3);
+        const seconds = 10;
+        const mockResponse = new SensorDO(seconds);
 
         prepareResponse(backend, mockResponse);
 
-        service.setReadInterval(3).subscribe((response) => {
-          expect(response.sensorSetValue).toEqual(3);
+        service.setReadInterval(seconds).subscribe((response) => {
+          expect(response.sensorSetValue).toEqual(seconds);
         });
       }));
   });
 
   describe('setHeaterTemp()', () => {
 
-    it('should return the newly set heater temp value as Observable<SensorDO>', inject([TempService, MockBackend],
+    it('should return the newly set heater temp value in an Observable<SensorDO>', inject([TempService, MockBackend],
       (service: TempService, backend: MockBackend) => {
 
-        const TEMP: number = 30;
+        const TEMP = 30;
         const mockResponse = new SensorDO(TEMP);
 
         prepareResponse(backend, mockResponse);
@@ -92,10 +94,10 @@ describe('TempService', () => {
 
   describe('getHeaterTemp()', () => {
 
-    it('should return the heater temp value as Observable<SensorDO>', inject([TempService, MockBackend],
+    it('should return the heater temp value in an Observable<SensorDO>', inject([TempService, MockBackend],
       (service: TempService, backend: MockBackend) => {
 
-        const TEMP: number = 30;
+        const TEMP = 30;
         const mockResponse = new SensorDO(TEMP);
 
         prepareResponse(backend, mockResponse);

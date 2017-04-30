@@ -2,6 +2,8 @@ import {inject, TestBed} from '@angular/core/testing';
 import {PhService} from './ph.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
+import {SensorDO} from '../../model/sensor';
+import {PhDO} from '../../model/ph';
 
 describe('PhService', () => {
   beforeEach(() => {
@@ -11,17 +13,17 @@ describe('PhService', () => {
     });
   });
 
-  it('should ...', inject([PhService], (service: PhService) => {
+  it('should create', inject([PhService], (service: PhService) => {
     expect(service).toBeTruthy();
   }));
 
 
-  describe('getPh()', () => {
+  describe('getPh ()', () => {
 
     it('should return an Observable<PhDO>', inject([PhService, MockBackend],
       (service: PhService, backend: MockBackend) => {
 
-        const mockResponse = {raspberryid: '1', sensorid: '1', phvalue: 7, phdate: 2123123};
+        const mockResponse = new PhDO('1', '1', 7, 2123123);
 
         prepareResponse(backend, mockResponse);
 
@@ -34,15 +36,15 @@ describe('PhService', () => {
       }));
   });
 
-  describe('getPhsInInterval()', () => {
+  describe('getPhsInInterval (from, to)', () => {
 
     it('should return a list of Observable<PhDO>', inject([PhService, MockBackend],
       (service: PhService, backend: MockBackend) => {
 
         const mockResponse = [
-          {raspberryid: '1', sensorid: '1', phvalue: 5, phdate: 2123123},
-          {raspberryid: '1', sensorid: '1', phvalue: 6, phdate: 2123124},
-          {raspberryid: '1', sensorid: '1', phvalue: 7, phdate: 2123126}
+          new PhDO('1', '1', 5, 2123123),
+          new PhDO('1', '1', 6, 2123124),
+          new PhDO('1', '1', 7, 2123126)
         ];
 
         prepareResponse(backend, mockResponse);
@@ -52,6 +54,56 @@ describe('PhService', () => {
           expect(phs[1].phvalue).toEqual(6);
           expect(phs[2].phvalue).toEqual(7);
           expect(phs.length).toEqual(3);
+        });
+      }));
+  });
+
+  describe('setPhValue (phvalue)', () => {
+
+    it('should return an Observable<SensorDO>', inject([PhService, MockBackend],
+      (service: PhService, backend: MockBackend) => {
+
+        const PH = 7;
+        const mockResponse = new SensorDO(PH);
+
+        prepareResponse(backend, mockResponse);
+
+        service.setPhValue(PH).subscribe((response) => {
+          expect(response.sensorSetValue).toEqual(PH);
+        });
+      }));
+  });
+
+
+  describe('getPhValue ()', () => {
+
+    it('should return an Observable<SensorDO>', inject([PhService, MockBackend],
+      (service: PhService, backend: MockBackend) => {
+
+        const PH = 8;
+        const mockResponse = new SensorDO(PH);
+
+        prepareResponse(backend, mockResponse);
+
+        service.getPhValue().subscribe((response) => {
+          expect(response.sensorSetValue).toEqual(PH);
+        });
+      }));
+  });
+
+
+  describe('setReadinterval (seconds)', () => {
+
+    it('should return an Observable<SensorDO>', inject([PhService, MockBackend],
+      (service: PhService, backend: MockBackend) => {
+
+        const SECONDS = 10;
+        const mockResponse = new SensorDO(SECONDS);
+
+        prepareResponse(backend, mockResponse);
+
+        service.setReadInterval(SECONDS).subscribe((response) => {
+          expect(response.sensorSetValue).toEqual(SECONDS);
         });
       }));
   });

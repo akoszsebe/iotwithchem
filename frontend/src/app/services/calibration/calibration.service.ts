@@ -9,7 +9,7 @@ export class CalibrationService {
   private baseUrl = '';
 
   private static extractData(res: Response) {
-    return res.json();
+    return res.json().sent;
   }
 
   private static handleError(error: any) {
