@@ -1,14 +1,14 @@
 import {async, TestBed} from '@angular/core/testing';
-
 import {ConfirmDialogComponent} from './confirm-dialog.component';
-import {MaterialModule, MdDialog} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CustomMdModule} from '../../../custom-md/custom-md.module';
 
 
 @NgModule({
   declarations: [ConfirmDialogComponent],
-  imports: [MaterialModule.forRoot(), BrowserAnimationsModule],
+  imports: [CustomMdModule, BrowserAnimationsModule],
   entryComponents: [ConfirmDialogComponent],
   exports: [ConfirmDialogComponent],
 })

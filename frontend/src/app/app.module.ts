@@ -6,7 +6,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {JustgageModule} from 'angular2-justgage';
-import {MaterialModule, MdIconRegistry} from '@angular/material';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {CalendarModule, MessagesModule, ProgressBarModule, StepsModule} from 'primeng/primeng';
 import {TempService} from './services/temp/temp.service';
@@ -27,6 +26,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CalibrationComponent} from './calibration/calibration.component';
 import {CalibrationService} from './services/calibration/calibration.service';
 import {DeviceService} from './services/device/device.service';
+import {CustomMdModule} from '../custom-md/custom-md.module';
 
 
 @NgModule({
@@ -54,7 +54,7 @@ import {DeviceService} from './services/device/device.service';
     FormsModule,
     HttpModule,
     JustgageModule,
-    MaterialModule,
+    CustomMdModule,
     AppRoutingModule,
     CalendarModule,
     ChartModule,
@@ -65,7 +65,6 @@ import {DeviceService} from './services/device/device.service';
   providers: [
     TempService,
     PhService,
-    MdIconRegistry,
     AuthService,
     AuthGuardService,
     DialogService,

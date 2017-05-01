@@ -1,6 +1,5 @@
 import {async, TestBed} from '@angular/core/testing';
 import {ExperimentComponent} from './experiment.component';
-import {MaterialModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {MessagesModule, ProgressBarModule} from 'primeng/primeng';
 import {CountDown} from 'angular2-simple-countdown/lib/countdown';
@@ -11,6 +10,7 @@ import {JobService} from '../services/job/job.service';
 import {DialogService} from '../services/dialog/dialog.service';
 import {AuthService} from '../services/auth/auth.service';
 import {DeviceService} from '../services/device/device.service';
+import {CustomMdModule} from '../../custom-md/custom-md.module';
 
 
 describe('ExperimentComponent', () => {
@@ -19,7 +19,7 @@ describe('ExperimentComponent', () => {
       declarations: [
         ExperimentComponent, CountDown
       ],
-      imports: [MaterialModule.forRoot(), FormsModule, ProgressBarModule, JustgageModule, MessagesModule],
+      imports: [CustomMdModule, FormsModule, ProgressBarModule, JustgageModule, MessagesModule],
       providers: [TempService, PhService, JobService, DialogService, AuthService, DeviceService]
     }).compileComponents();
   }));
