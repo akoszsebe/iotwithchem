@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TempService} from '../services/temp/temp.service';
-import {DialogService} from '../services/dialog/dialog.service';
-import {PhService} from '../services/ph/ph.service';
-import {JobService} from '../services/job/job.service';
-import {JobDO} from '../model/job';
-import {TemperatureDO} from '../model/temperature';
-import {PhDO} from '../model/ph';
-import {JobDateDO} from '../model/job-date';
-import {AuthService} from '../services/auth/auth.service';
-import {DeviceService} from '../services/device/device.service';
 import {Message} from 'primeng/primeng';
+import {JobDateDO} from '../../models/job-date';
+import {TemperatureDO} from '../../models/temperature';
+import {PhDO} from '../../models/ph';
+import {JobDO} from '../../models/job';
+import {PhService} from '../../services/ph/ph.service';
+import {TempService} from '../../services/temp/temp.service';
+import {JobService} from '../../services/job/job.service';
+import {DialogService} from '../../services/dialog/dialog.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {DeviceService} from '../../services/device/device.service';
 
 
 @Component({

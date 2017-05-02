@@ -1,23 +1,23 @@
 import {async, TestBed} from '@angular/core/testing';
-import {ConfirmDialogComponent} from './confirm-dialog.component';
+import {SettingsDialogComponent} from './settings-dialog.component';
 import {MdDialog} from '@angular/material';
+import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
-
+import {CustomMdModule} from '../../../../custom-md/custom-md.module';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent],
-  imports: [CustomMdModule, BrowserAnimationsModule],
-  entryComponents: [ConfirmDialogComponent],
-  exports: [ConfirmDialogComponent],
+  declarations: [SettingsDialogComponent],
+  imports: [FormsModule, CustomMdModule, BrowserAnimationsModule],
+  entryComponents: [SettingsDialogComponent],
+  exports: [SettingsDialogComponent],
 })
 
 class TestModule {
 }
 
-describe('ConfirmDialogComponent', () => {
-  let component: ConfirmDialogComponent;
+describe('SettingsDialogComponent', () => {
+  let component: SettingsDialogComponent;
   let dialog: MdDialog;
 
   beforeEach(async(() => {
@@ -28,7 +28,7 @@ describe('ConfirmDialogComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    const dialogRef = dialog.open(ConfirmDialogComponent);
+    const dialogRef = dialog.open(SettingsDialogComponent);
     component = dialogRef.componentInstance;
   });
 

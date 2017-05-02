@@ -1,11 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CalibrationComponent} from './calibration.component';
-import {CalibrationService} from '../services/calibration/calibration.service';
 import {StepsModule} from 'primeng/primeng';
 import {RouterTestingModule} from '@angular/router/testing';
-import {CustomMdModule} from '../../custom-md/custom-md.module';
-import {PhService} from '../services/ph/ph.service';
+import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CalibrationService} from '../../services/calibration/calibration.service';
+import {PhService} from '../../services/ph/ph.service';
 
 describe('CalibrationComponent', () => {
   let component: CalibrationComponent;

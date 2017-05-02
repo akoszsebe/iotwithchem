@@ -1,23 +1,26 @@
 import {async, TestBed} from '@angular/core/testing';
-import {SettingsDialogComponent} from './settings-dialog.component';
+
+import {JobDialogComponent} from './job-dialog.component';
 import {MdDialog} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
+import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CustomMdModule} from '../../../../custom-md/custom-md.module';
 
 @NgModule({
-  declarations: [SettingsDialogComponent],
-  imports: [FormsModule, CustomMdModule, BrowserAnimationsModule],
-  entryComponents: [SettingsDialogComponent],
-  exports: [SettingsDialogComponent],
+  declarations: [JobDialogComponent],
+  imports: [FormsModule, CustomMdModule, CalendarModule, BrowserAnimationsModule],
+  entryComponents: [JobDialogComponent],
+  exports: [JobDialogComponent],
 })
 
 class TestModule {
 }
 
-describe('SettingsDialogComponent', () => {
-  let component: SettingsDialogComponent;
+
+describe('JobDialogComponent', () => {
+  let component: JobDialogComponent;
   let dialog: MdDialog;
 
   beforeEach(async(() => {
@@ -28,7 +31,7 @@ describe('SettingsDialogComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    const dialogRef = dialog.open(SettingsDialogComponent);
+    const dialogRef = dialog.open(JobDialogComponent);
     component = dialogRef.componentInstance;
   });
 

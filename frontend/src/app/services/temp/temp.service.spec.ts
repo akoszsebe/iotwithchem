@@ -2,8 +2,8 @@ import {inject, TestBed} from '@angular/core/testing';
 import {TempService} from './temp.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-import {SensorDO} from '../../model/sensor';
-import {TemperatureDO} from '../../model/temperature';
+import {SensorDO} from '../../models/sensor';
+import {TemperatureDO} from '../../models/temperature';
 
 describe('TempService', () => {
 

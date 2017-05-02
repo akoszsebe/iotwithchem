@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CalibrationService} from '../services/calibration/calibration.service';
-import {PhService} from '../services/ph/ph.service';
+import {CalibrationService} from '../../services/calibration/calibration.service';
+import {PhService} from '../../services/ph/ph.service';
 import {MenuItem} from 'primeng/primeng';
 
 @Component({

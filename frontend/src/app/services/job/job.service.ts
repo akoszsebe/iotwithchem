@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {JobDO} from '../../model/job';
+import {JobDO} from '../../models/job';
 
 @Injectable()
 export class JobService {

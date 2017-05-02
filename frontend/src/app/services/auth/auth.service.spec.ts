@@ -3,7 +3,7 @@ import {AuthService} from './auth.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-import {UserDO} from '../../model/user';
+import {UserDO} from '../../models/user';
 
 describe('AuthService', () => {
   beforeEach(() => {

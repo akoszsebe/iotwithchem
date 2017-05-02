@@ -3,8 +3,8 @@ import {Headers, Http, RequestOptions, Response, ResponseContentType, URLSearchP
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {TemperatureDO} from '../../model/temperature';
-import {SensorDO} from '../../model/sensor';
+import {TemperatureDO} from '../../models/temperature';
+import {SensorDO} from '../../models/sensor';
 import * as io from 'socket.io-client';
 import * as fileSaver from 'file-saver';
 

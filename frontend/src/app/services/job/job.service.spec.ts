@@ -3,7 +3,7 @@ import {inject, TestBed} from '@angular/core/testing';
 import {JobService} from './job.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-import {JobDO} from '../../model/job';
+import {JobDO} from '../../models/job';
 
 
 describe('JobService', () => {

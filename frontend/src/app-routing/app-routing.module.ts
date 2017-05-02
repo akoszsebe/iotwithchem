@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {ExperimentComponent} from '../experiment/experiment.component';
-import {LoginComponent} from '../login/login.component';
-import {ReportsComponent} from '../reports/reports.component';
-import {AuthGuardService} from '../services/auth-guard/auth-guard.service';
-import {FeedbackComponent} from '../feedback/feedback.component';
-import {CalibrationComponent} from '../calibration/calibration.component';
+import {ExperimentComponent} from '../app/components/experiment/experiment.component';
+import {LoginComponent} from '../app/components/login/login.component';
+import {ReportsComponent} from '../app/components/reports/reports.component';
+import {AuthGuardService} from '../app/services/auth-guard/auth-guard.service';
+import {FeedbackComponent} from '../app/components/feedback/feedback.component';
+import {CalibrationComponent} from '../app/components/calibration/calibration.component';
 
 
 const routes: Routes = [

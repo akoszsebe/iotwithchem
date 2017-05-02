@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {UserDO} from '../../model/user';
 import {Observable} from 'rxjs/Observable';
+import {UserDO} from '../../models/user';
 
 @Injectable()
 export class AuthService {

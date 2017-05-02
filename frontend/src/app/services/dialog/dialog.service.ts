@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
-import {SettingsDialogComponent} from '../../dialogs/settings-dialog/settings-dialog.component';
-import {JobDialogComponent} from '../../dialogs/job-dialog/job-dialog.component';
-import {ConfirmDialogComponent} from '../../dialogs/confirm-dialog/confirm-dialog.component';
+import {SettingsDialogComponent} from '../../components/dialogs/settings-dialog/settings-dialog.component';
+import {JobDialogComponent} from '../../components/dialogs/job-dialog/job-dialog.component';
+import {ConfirmDialogComponent} from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
 
 
 @Injectable()

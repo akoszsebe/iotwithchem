@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response, ResponseContentType, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {PhDO} from '../../model/ph';
 import * as io from 'socket.io-client';
-import {SensorDO} from '../../model/sensor';
 import * as fileSaver from 'file-saver';
+import {PhDO} from '../../models/ph';
+import {SensorDO} from '../../models/sensor';
 
 @Injectable()
 export class PhService {

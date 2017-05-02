@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../services/auth/auth.service';
-import {UserDO} from '../model/user';
+import {AuthService} from '../../services/auth/auth.service';
+import {UserDO} from '../../models/user';
 
 @Component({
   selector: 'app-sidenav',

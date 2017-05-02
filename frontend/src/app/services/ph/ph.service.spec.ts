@@ -2,8 +2,8 @@ import {inject, TestBed} from '@angular/core/testing';
 import {PhService} from './ph.service';
 import {HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-import {SensorDO} from '../../model/sensor';
-import {PhDO} from '../../model/ph';
+import {SensorDO} from '../../models/sensor';
+import {PhDO} from '../../models/ph';
 
 describe('PhService', () => {
   beforeEach(() => {

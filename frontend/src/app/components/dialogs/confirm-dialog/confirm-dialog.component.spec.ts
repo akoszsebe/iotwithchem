@@ -1,26 +1,23 @@
 import {async, TestBed} from '@angular/core/testing';
-
-import {JobDialogComponent} from './job-dialog.component';
+import {ConfirmDialogComponent} from './confirm-dialog.component';
 import {MdDialog} from '@angular/material';
-import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
-import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CustomMdModule} from '../../../../custom-md/custom-md.module';
+
 
 @NgModule({
-  declarations: [JobDialogComponent],
-  imports: [FormsModule, CustomMdModule, CalendarModule, BrowserAnimationsModule],
-  entryComponents: [JobDialogComponent],
-  exports: [JobDialogComponent],
+  declarations: [ConfirmDialogComponent],
+  imports: [CustomMdModule, BrowserAnimationsModule],
+  entryComponents: [ConfirmDialogComponent],
+  exports: [ConfirmDialogComponent],
 })
 
 class TestModule {
 }
 
-
-describe('JobDialogComponent', () => {
-  let component: JobDialogComponent;
+describe('ConfirmDialogComponent', () => {
+  let component: ConfirmDialogComponent;
   let dialog: MdDialog;
 
   beforeEach(async(() => {
@@ -31,7 +28,7 @@ describe('JobDialogComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    const dialogRef = dialog.open(JobDialogComponent);
+    const dialogRef = dialog.open(ConfirmDialogComponent);
     component = dialogRef.componentInstance;
   });
 
