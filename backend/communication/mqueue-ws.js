@@ -57,16 +57,19 @@ MQueueWS.prototype.init = function () {
 
 
 /**
- * Send message to teh Gateway (PI)
+ * Send message to the Gateway (PI)
  */
 MQueueWS.prototype.sendmsgtoRaspberry = function (msg) {
-  // send meaasge
-  this.channel.assertQueue(this.qR);
-  this.channel.sendToQueue(this.qR, new Buffer(msg))
+
+  if (this.deviceList.length > 0) {
+    // send message
+    this.channel.assertQueue(this.qR);
+    this.channel.sendToQueue(this.qR, new Buffer(msg))
+  }
 };
 
 /**
- * Received message from teh  Gateway (PI)
+ * Receive message from the  Gateway (PI)
  */
 MQueueWS.prototype.receivemsgfromRaspberry = function () {
   const self = this;
