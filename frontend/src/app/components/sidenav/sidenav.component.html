@@ -13,15 +13,16 @@
       <md-list-item *ngIf="loggedIn"><a md-button> {{user.name}} </a></md-list-item>
       <md-list-item *ngIf="loggedIn; then logout else login"></md-list-item>
       <ng-template #login>
-        <md-list-item><a md-button routerLink="/login">Login</a></md-list-item>
+        <md-list-item><a md-button routerLink="/login" (click)="sidenav.close()">Login </a></md-list-item>
       </ng-template>
       <ng-template #logout>
         <md-list-item><a md-button href="https://iotwithchem2.herokuapp.com/logout">Logout</a></md-list-item>
       </ng-template>
-      <md-list-item><a md-button routerLink="/experiment">Experiment</a></md-list-item>
-      <md-list-item><a md-button routerLink="/calibration">Calibration</a></md-list-item>
-      <md-list-item><a md-button routerLink="/reports">Reports</a></md-list-item>
-      <md-list-item><a class="feedback" md-button routerLink="/feedback">Leave a feedback</a></md-list-item>
+      <md-list-item><a md-button routerLink="/experiment" (click)="sidenav.close()">Experiment</a></md-list-item>
+      <md-list-item><a md-button routerLink="/calibration" (click)="sidenav.close()">Calibration</a></md-list-item>
+      <md-list-item><a md-button routerLink="/reports" (click)="sidenav.close()">Reports</a></md-list-item>
+      <md-list-item><a class="feedback" md-button routerLink="/feedback" (click)="sidenav.close()">Leave a feedback</a>
+      </md-list-item>
     </md-list>
 
   </md-sidenav>
