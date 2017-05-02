@@ -17,7 +17,7 @@ p-chart {
   }
 
   .control {
-    display: -webkit-box;
+    display: flex;
   }
 }
 

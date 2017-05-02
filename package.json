@@ -55,6 +55,7 @@
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
     "typescript": "^2.3.2",
+    "web-animations-js": "^2.2.5",
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
