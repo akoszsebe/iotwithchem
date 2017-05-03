@@ -1,4 +1,4 @@
-<md-slide-toggle class="synctoggle" [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
+<md-slide-toggle class="synctoggle" [disabled]="!deviceConnected" [(ngModel)]="toggleChecked" (change)="toggleSync()">{{syncLabel}}</md-slide-toggle>
 <br>
 
 <p-messages [value]="msg"></p-messages>
@@ -20,7 +20,7 @@
       <p>{{currentJob.jobDescription}}</p>
     </md-card-content>
     <md-card-actions>
-      <button md-button (click)="checkJob()">
+      <button md-button [disabled]="!deviceConnected" (click)="checkJob()">
         <md-icon>add</md-icon>
       </button>
       <button md-button [disabled]="countdownDate==null" (click)="stopJob()">
@@ -39,7 +39,7 @@
     </md-card-content>
     <md-card-actions>
       <img class="devicestatus" *ngIf="isHeaterOn" src="../../../assets/icons/heater.png">
-      <button md-button (click)="openTempSettings()">
+      <button md-button [disabled]="!deviceConnected" (click)="openTempSettings()">
         <md-icon>settings</md-icon>
       </button>
     </md-card-actions>
@@ -56,7 +56,7 @@
     </md-card-content>
     <md-card-actions>
       <img class="devicestatus" *ngIf="isPumpOn" src="../../../assets/icons/pump.png">
-      <button md-button (click)="openPhSettings()">
+      <button md-button [disabled]="!deviceConnected" (click)="openPhSettings()">
         <md-icon>settings</md-icon>
       </button>
     </md-card-actions>

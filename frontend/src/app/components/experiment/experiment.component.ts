@@ -21,42 +21,24 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   progressBarTimer: any;
   countdownDate: Date;
-  optionsTempGauge = {
-    id: 'tempGauge',
-    label: 'Temp',
-    symbol: '°C',
-    min: 0,
-    max: 100,
-    decimals: 2,
-    gaugeWidthScale: 0.6,
-    customSectors: [],
-    counter: true
-  };
-  optionsPHGauge = {
-    id: 'phGauge',
-    label: 'pH',
-    min: 1,
-    max: 14,
-    decimals: 2,
-    gaugeWidthScale: 0.6,
-    customSectors: [],
-    counter: true
-  };
+  optionsTempGauge = ExperimentComponent.createTempGauge(50);
+  optionsPHGauge = ExperimentComponent.createPhGauge(7);
 
   maxTemp = 100;
   maxPH = 14;
 
   currentJob = new JobDateDO(new Date(), new Date(), '', 0, 0, 0, 0);
 
-  syncLabel = 'Sync is on';
+  syncLabel: string;
   toggleChecked: boolean;
+  deviceConnected: boolean;
 
 
   tempTimer: any;
   phTimer: any;
 
   temp = new TemperatureDO('', '', 0, 0);
-  ph = new PhDO('', '', 1, 0);
+  ph = new PhDO('', '', 0, 0);
 
   progressBarValue: number;
 
@@ -97,10 +79,6 @@ export class ExperimentComponent implements OnInit, OnDestroy {
               private deviceService: DeviceService) {
   }
 
-  checkAuth(): void {
-    this.isHeaterOn = !this.isHeaterOn;
-  }
-
   ngOnDestroy(): void {
     clearInterval(this.tempTimer);
     clearInterval(this.phTimer);
@@ -109,11 +87,6 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     this.connection2.unsubscribe();
     this.connection3.unsubscribe();
   }
-
-  /* sendMessage() {
-   this.tempService.sendMessage('test message');
-   }*/
-
 
   ngOnInit(): void {
 
@@ -127,16 +100,19 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     });
     this.connection3 = this.deviceService.getDeviceStatusChanges().subscribe(response => {
       this.msg = [];
+      this.toggleChecked = response;
+      this.toggleSync();
+      this.deviceConnected = response;
       response ? this.msg = [{severity: 'success', summary: 'Device', detail: 'Pi connected'}]
         :
         this.msg = [{severity: 'error', summary: 'Device', detail: 'Pi disconnected'}];
     });
 
-    this.toggleChecked = true;
-
     this.jobService.getJob()
       .subscribe(job => {
         ExperimentComponent.setupJob(job, this.currentJob);
+        this.optionsTempGauge = ExperimentComponent.createTempGauge(this.currentJob.heaterValue);
+        this.optionsPHGauge =ExperimentComponent.createPhGauge(this.currentJob.pumpValue);
         if (this.currentJob.jobEndDate < (new Date())) {
           this.countdownDate = null;
         } else {
@@ -212,31 +188,9 @@ export class ExperimentComponent implements OnInit, OnDestroy {
             this.tempService.setHeaterTemp(res[1])
               .subscribe(result2 => {
                 this.currentJob.heaterValue = result2.sensorSetValue;
-                const newValue = result2.sensorSetValue;
-                this.optionsTempGauge = {
-                  id: 'tempGauge',
-                  label: 'Temp',
-                  symbol: '°C',
-                  min: 0,
-                  max: 100,
-                  decimals: 2,
-                  gaugeWidthScale: 0.6,
-                  customSectors: [{
-                    color: '#ff0000', lo: 0, hi: newValue - 3
-                  }, {
-                    color: '#ffd50e', lo: newValue - 3, hi: newValue - 1
-                  }, {
-                    color: '#00ff00', lo: newValue - 1, hi: newValue + 1
-                  }, {
-                    color: '#ffd50e', lo: newValue + 1, hi: newValue + 3
-                  }, {
-                    color: '#ff0000', lo: newValue + 3, hi: 100
-                  }],
-                  counter: true
-                };
+                this.optionsTempGauge = ExperimentComponent.createTempGauge(result2.sensorSetValue);
               });
           });
-
       }
     });
   }
@@ -253,27 +207,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
             this.phService.setPhValue(res[1])
               .subscribe(result2 => {
                 this.currentJob.pumpValue = result2.sensorSetValue;
-                const newValue = result2.sensorSetValue;
-                this.optionsPHGauge = {
-                  id: 'phGauge',
-                  label: 'pH',
-                  min: 1,
-                  max: 14,
-                  decimals: 2,
-                  gaugeWidthScale: 0.6,
-                  customSectors: [{
-                    color: '#ff0000', lo: 1, hi: newValue - 2
-                  }, {
-                    color: '#ffd50e', lo: newValue - 2, hi: newValue - 1
-                  }, {
-                    color: '#00ff00', lo: newValue - 1, hi: newValue + 1
-                  }, {
-                    color: '#ffd50e', lo: newValue + 1, hi: newValue + 2
-                  }, {
-                    color: '#ff1105', lo: newValue + 2, hi: 14
-                  }],
-                  counter: true
-                };
+                this.optionsPHGauge = ExperimentComponent.createPhGauge(result2.sensorSetValue);
               });
           });
       }
@@ -333,5 +267,53 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       this.progressBarValue = 100;
       this.countdownDate = null;
     }
+  }
+
+
+  static createTempGauge(targetValue: number) {
+    return {
+      id: 'tempGauge',
+      label: 'Temp',
+      symbol: '°C',
+      min: 0,
+      max: 100,
+      decimals: 2,
+      gaugeWidthScale: 0.6,
+      customSectors: [{
+        color: '#ff0000', lo: 0, hi: targetValue - 3
+      }, {
+        color: '#ffd50e', lo: targetValue - 3, hi: targetValue - 1
+      }, {
+        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
+      }, {
+        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 3
+      }, {
+        color: '#ff0000', lo: targetValue + 3, hi: 100
+      }],
+      counter: true
+    };
+  }
+
+  static createPhGauge(targetValue: number) {
+    return {
+      id: 'phGauge',
+      label: 'pH',
+      min: 1,
+      max: 14,
+      decimals: 2,
+      gaugeWidthScale: 0.6,
+      customSectors: [{
+        color: '#ff0000', lo: 1, hi: targetValue - 2
+      }, {
+        color: '#ffd50e', lo: targetValue - 2, hi: targetValue - 1
+      }, {
+        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
+      }, {
+        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 2
+      }, {
+        color: '#ff1105', lo: targetValue + 2, hi: 14
+      }],
+      counter: true
+    };
   }
 }

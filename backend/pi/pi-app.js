@@ -70,6 +70,8 @@ PiApp.prototype.uploadPhToDatabase = function () {
   else {
     console.info('-----Phsensor is not connected !!!')
   }
+
+  this.uploadPhTimeout = setTimeout(this.uploadPhToDatabase.bind(this), this.phUploadInterval);
 };
 
 /**
