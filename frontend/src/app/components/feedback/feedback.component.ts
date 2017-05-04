@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FeedbackService} from '../../services/feedback/feedback.service';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-feedback',
@@ -12,10 +13,16 @@ export class FeedbackComponent implements OnInit {
   message: string;
   response: string;
 
-  constructor(private feedbackService: FeedbackService) {
+  constructor(private feedbackService: FeedbackService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.authService.checkAuthentication().subscribe(user => {
+      if (user) {
+        this.from = this.authService.getUser().name;
+      }
+    });
   }
 
   sendFeedback() {

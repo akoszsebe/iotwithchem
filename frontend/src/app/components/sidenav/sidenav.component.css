@@ -25,8 +25,13 @@ a.feedback {
   color: #bb1d0c;
   font-weight: bold;
   font-style: italic;
+  text-align: left;
 }
 
 .profilepic {
   margin-left: 10%;
+}
+
+.sidemenu-item{
+  text-align: left;
 }

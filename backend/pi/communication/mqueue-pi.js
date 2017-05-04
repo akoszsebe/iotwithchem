@@ -14,8 +14,8 @@ const MQueuePI = module.exports = function (sensorValueContext) {
 };
 
 /**
- * initialize the communication chanel and
- * set some initial parameter values
+ * initialize the communocation chanel and
+ * set some initial parametes values
  */
 MQueuePI.prototype.init = function () {
   this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz';
