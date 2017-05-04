@@ -1,6 +1,6 @@
 {
-  "name": "angular-cli",
-  "version": "0.0.0",
+  "name": "iotwithchem",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -11,13 +11,13 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "7.9.0",
+    "node": "7.10.0",
     "npm": "4.2.0"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.1.0",
-    "@angular/cli": "^1.0.1",
+    "@angular/cli": "^1.0.2",
     "@angular/common": "^4.1.0",
     "@angular/compiler": "^4.1.0",
     "@angular/compiler-cli": "^4.1.0",
@@ -29,7 +29,6 @@
     "@angular/platform-browser-dynamic": "^4.1.0",
     "@angular/platform-server": "^4.1.0",
     "@angular/router": "^4.1.0",
-    "@types/node": "^7.0.15",
     "@types/socket.io-client": "^1.4.29",
     "amqplib": "^0.5.1",
     "angular2-justgage": "^0.2.0",
@@ -54,12 +53,12 @@
     "rxjs": "^5.3.1",
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
-    "typescript": "^2.3.2",
     "web-animations-js": "^2.2.5",
-    "zone.js": "^0.8.9"
+    "zone.js": "^0.8.10"
   },
   "devDependencies": {
     "@types/jasmine": "^2.5.47",
+    "@types/node": "^7.0.16",
     "codelyzer": "^3.0.1",
     "frisby": "^0.8.5",
     "jasmine-core": "~2.6.1",
@@ -73,7 +72,8 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.0",
     "request": "^2.81.0",
-    "ts-node": "^3.0.2",
-    "tslint": "^5.1.0"
+    "ts-node": "^3.0.3",
+    "tslint": "^5.2.0",
+    "typescript": "^2.3.2"
   }
 }

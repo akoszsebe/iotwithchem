@@ -3,27 +3,21 @@
 /**
  * Class to handle the communication
  * pi gateway toward webservice
- * via messagequeue
+ * via message queue
  */
 const MQueuePI = module.exports = function (sensorValueContext) {
   this.qR = 'qToRaspberry';
   this.qW = 'qToWebserver';
   this.channel = null;
   this.sensorValueContext = sensorValueContext;
-
-
-  // somewhere else to put?
   this.init()
 };
 
 /**
- * initialize the communocation chanel and
- * set some initial parametes values
+ * initialize the communication chanel and
+ * set some initial parameter values
  */
-// MQueuePI.prototype.init = function () {
 MQueuePI.prototype.init = function () {
-
-
   this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz';
   const self = this;
   this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn) {
@@ -31,26 +25,24 @@ MQueuePI.prototype.init = function () {
     ok.then(function (ch) {
       self.channel = ch;
       console.info("channel created");
-      self.receivemsgfromWebserver()
+      self.receiveMsgFromWebServer()
     });
   }).then(null, console.warn)
-
-
 };
 
 
 /**
- * Send message to Webserver
+ * Send message to Web Server
  */
-MQueuePI.prototype.sendmsgtoWebserver = function (msg) {
+MQueuePI.prototype.sendMsgToWebServer = function (msg) {
   this.channel.assertQueue(this.qW);
   this.channel.sendToQueue(this.qW, new Buffer(msg))
 };
 
 /**
- * Receceive messages from teh Webserver
+ * Receive messages from the Web Server
  */
-MQueuePI.prototype.receivemsgfromWebserver = function () {
+MQueuePI.prototype.receiveMsgFromWebServer = function () {
   this.channel.assertQueue(this.qR);
   const self = this;
   this.channel.consume(this.qR, function (msg) {
@@ -63,7 +55,7 @@ MQueuePI.prototype.receivemsgfromWebserver = function () {
 };
 
 /**
- * Routing the income messages
+ * Routing the incoming messages
  */
 MQueuePI.prototype.MessageRouting = function (message) {
   const splitMessage = message.split(':');
@@ -115,5 +107,4 @@ MQueuePI.prototype.MessageRouting = function (message) {
       }
       break;
   }
-
 };

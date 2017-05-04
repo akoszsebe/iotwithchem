@@ -2,7 +2,6 @@
 const PiWatcher = module.exports = function (messagequeue, piapp, db) {
   this.messagequeue = messagequeue;
   this.piapp = piapp;
-
   this.db = db;
   this.started = false;
   this.watcherInterval = 3000;

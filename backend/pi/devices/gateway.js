@@ -10,12 +10,11 @@ const Gateway = module.exports = function () {
   // Question : Why sync call ? Is it realy necessary ?
   this.cpuinfo = !fs.existsSync('/proc/cpuinfo') ? '' : fs.readFileSync('/proc/cpuinfo') + '';
   this.cpuJson = this.init()
-
 };
 
 
 /**
- *    Split the  the property
+ *    Split the property
  *
  */
 Gateway.prototype.init = function () {
@@ -29,18 +28,16 @@ Gateway.prototype.init = function () {
     }
     return result
   }, {})
-
 };
 
 /**
  *
- * Make it more readable for the pblic world
+ * Make it more readable for the public world
  *
  */
 Gateway.prototype.fingerPrint = function () {
 
   const self = this;
-
   return self.serialNumber = self.cpuJson['Serial'] === undefined ? -1 : self.cpuJson['Serial'][0]
 
 };

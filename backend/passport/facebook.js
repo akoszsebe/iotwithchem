@@ -4,9 +4,6 @@ let User = require('../models/users');
 let fb = require('fb');
 module.exports = (passport) => {
   passport.use('facebook', new FacebookStrategy({
-      //clientID: '323023344746285',
-      //clientSecret: 'ebdb4703aed8f6812d51be129cef8ce2',
-      //callbackURL: 'http://localhost:8081/login/facebook/return',
       clientID: '190103424780365',
       clientSecret: '6f2b8d730b04ae86285aac21bbfe1e41',
       callbackURL: 'https://iotwithchem2.herokuapp.com/login/facebook/return',
@@ -14,10 +11,11 @@ module.exports = (passport) => {
     },
     // facebook will send back the tokens and profile
     (access_token, refresh_token, profile, done) => {
-      //console.log('profile', profile)
       process.nextTick(() => {
         fb.api('/687797544718797/members?access_token=' + access_token, (response) => {
-          if (response.error) return done(response.error);
+          if (response.error) {
+            return done(response.error);
+          }
           if (response) {
             let isMember = false;
             response.data.forEach((user) => {
@@ -28,10 +26,9 @@ module.exports = (passport) => {
                   'fb.id': profile.id
                 }, (err, user) => {
                   if (err) {
-                    console.log(err);
+                    console.error(err);
                     return done(err)
                   } else if (user) {
-                    console.log('exists in the db');
                     return done(null, user)
                   } else {
                     let newUser = new User();

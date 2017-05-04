@@ -3,8 +3,8 @@
 let path = require('path'),
   Temperature = require(path.resolve('backend/models/temperature.js')),
   Ph = require(path.resolve('backend/models/ph.js')),
-  Alive = require(path.resolve('backend/models/alive.js')),
   Job = require(path.resolve('./backend/models/job.js')),
+  Log = require(path.resolve('backend/models/log.js')),
   mongoose = require('mongoose');
 
 
@@ -15,7 +15,6 @@ let path = require('path'),
 const DbWs = module.exports = function () {
 
   this.mongoose = mongoose;
-  this.lastAliveDate = 0;
   this.init()
 
 };
@@ -42,7 +41,9 @@ DbWs.prototype.init = function () {
   // connect to database on mongolab
   //regi mongo kemiasoke :mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1
   self.mongoose.connect('mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5', function (err) {
-    if (err) console.error('erros:' + err)
+    if (err) {
+      console.error('errors:' + err)
+    }
   }) //('mongodb://votiv:votiv@ds031257.mlab.com:31257/kemia-db')
 
 };
@@ -65,7 +66,7 @@ DbWs.prototype.close = function () {
 
 
 /**
- * get temperaure sensor value
+ * get temperature sensor value
  */
 DbWs.prototype.getTemperatureSensors = function (_callback) {
 
@@ -82,7 +83,7 @@ DbWs.prototype.getTemperatureSensors = function (_callback) {
 };
 
 /**
- * get temperaure  value
+ * get temperature  value
  */
 DbWs.prototype.getTemperature = function (sensorid, _callback) {
 
@@ -95,7 +96,7 @@ DbWs.prototype.getTemperature = function (sensorid, _callback) {
 };
 
 /**
- * get temperaure  interval vaue
+ * get temperature  interval vaue
  */
 DbWs.prototype.getTemperatureInterval = function (sensorid, datefrom, dateto, _callback) {
 
@@ -150,26 +151,6 @@ DbWs.prototype.getPhInterval = function (sensorid, datefrom, dateto, _callback) 
   }).where('sensorid').equals(sensorid)
 };
 
-/**
- * Get the Pulse ....
- */
-DbWs.prototype.getPulse = function (_callback) {
-  const self = this;
-  Alive.find((error, alivedata) => {
-    if (alivedata.length === 0) {
-      return (_callback(false))
-    }
-    const currentLastDate = alivedata[alivedata.length - 1].alivedate;
-    if (self.lastAliveDate !== 0 && self.lastAliveDate !== currentLastDate) {
-      self.lastAliveDate = currentLastDate;
-      return _callback(true)
-    } else {
-      self.lastAliveDate = currentLastDate;
-      return _callback(false)
-    }
-  })
-};
-
 DbWs.prototype.getOldestTemp = function (sensorid, _callback) {
 
   Temperature.findOne({}, '-_id -__v', (error, temperature) => {
@@ -207,6 +188,20 @@ DbWs.prototype.setJob = function (newJob, _callback) {
       return _callback(null)
     }
     return _callback(job)
+  });
+};
+
+DbWs.prototype.logAction = function (name, action, date) {
+
+  const entry = new Log({
+    name: name,
+    action: action,
+    date: date
+  });
+  entry.save((err) => {
+    if (err) {
+      console.error(err);
+    }
   });
 };
 

@@ -30,7 +30,7 @@ HeatSourceDevice.prototype.upperHeatTolerance = function () {
 /*
  * @returns true if heat source is working, false if not
  */
-HeatSourceDevice.prototype.chekcHeatRelayStatus = function () {
+HeatSourceDevice.prototype.checkHeatRelayStatus = function () {
   return this.heatSourceWorking;
 };
 

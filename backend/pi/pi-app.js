@@ -1,5 +1,5 @@
 /*
- **  Create an initial   app class
+ **  Create an initial app class
  ** with the injected external dependencies
  **
  */
@@ -19,7 +19,6 @@ const PiApp = module.exports = function (db, temperaturedevice, heatsourcedevice
  */
 PiApp.prototype.init = function () {
   this.serialnumber = this.gateway.fingerPrint();
-  this.hearthBeatInterval = 3000;
   this.temperatureUploadInterval = 30000;
   this.phUploadInterval = 30000;
   this.heatingCheckInterval = 2000;
@@ -48,7 +47,9 @@ PiApp.prototype.uploadTempToDatabase = function () {
     console.info('Raspberry -', self.serialnumber);
     console.info('Current temperature on sensor is', value);
     self.db.createTemperatureMessage(self.serialnumber, '1', value, new Date().getTime(), function (err) {
-      if (err) console.error(err)
+      if (err) {
+        console.error(err)
+      }
     })
   });
 
@@ -64,7 +65,9 @@ PiApp.prototype.uploadPhToDatabase = function () {
     console.info('Raspberry -', self.serialnumber);
     console.info('-----Current ph on sensor is: ' + self.ph);
     self.db.createPhMessage(self.serialnumber, '1', this.ph, new Date().getTime(), function (err) {
-      if (err) console.error(err)
+      if (err) {
+        console.error(err)
+      }
     })
   }
   else {
@@ -72,19 +75,6 @@ PiApp.prototype.uploadPhToDatabase = function () {
   }
 
   this.uploadPhTimeout = setTimeout(this.uploadPhToDatabase.bind(this), this.phUploadInterval);
-};
-
-/**
- * Uploads alive data to database
- */
-
-PiApp.prototype.IsAlive = function () {
-  const self = this;
-  const currentDate = new Date().getTime();
-  this.db.createAliveMessage(self.serialnumber, currentDate, function (err) {
-    if (err) console.error(err)
-  });
-  console.info('Alive -', currentDate)
 };
 
 /**
@@ -96,12 +86,12 @@ PiApp.prototype.heatingCheck = function () {
     console.log('Current temperature ----------- ', value);
     if (value < self.heatsourcedevice.lowerHeatTolerance) {
       self.heatsourcedevice.turnOnHeatRelay();
-      self.messagequeue.sendmsgtoWebserver('Heater:ON');
+      self.messagequeue.sendMsgToWebServer('Heater:ON');
       console.log("---------------------------------Heater on ")
     }
     else if (value > self.heatsourcedevice.lowerHeatTolerance && self.heatsourcedevice.heatSourceWorking) {
       self.heatsourcedevice.turnOffHeatRelay();
-      self.messagequeue.sendmsgtoWebserver('Heater:OFF');
+      self.messagequeue.sendMsgToWebServer('Heater:OFF');
       console.log("---------------------------------Heater off ")
     }
   })
@@ -119,13 +109,13 @@ PiApp.prototype.phCheck = function () {
       phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)) {
       if (!self.pumpdevice.pumpWorking) {
         self.pumpdevice.turnOnPump();
-        self.messagequeue.sendmsgtoWebserver('Pump:ON');
+        self.messagequeue.sendMsgToWebServer('Pump:ON');
         console.log("---------------------------------pump on")
       }
     } else {
       if (self.pumpdevice.pumpWorking) {
         self.pumpdevice.turnOffPump();
-        self.messagequeue.sendmsgtoWebserver('Pump:OFF');
+        self.messagequeue.sendMsgToWebServer('Pump:OFF');
         console.log("---------------------------------pump off")
       }
     }
@@ -143,7 +133,7 @@ PiApp.prototype.phCalibrateLow = function () {
   setTimeout(function () {
     self.phdevice.calibrateLow(ph, function (callbackmsg) {
       console.log('Calibration Low on PhSensor was ' + callbackmsg);
-      self.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Low:' + callbackmsg);
+      self.messagequeue.sendMsgToWebServer('Ph:Calibrate:Low:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -159,7 +149,7 @@ PiApp.prototype.phCalibrateMid = function () {
   setTimeout(function () {
     self.phdevice.calibrateMiddle(ph, function (callbackmsg) {
       console.log('Calibration Mid on PhSensor was ' + callbackmsg);
-      self.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Mid:' + callbackmsg);
+      self.messagequeue.sendMsgToWebServer('Ph:Calibrate:Mid:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -175,7 +165,7 @@ PiApp.prototype.phCalibrateHigh = function () {
   setTimeout(function () {
     self.phdevice.calibrateHigh(ph, function (callbackmsg) {
       console.log('Calibration High on PhSensor was ' + callbackmsg);
-      self.messagequeue.sendmsgtoWebserver('Ph:Calibrate:High:' + callbackmsg);
+      self.messagequeue.sendMsgToWebServer('Ph:Calibrate:High:' + callbackmsg);
       self.phcheckTimeout = setTimeout(self.phCheck.bind(self), self.phCheckInterval)
     })
   }, 1000);
@@ -235,7 +225,6 @@ PiApp.prototype.messagequeueCheck = function () {
  *  */
 PiApp.prototype.setEventLoop = function () {
 
-  this.aliveReporter = setInterval(this.IsAlive.bind(this), this.hearthBeatInterval);
   this.uploadTempTimeout = setTimeout(this.uploadTempToDatabase.bind(this), this.temperatureUploadInterval);
   this.uploadPhTimeout = setTimeout(this.uploadPhToDatabase.bind(this), this.phUploadInterval);
   this.heatReporter = setInterval(this.heatingCheck.bind(this), this.heatingCheckInterval);
@@ -248,14 +237,14 @@ PiApp.prototype.setEventLoop = function () {
  *  Cancel the main event loop
  */
 PiApp.prototype.unsetEventLoop = function () {
-  clearInterval(this.aliveReporter);
+
   clearTimeout(this.uploadTempTimeout);
   clearTimeout(this.uploadPhTimeout);
   clearInterval(this.heatReporter);
   clearTimeout(this.phcheckTimeout);
   clearInterval(this.messageQueueWatcher);
   this.pumpdevice.turnOffPump();
-  this.messagequeue.sendmsgtoWebserver('Pump:OFF');
+  this.messagequeue.sendMsgToWebServer('Pump:OFF');
   this.heatsourcedevice.turnOffHeatRelay();
-  this.messagequeue.sendmsgtoWebserver('Heater:OFF');
+  this.messagequeue.sendMsgToWebServer('Heater:OFF');
 };

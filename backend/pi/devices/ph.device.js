@@ -40,7 +40,9 @@ PhDevice.prototype.calibrateHigh = function (value, callback) {
   const self = this;
   const PH_CALIBRATION_SEND = new Buffer('CAL,HIGH,' + value);
   i2c1.i2cWrite(self.PH_STD_ADDR, 14, PH_CALIBRATION_SEND, function (err) {
-    if (err) return callback(err);
+    if (err) {
+      return callback(err);
+    }
     setTimeout(function () {
       const PH_OUTPUT = new Buffer(1);
       i2c1.i2cReadSync(self.PH_STD_ADDR, 1, PH_OUTPUT);
@@ -60,7 +62,9 @@ PhDevice.prototype.calibrateMiddle = function (value, callback) {
   const self = this;
   const PH_CALIBRATION_SEND = new Buffer('CAL,MID,' + value);
   i2c1.i2cWrite(self.PH_STD_ADDR, 12, PH_CALIBRATION_SEND, function (err) {
-    if (err) return callback(err);
+    if (err) {
+      return callback(err);
+    }
     setTimeout(function () {
       const PH_OUTPUT = new Buffer(1);
       i2c1.i2cReadSync(self.PH_STD_ADDR, 1, PH_OUTPUT);
@@ -80,7 +84,9 @@ PhDevice.prototype.calibrateLow = function (value, callback) {
   const self = this;
   const PH_CALIBRATION_SEND = new Buffer('CAL,LOW,' + value);
   i2c1.i2cWrite(self.PH_STD_ADDR, 12, PH_CALIBRATION_SEND, function (err) {
-    if (err) return callback(err);
+    if (err) {
+      return callback(err);
+    }
     setTimeout(function () {
       const PH_OUTPUT = new Buffer(1);
       i2c1.i2cReadSync(self.PH_STD_ADDR, 1, PH_OUTPUT);

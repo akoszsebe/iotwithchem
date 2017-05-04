@@ -62,7 +62,7 @@ const MQueuePi = require('./communication/mqueue-pi');
 const mQueuePi = new MQueuePi(sensorValueContext);
 
 // create a new instance
-// with the exernal dependencies
+// with the external dependencies
 // db, devices, gateway
 const piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi);
 
@@ -72,8 +72,6 @@ piwatcher.startWatcher();
 
 // Initialize the pi app
 piapp.init();
-// start the event loop of the pi app
-//piapp.setEventLoop();
 
 
 

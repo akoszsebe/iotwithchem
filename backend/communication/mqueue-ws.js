@@ -3,8 +3,8 @@
 
 /**
  * Class to handle the communication
- * webservice  toward gateway
- * via messagequeue
+ * webservice toward gateway
+ * via message queue
  */
 const MQueueWS = module.exports = function (io) {
 
@@ -15,13 +15,12 @@ const MQueueWS = module.exports = function (io) {
   this.pumpValue = 1;
   this.io = io;
   this.deviceList = [];
-  // somewhere else to put?
   this.init()
 };
 
 /**
- * initialize the communocation chanel and
- * set some initial parametes values
+ * initialize the communication channel and
+ * set some initial parameter values
  */
 MQueueWS.prototype.init = function () {
 
@@ -32,7 +31,7 @@ MQueueWS.prototype.init = function () {
     ok.then(function (ch) {
       self.channel = ch;
       console.info("channel created");
-      self.receivemsgfromRaspberry()
+      self.receiveMsgFromRaspberry()
     });
   }).then(null, console.warn);
   this.io.on('connection', (socket) => {
@@ -59,7 +58,7 @@ MQueueWS.prototype.init = function () {
 /**
  * Send message to the Gateway (PI)
  */
-MQueueWS.prototype.sendmsgtoRaspberry = function (msg) {
+MQueueWS.prototype.sendMsgToRaspberry = function (msg) {
 
   if (this.deviceList.length > 0) {
     // send message
@@ -71,7 +70,7 @@ MQueueWS.prototype.sendmsgtoRaspberry = function (msg) {
 /**
  * Receive message from the  Gateway (PI)
  */
-MQueueWS.prototype.receivemsgfromRaspberry = function () {
+MQueueWS.prototype.receiveMsgFromRaspberry = function () {
   const self = this;
   this.channel.assertQueue(this.qW);
   this.channel.consume(this.qW, function (msg) {

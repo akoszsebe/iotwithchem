@@ -19,7 +19,7 @@ module.exports = (app, passport, io) => {
 
   const mq = new MQueueWS(io);
 
-  app.get('/getsensorids', (req, res) => {
+  app.get('/getsensorids', checkAuthorization, (req, res) => {
     db.getTemperatureSensors((returndata) => {
       res.json(returndata)
     })
@@ -27,29 +27,28 @@ module.exports = (app, passport, io) => {
 
 
   app.get('/gettemperature', (req, res) => {
-    let sensorid = req.query.sensorid;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getTemperature(sensorid, (returndata) => {
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    db.getTemperature(sensorId, (returndata) => {
       res.json(returndata)
-    })
+    });
   });
 
 
-  app.get('/gettempsbetween', (req, res) => {
-    let sensorid = req.query.sensorid;
-    let datefrom = req.query.datefrom;
-    let dateto = req.query.dateto;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getTemperatureInterval(sensorid, datefrom, dateto, (returndata) => {
+  app.get('/gettempsbetween', checkAuthorization, (req, res) => {
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    const dateFrom = req.query.datefrom;
+    const dateTo = req.query.dateto;
+    db.getTemperatureInterval(sensorId, dateFrom, dateTo, (returndata) => {
       res.json(returndata)
-    })
+    });
   });
 
-  app.get('/exporttempsbetween', (req, res) => {
-    let datefrom = req.query.datefrom;
-    let dateto = req.query.dateto;
-
-    excelExport.exportTemps(datefrom, dateto, (report) => {
+  app.get('/exporttempsbetween', checkAuthorization, (req, res) => {
+    const dateFrom = req.query.datefrom;
+    const dateTo = req.query.dateto;
+    excelExport.exportTemps(dateFrom, dateTo, (report) => {
       res.setHeader('Content-disposition', `attachment; filename=temps-${new Date()}.xlsx`);
       res.setHeader('Content-type', 'application/vnd.ms-excel');
       return res.send(report);
@@ -57,29 +56,28 @@ module.exports = (app, passport, io) => {
   });
 
   app.get('/getph', (req, res) => {
-    let sensorid = req.query.sensorid;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getPh(sensorid, (returndata) => {
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    db.getPh(sensorId, (returndata) => {
       res.json(returndata)
     })
   });
 
 
-  app.get('/getphsbetween', (req, res) => {
-    let sensorid = req.query.sensorid;
-    const datefrom = req.query.datefrom;
-    const dateto = req.query.dateto;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getPhInterval(sensorid, datefrom, dateto, (returndata) => {
+  app.get('/getphsbetween', checkAuthorization, (req, res) => {
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    const dateFrom = req.query.datefrom;
+    const dateTo = req.query.dateto;
+    db.getPhInterval(sensorId, dateFrom, dateTo, (returndata) => {
       res.json(returndata)
     })
   });
 
-  app.get('/exportphsbetween', (req, res) => {
-    let datefrom = req.query.datefrom;
-    let dateto = req.query.dateto;
-
-    excelExport.exportPhs(datefrom, dateto, (report) => {
+  app.get('/exportphsbetween', checkAuthorization, (req, res) => {
+    const dateFrom = req.query.datefrom;
+    const dateTo = req.query.dateto;
+    excelExport.exportPhs(dateFrom, dateTo, (report) => {
       res.setHeader('Content-disposition', `attachment; filename=temps-${new Date()}.xlsx`);
       res.setHeader('Content-type', 'application/vnd.ms-excel');
       return res.send(report);
@@ -87,7 +85,7 @@ module.exports = (app, passport, io) => {
   });
 
 
-  app.get('/getDeviceStatus', (req, res) => {
+  app.get('/getDeviceStatus', checkAuthorization, (req, res) => {
     mq.getDeviceStatus(status => {
       res.json({alive: status});
     })
@@ -112,8 +110,8 @@ module.exports = (app, passport, io) => {
     req.isAuthenticated() ? res.json({'user': req.user.fb}) : res.json({'user': null});
   });
 
-  app.post('/setheatertemperature', (req, res) => {
-    mq.sendmsgtoRaspberry('Temp:Value:' + req.body.heatertemp);
+  app.post('/setheatertemperature', [checkAuthorization, logAction], (req, res) => {
+    mq.sendMsgToRaspberry('Temp:Value:' + req.body.heatertemp);
     db.getJob((job) => {
       job.heaterValue = req.body.heatertemp;
       db.setJob(job, (newJob) => {
@@ -122,20 +120,20 @@ module.exports = (app, passport, io) => {
     });
   });
 
-  app.get('/getheatertemperature', (req, res) => {
+  app.get('/getheatertemperature', checkAuthorization, (req, res) => {
     db.getJob((job) => {
       res.json({sensorSetValue: job.heaterValue});
     })
   });
 
-  app.post('/settempuploadinterval', (req, res) => {
-    let upinterval = req.body.upinterval;
-    let sensorid = req.body.sensorid;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    if (typeof upinterval === 'undefined') upinterval = '30000';
-    mq.sendmsgtoRaspberry('Temp:UpInterval:' + sensorid + ':' + upinterval);
+  app.post('/settempuploadinterval', [checkAuthorization, logAction], (req, res) => {
+    let upInterval;
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    req.body.upinterval ? upInterval = req.body.upinterval : upInterval = '30000';
+    mq.sendMsgToRaspberry('Temp:UpInterval:' + sensorId + ':' + upInterval);
     db.getJob((job) => {
-      job.tempReadInt = upinterval;
+      job.tempReadInt = upInterval;
       db.setJob(job, (newJob) => {
         res.json({sensorSetValue: newJob.tempReadInt});
       });
@@ -143,13 +141,13 @@ module.exports = (app, passport, io) => {
   });
 
 
-  app.post('/calibratephsensor', (req, res) => {
-    mq.sendmsgtoRaspberry('Ph:Calibrate:' + req.body.level);
+  app.post('/calibratephsensor', [checkAuthorization, logAction], (req, res) => {
+    mq.sendMsgToRaspberry('Ph:Calibrate:' + req.body.level);
     res.json({sent: true})
   });
 
-  app.post('/setphvalue', (req, res) => {
-    mq.sendmsgtoRaspberry('Ph:Value:' + req.body.phValue);
+  app.post('/setphvalue', [checkAuthorization, logAction], (req, res) => {
+    mq.sendMsgToRaspberry('Ph:Value:' + req.body.phValue);
     db.getJob((job) => {
       job.pumpValue = req.body.phValue;
       db.setJob(job, (newJob) => {
@@ -158,31 +156,31 @@ module.exports = (app, passport, io) => {
     });
   });
 
-  app.get('/getphvalue', (req, res) => {
+  app.get('/getphvalue', checkAuthorization, (req, res) => {
     db.getJob((job) => {
       res.json({sensorSetValue: job.pumpValue});
     })
   });
 
-  app.post('/setphuploadinterval', (req, res) => {
-    let upinterval = req.body.upinterval;
-    let sensorid = req.body.sensorid;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    if (typeof upinterval === 'undefined') upinterval = '30';
-    mq.sendmsgtoRaspberry('Ph:UpInterval:' + sensorid + ':' + upinterval);
+  app.post('/setphuploadinterval', [checkAuthorization, logAction], (req, res) => {
+    let upInterval;
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    req.body.upinterval ? upInterval = req.body.upinterval : upInterval = '30000';
+    mq.sendMsgToRaspberry('Ph:UpInterval:' + sensorId + ':' + upInterval);
     db.getJob((job) => {
-      job.phReadInt = upinterval;
+      job.phReadInt = upInterval;
       db.setJob(job, (newJob) => {
         res.json({sensorSetValue: newJob.phReadInt});
       });
     });
   });
 
-  app.get('/getOldestReadDates', (req, res) => {
-    let sensorid = req.params.sensorid;
-    if (typeof sensorid === 'undefined') sensorid = '1';
-    db.getOldestTemp(sensorid, (temp) => {
-      db.getOldestPh(sensorid, (ph) => {
+  app.get('/getOldestReadDates', checkAuthorization, (req, res) => {
+    let sensorId;
+    req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    db.getOldestTemp(sensorId, (temp) => {
+      db.getOldestPh(sensorId, (ph) => {
         res.json({temp: temp.tempdate, ph: ph.phdate});
       });
     });
@@ -194,10 +192,10 @@ module.exports = (app, passport, io) => {
     })
   });
 
-  app.post('/startjob', (req, res) => {
+  app.post('/startjob', [checkAuthorization, logAction], (req, res) => {
     db.getJob(function (job) {
       if (job.jobEndDate > (new Date()).getTime()) {
-        mq.sendmsgtoRaspberry("Work:Stop");
+        mq.sendMsgToRaspberry("Work:Stop");
       }
       setTimeout(() => {
         console.log('waiting to stop the previous job if there is any');
@@ -205,7 +203,7 @@ module.exports = (app, passport, io) => {
           job.jobStartDate = (new Date()).getTime();
           job.jobEndDate = req.body.jobEndDate;
           job.jobDescription = req.body.jobDescription;
-          mq.sendmsgtoRaspberry("Work:Start:" + (job.jobEndDate - job.jobStartDate) / 1000);
+          mq.sendMsgToRaspberry("Work:Start:" + (job.jobEndDate - job.jobStartDate) / 1000);
           db.setJob(job, (newJob) => {
             res.json(newJob);
           });
@@ -214,9 +212,9 @@ module.exports = (app, passport, io) => {
     })
   });
 
-  app.post('/stopjob', (req, res) => {
+  app.post('/stopjob', [checkAuthorization, logAction], (req, res) => {
 
-    mq.sendmsgtoRaspberry("Work:Stop");
+    mq.sendMsgToRaspberry("Work:Stop");
     db.getJob(function (job) {
       if (job.jobEndDate > (new Date()).getTime()) {
         job.jobEndDate = (new Date()).getTime();
@@ -229,15 +227,23 @@ module.exports = (app, passport, io) => {
     });
   });
 
-  app.post('/sendFeedback', (req, res) => {
+  app.post('/sendFeedback', checkAuthorization, (req, res) => {
     mail.sendMail(req.body.from, req.body.message);
     res.json({sent: true});
   });
 
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve('./dist/index.html'))
+    res.sendFile(path.resolve('./dist/index.html'));
   })
 
-
 };
+
+function logAction(req, res, next) {
+  db.logAction(req.user.fb.name, req.originalUrl, (new Date()).toString());
+  next();
+}
+
+function checkAuthorization(req, res, next) {
+  req.isAuthenticated() ? next() : res.sendFile(path.resolve('./dist/index.html'));
+}
