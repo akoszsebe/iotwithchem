@@ -3,6 +3,7 @@ import {SidenavComponent} from './sidenav.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AuthService} from '../../services/auth/auth.service';
 import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {HttpModule} from '@angular/http';
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;
@@ -11,7 +12,7 @@ describe('SidenavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SidenavComponent],
-      imports: [CustomMdModule, RouterTestingModule],
+      imports: [CustomMdModule, RouterTestingModule, HttpModule],
       providers: [AuthService]
     })
       .compileComponents();

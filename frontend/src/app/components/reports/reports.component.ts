@@ -66,7 +66,7 @@ export class ReportsComponent implements OnInit {
             newData.push(item.tempvalue);
             const date = new Date();
             date.setTime(item.tempdate);
-            newLabels.push(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+            newLabels.push(date.toLocaleString());
           });
           me.tempChartData.datasets[0].data = newData;
           me.tempChartData.labels = newLabels;
@@ -98,7 +98,7 @@ export class ReportsComponent implements OnInit {
             newData.push(item.phvalue);
             const date = new Date();
             date.setTime(item.phdate);
-            newLabels.push(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+            newLabels.push(date.toLocaleString());
           });
           me.phChartData.datasets[0].data = newData;
           me.phChartData.labels = newLabels;

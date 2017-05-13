@@ -8,7 +8,6 @@ import {TempService} from '../../services/temp/temp.service';
 import {PhService} from '../../services/ph/ph.service';
 import {JobService} from '../../services/job/job.service';
 import {DialogService} from '../../services/dialog/dialog.service';
-import {AuthService} from '../../services/auth/auth.service';
 import {DeviceService} from '../../services/device/device.service';
 import {CustomMdModule} from '../../../custom-md/custom-md.module';
 
@@ -20,7 +19,7 @@ describe('ExperimentComponent', () => {
         ExperimentComponent, CountDown
       ],
       imports: [CustomMdModule, FormsModule, ProgressBarModule, JustgageModule, MessagesModule],
-      providers: [TempService, PhService, JobService, DialogService, AuthService, DeviceService]
+      providers: [TempService, PhService, JobService, DialogService, DeviceService]
     }).compileComponents();
   }));
 

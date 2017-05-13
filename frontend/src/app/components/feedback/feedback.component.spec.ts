@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CustomMdModule} from '../../../custom-md/custom-md.module';
 import {FeedbackService} from '../../services/feedback/feedback.service';
 import {AuthService} from '../../services/auth/auth.service';
+import {HttpModule} from '@angular/http';
 
 describe('FeedbackComponent', () => {
   let component: FeedbackComponent;
@@ -13,7 +14,7 @@ describe('FeedbackComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FeedbackComponent],
-      imports: [CustomMdModule, FormsModule, BrowserAnimationsModule],
+      imports: [CustomMdModule, FormsModule, BrowserAnimationsModule, HttpModule],
       providers: [FeedbackService, AuthService]
     })
       .compileComponents();

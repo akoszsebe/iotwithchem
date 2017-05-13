@@ -12,7 +12,7 @@ export class CalibrationComponent implements OnInit {
 
   colors = ['warn', 'accent', 'primary'];
   mode = 'indeterminate';
-  currentLevel = 0;
+  currentLevel: number;
   levels = ['Low', 'Mid', 'High', 'again'];
   buttonDisabled = false;
 
@@ -23,6 +23,7 @@ export class CalibrationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentLevel = 0;
     this.items = [{label: 'Low'}, {label: 'Middle'}, {label: 'High'}, {label: 'Done'}];
   }
 

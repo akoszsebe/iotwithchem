@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 import {Http, Response} from '@angular/http';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class DeviceService {
 
-  private socketUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
   private socket;
 
   private static extractData(res: Response) {
@@ -26,7 +27,7 @@ export class DeviceService {
 
   getDeviceStatusChanges() {
     return new Observable<boolean>(observer => {
-      this.socket = io(this.socketUrl);
+      this.socket = io(this.baseUrl);
       this.socket.on('pi connected', (value) => {
         observer.next(value);
       });
@@ -40,7 +41,7 @@ export class DeviceService {
   }
 
   getDeviceStatus(): Observable<boolean> {
-    return this.http.get(this.socketUrl + '/getDeviceStatus')
+    return this.http.get(this.baseUrl + '/getDeviceStatus')
       .map(DeviceService.extractData)
       .catch(DeviceService.handleError);
   }

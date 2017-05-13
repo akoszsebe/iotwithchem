@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {UserDO} from '../../models/user';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,7 @@ export class AuthService {
   user: UserDO;
   redirectUrl: string;
 
-  private baseUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
 
   private static handleError(error: any) {
     const errMsg = (error.message) ? error.message :

@@ -11,7 +11,7 @@ import {
   MdProgressSpinnerModule,
   MdSidenavModule,
   MdSlideToggleModule,
-  MdTabsModule
+  MdTabsModule,
 } from '@angular/material';
 
 @NgModule({

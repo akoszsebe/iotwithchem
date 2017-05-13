@@ -5,12 +5,12 @@ import * as io from 'socket.io-client';
 import * as fileSaver from 'file-saver';
 import {PhDO} from '../../models/ph';
 import {SensorDO} from '../../models/sensor';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class PhService {
 
-  private baseUrl = '';
-  private socketUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
   private socket;
 
   private static extractData(res: Response) {
@@ -29,7 +29,7 @@ export class PhService {
 
   getPumpStatus() {
     return new Observable<boolean>(observer => {
-      this.socket = io(this.socketUrl);
+      this.socket = io(this.baseUrl);
       this.socket.on('pumpStatusChange', (value) => {
         observer.next(value);
       });

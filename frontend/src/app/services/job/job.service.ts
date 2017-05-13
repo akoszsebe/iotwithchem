@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {JobDO} from '../../models/job';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class JobService {
 
-  private baseUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
 
   private static extractData(res: Response) {
     return res.json();

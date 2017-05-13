@@ -1,20 +1,20 @@
 <md-list>
 
   <md-input-container>
-    <input mdInput placeholder="Value:" [(ngModel)]="value">
+    <input id="valueInput" mdInput placeholder="Value:" [(ngModel)]="value">
   </md-input-container>
 
   <br>
 
   <md-input-container>
-    <input mdInput placeholder="Interval (s):" [(ngModel)]="interval">
+    <input id="intervalInput" mdInput placeholder="Interval (s):" [(ngModel)]="interval">
   </md-input-container>
 
   <md-list-item>
-    <button type="button" md-raised-button
+    <button id="okButton" type="button" md-raised-button
             (click)="dialogRef.close([interval,value])">OK
     </button>
-    <button type="button" md-button
+    <button id="cancelButton" type="button" md-button
             (click)="dialogRef.close(null)">Cancel
     </button>
   </md-list-item>

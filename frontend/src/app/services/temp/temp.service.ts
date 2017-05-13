@@ -7,13 +7,12 @@ import {TemperatureDO} from '../../models/temperature';
 import {SensorDO} from '../../models/sensor';
 import * as io from 'socket.io-client';
 import * as fileSaver from 'file-saver';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class TempService {
 
-  private baseUrl = '';
-
-  private socketUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
   private socket;
 
 
@@ -33,7 +32,7 @@ export class TempService {
 
   getHeaterStatus() {
     return new Observable<boolean>(observer => {
-      this.socket = io(this.socketUrl);
+      this.socket = io(this.baseUrl);
       this.socket.on('heaterStatusChange', (value) => {
         observer.next(value);
       });

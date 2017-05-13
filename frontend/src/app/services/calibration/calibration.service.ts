@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {AppSettings} from '../../models/app-settings';
 
 
 @Injectable()
 export class CalibrationService {
 
-  private baseUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
 
   private static extractData(res: Response) {
     return res.json().sent;

@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {AppSettings} from '../../models/app-settings';
 
 @Injectable()
 export class FeedbackService {
 
-  private baseUrl = '';
+  private baseUrl = AppSettings.BASE_URL;
 
   private static extractData(res: Response) {
     return res.json();

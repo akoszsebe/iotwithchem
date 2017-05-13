@@ -8,7 +8,6 @@ import {PhService} from '../../services/ph/ph.service';
 import {TempService} from '../../services/temp/temp.service';
 import {JobService} from '../../services/job/job.service';
 import {DialogService} from '../../services/dialog/dialog.service';
-import {AuthService} from '../../services/auth/auth.service';
 import {DeviceService} from '../../services/device/device.service';
 
 
@@ -57,6 +56,53 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     'MilliSeconds': 'ms'
   };
 
+  static createTempGauge(targetValue: number) {
+    return {
+      id: 'tempGauge',
+      label: 'Temp',
+      symbol: '°C',
+      min: 0,
+      max: 100,
+      decimals: 2,
+      gaugeWidthScale: 0.6,
+      customSectors: [{
+        color: '#ff0000', lo: 0, hi: targetValue - 3
+      }, {
+        color: '#ffd50e', lo: targetValue - 3, hi: targetValue - 1
+      }, {
+        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
+      }, {
+        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 3
+      }, {
+        color: '#ff0000', lo: targetValue + 3, hi: 100
+      }],
+      counter: true
+    };
+  }
+
+  static createPhGauge(targetValue: number) {
+    return {
+      id: 'phGauge',
+      label: 'pH',
+      min: 1,
+      max: 14,
+      decimals: 2,
+      gaugeWidthScale: 0.6,
+      customSectors: [{
+        color: '#ff0000', lo: 1, hi: targetValue - 2
+      }, {
+        color: '#ffd50e', lo: targetValue - 2, hi: targetValue - 1
+      }, {
+        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
+      }, {
+        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 2
+      }, {
+        color: '#ff1105', lo: targetValue + 2, hi: 14
+      }],
+      counter: true
+    };
+  }
+
   static setupJob(job: JobDO, currentJob: JobDateDO) {
     const date1 = new Date();
     date1.setTime(job.jobStartDate);
@@ -75,7 +121,6 @@ export class ExperimentComponent implements OnInit, OnDestroy {
               private phService: PhService,
               private jobService: JobService,
               private dialogService: DialogService,
-              private authService: AuthService,
               private deviceService: DeviceService) {
   }
 
@@ -112,7 +157,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       .subscribe(job => {
         ExperimentComponent.setupJob(job, this.currentJob);
         this.optionsTempGauge = ExperimentComponent.createTempGauge(this.currentJob.heaterValue);
-        this.optionsPHGauge =ExperimentComponent.createPhGauge(this.currentJob.pumpValue);
+        this.optionsPHGauge = ExperimentComponent.createPhGauge(this.currentJob.pumpValue);
         if (this.currentJob.jobEndDate < (new Date())) {
           this.countdownDate = null;
         } else {
@@ -267,53 +312,5 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       this.progressBarValue = 100;
       this.countdownDate = null;
     }
-  }
-
-
-  static createTempGauge(targetValue: number) {
-    return {
-      id: 'tempGauge',
-      label: 'Temp',
-      symbol: '°C',
-      min: 0,
-      max: 100,
-      decimals: 2,
-      gaugeWidthScale: 0.6,
-      customSectors: [{
-        color: '#ff0000', lo: 0, hi: targetValue - 3
-      }, {
-        color: '#ffd50e', lo: targetValue - 3, hi: targetValue - 1
-      }, {
-        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
-      }, {
-        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 3
-      }, {
-        color: '#ff0000', lo: targetValue + 3, hi: 100
-      }],
-      counter: true
-    };
-  }
-
-  static createPhGauge(targetValue: number) {
-    return {
-      id: 'phGauge',
-      label: 'pH',
-      min: 1,
-      max: 14,
-      decimals: 2,
-      gaugeWidthScale: 0.6,
-      customSectors: [{
-        color: '#ff0000', lo: 1, hi: targetValue - 2
-      }, {
-        color: '#ffd50e', lo: targetValue - 2, hi: targetValue - 1
-      }, {
-        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
-      }, {
-        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 2
-      }, {
-        color: '#ff1105', lo: targetValue + 2, hi: 14
-      }],
-      counter: true
-    };
   }
 }

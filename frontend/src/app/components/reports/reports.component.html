@@ -1,26 +1,28 @@
 <md-tab-group md-stretch-tabs="always">
   <md-tab label="Temp">
     <div class="control">
-      <p-calendar [(ngModel)]="tempStartDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
+      <p-calendar id="calendarTemp1" [(ngModel)]="tempStartDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
                   showTime="true"></p-calendar>
-      <p-calendar [(ngModel)]="tempEndDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
+      <p-calendar id="calendarTemp2" [(ngModel)]="tempEndDate" [minDate]="tempMinDate" [maxDate]="tempMaxDate"
                   showTime="true"></p-calendar>
-      <button md-button (click)="loadTempInInterval(tempchart)"> Load</button>
-      <button md-button (click)="exportTempsInInterval()"> Export</button>
+      <button id="loadTempButton" md-button (click)="loadTempInInterval(tempchart)"> Load</button>
+      <button id="exportTempButton" md-button (click)="exportTempsInInterval()"> Export</button>
     </div>
     <div class="chart">
-      <p-chart #tempchart type="line" [data]="tempChartData"></p-chart>
+      <p-chart id="tempChart" #tempchart type="line" [data]="tempChartData"></p-chart>
     </div>
   </md-tab>
   <md-tab label="pH">
     <div class="control">
-      <p-calendar [(ngModel)]="phStartDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
-      <p-calendar [(ngModel)]="phEndDate" [minDate]="phMinDate" [maxDate]="phMaxDate" showTime="true"></p-calendar>
-      <button md-button (click)="loadPhsInInterval(phchart)"> Load</button>
-      <button md-button (click)="exportPhsInInterval()"> Export</button>
+      <p-calendar id="calendarPh1" [(ngModel)]="phStartDate" [minDate]="phMinDate" [maxDate]="phMaxDate"
+                  showTime="true"></p-calendar>
+      <p-calendar id="calendarPh2" [(ngModel)]="phEndDate" [minDate]="phMinDate" [maxDate]="phMaxDate"
+                  showTime="true"></p-calendar>
+      <button id="loadPhButton" md-button (click)="loadPhsInInterval(phchart)"> Load</button>
+      <button id="exportPhButton" md-button (click)="exportPhsInInterval()"> Export</button>
     </div>
     <div class="chart">
-      <p-chart #phchart type="line" [data]="phChartData"></p-chart>
+      <p-chart id="phChart" #phchart type="line" [data]="phChartData"></p-chart>
     </div>
   </md-tab>
 </md-tab-group>

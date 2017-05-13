@@ -29,7 +29,6 @@ export class FeedbackComponent implements OnInit {
     this.feedbackService.sendFeedback(this.from, this.message).subscribe(res => {
       if (res) {
         this.response = 'Thank you for your feedback';
-        this.from = '';
         this.message = '';
       } else {
         this.response = 'Something went wrong, please try again';

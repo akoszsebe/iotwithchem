@@ -6,6 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {CustomMdModule} from '../../../custom-md/custom-md.module';
 import {CalibrationService} from '../../services/calibration/calibration.service';
 import {PhService} from '../../services/ph/ph.service';
+import {HttpModule} from '@angular/http';
 
 describe('CalibrationComponent', () => {
   let component: CalibrationComponent;
@@ -14,7 +15,7 @@ describe('CalibrationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CalibrationComponent],
-      imports: [CustomMdModule, StepsModule, RouterTestingModule],
+      imports: [CustomMdModule, StepsModule, RouterTestingModule, HttpModule],
       providers: [CalibrationService, PhService]
     })
       .compileComponents();
