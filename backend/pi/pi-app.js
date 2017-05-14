@@ -84,7 +84,7 @@ PiApp.prototype.heatingCheck = function () {
   const self = this;
   this.temperaturedevice.actualValue(function (err, value) {
     console.log('Current temperature ----------- ', value);
-    if (value < self.heatsourcedevice.lowerHeatTolerance) {
+    if (value < self.heatsourcedevice.lowerHeatTolerance && !self.heatsourcedevice.heatSourceWorking) {
       self.heatsourcedevice.turnOnHeatRelay();
       self.messagequeue.sendMsgToWebServer('Heater:ON');
       console.log("---------------------------------Heater on ")
