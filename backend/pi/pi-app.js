@@ -105,8 +105,9 @@ PiApp.prototype.phCheck = function () {
   this.phdevice.getPh(function (phvalue) {
     console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue);
     self.ph = phvalue;
-    if (phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
-      phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)) {
+    if (phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta))// ||
+      //phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta))
+      {
       if (!self.pumpdevice.pumpWorking) {
         self.pumpdevice.turnOnPump();
         self.messagequeue.sendMsgToWebServer('Pump:ON');
