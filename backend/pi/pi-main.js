@@ -21,6 +21,8 @@ let PhDevice;
 // Create new PumpDevice
 let PumpDevice;
 
+const ConnectionChecker = require('./connectionchecker');
+
 let socket = require('socket.io-client')('http://iotwithchem2.herokuapp.com');
 
 socket.on('connect', function () {
@@ -72,6 +74,10 @@ piwatcher.startWatcher();
 
 // Initialize the pi app
 piapp.init();
+
+const connectionchecker = new ConnectionChecker(5000,heatsourcedevice,pumpdevice,mQueuePi);
+
+connectionchecker.startChecking();
 
 
 
