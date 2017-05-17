@@ -6,7 +6,7 @@
  * webservice toward gateway
  * via message queue
  */
-const MQueueWS = module.exports = function (io,fbmessanger) {
+const MQueueWS = module.exports = function (io, fbMessenger) {
 
   this.qR = 'qToRaspberry';
   this.qW = 'qToWebserver';
@@ -16,7 +16,7 @@ const MQueueWS = module.exports = function (io,fbmessanger) {
   this.io = io;
   this.deviceList = [];
   this.init();
-  this.fbmessanger = fbmessanger; 
+  this.fbMessenger = fbMessenger;
 };
 
 /**
@@ -43,7 +43,7 @@ MQueueWS.prototype.init = function () {
       console.log('The user is disconnected');
       if (self.deviceList.indexOf(socket) > -1) {
         self.io.emit('pi disconnected', false);
-        this.fbmessanger.sendMessage('akarki_id','Pi is disconnected from the server!!!')
+        this.fbMessenger.sendMessage('akarki_id', 'Pi is disconnected from the server!!!');
         self.deviceList.splice(self.deviceList.indexOf(socket), 1);
       }
     });
@@ -51,7 +51,7 @@ MQueueWS.prototype.init = function () {
       console.log('New pi connected');
       self.deviceList.push(socket);
       self.io.emit('pi connected', true);
-      this.fbmessanger.sendMessage('akarki_id','Pi is connected to the server')
+      this.fbMessenger.sendMessage('akarki_id', 'Pi is connected to the server')
     })
   });
 
@@ -95,7 +95,7 @@ MQueueWS.prototype.MessageRouting = function (message) {
       switch (splitMessage[1]) {
         case 'ON':
           this.io.emit('heaterStatusChange', true);
-          this.fbmessanger.sendMessage('akarki_id','Heater is turned on')
+          this.fbMessenger.sendMessage('akarki_id', 'Heater is turned on');
           break;
         case 'OFF':
           this.io.emit('heaterStatusChange', false);
@@ -106,7 +106,7 @@ MQueueWS.prototype.MessageRouting = function (message) {
       switch (splitMessage[1]) {
         case 'ON':
           this.io.emit('pumpStatusChange', true);
-          this.fbmessanger.sendMessage('akarki_id','Pump is turned on')
+          this.fbMessenger.sendMessage('akarki_id', 'Pump is turned on');
           break;
         case 'OFF':
           this.io.emit('pumpStatusChange', false);

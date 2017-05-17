@@ -20,17 +20,17 @@ const MQueuePI = module.exports = function (sensorValueContext) {
 MQueuePI.prototype.init = function () {
   this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz';
   const self = this;
-  this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn,err) {
+  this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn, err) {
     if (err) {
       console.error("[AMQP]", err.message);
       return setTimeout(self.init, 1000);
     }
-    conn.on("error", function(err) {
+    conn.on("error", function (err) {
       if (err.message !== "Connection closing") {
         console.error("[AMQP] conn error", err.message);
       }
     });
-    conn.on("close", function() {
+    conn.on("close", function () {
       console.error("[AMQP] reconnecting");
       return setTimeout(self.init, 1000);
     });
@@ -51,11 +51,10 @@ MQueuePI.prototype.init = function () {
  */
 MQueuePI.prototype.sendMsgToWebServer = function (msg) {
   try {
-  this.channel.assertQueue(this.qW);
-  this.channel.sendToQueue(this.qW, new Buffer(msg))
+    this.channel.assertQueue(this.qW);
+    this.channel.sendToQueue(this.qW, new Buffer(msg))
   }
-  catch(err)
-  {
+  catch (err) {
     console.log(err);
     this.init();
   }

@@ -54,7 +54,6 @@ ExcelExport.prototype.exportTemps = function (dateFrom, dateTo, callback) {
 };
 
 
-
 ExcelExport.prototype.exportPhs = function (dateFrom, dateTo, callback) {
 
   this.db.getPhInterval('1', dateFrom, dateTo, (returndata) => {
