@@ -11,13 +11,16 @@ const MQueueWS = require(path.resolve('backend/communication/mqueue-ws'));
 const Mail = require(path.resolve('backend/communication/mail'));
 const mail = new Mail();
 
+const FbMessanger = require(path.resolve('backend/communication/fbmessanger'));
+const fbmessanger = new FbMessanger();
+
 const ExcelExport = require(path.resolve('backend/models/excel-export'));
 const excelExport = new ExcelExport(db);
 
 
 module.exports = (app, passport, io) => {
 
-  const mq = new MQueueWS(io);
+  const mq = new MQueueWS(io,fbmessanger);
 
   app.get('/getsensorids', checkAuthorization, (req, res) => {
     db.getTemperatureSensors((returndata) => {
