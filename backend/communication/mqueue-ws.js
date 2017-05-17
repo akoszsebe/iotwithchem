@@ -43,7 +43,7 @@ MQueueWS.prototype.init = function () {
       console.log('The user is disconnected');
       if (self.deviceList.indexOf(socket) > -1) {
         self.io.emit('pi disconnected', false);
-        this.fbMessenger.sendMessage('akarki_id', 'Pi is disconnected from the server!!!');
+        self.fbMessenger.sendMessage('akarki_id', 'Pi is disconnected from the server!!!');
         self.deviceList.splice(self.deviceList.indexOf(socket), 1);
       }
     });
@@ -51,7 +51,7 @@ MQueueWS.prototype.init = function () {
       console.log('New pi connected');
       self.deviceList.push(socket);
       self.io.emit('pi connected', true);
-      this.fbMessenger.sendMessage('akarki_id', 'Pi is connected to the server')
+      self.fbMessenger.sendMessage('akarki_id', 'Pi is connected to the server')
     })
   });
 

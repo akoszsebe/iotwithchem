@@ -2,14 +2,14 @@
 const login = require("facebook-chat-api");
 
 
-const FbMessanger = module.exports = function () {
+const FbMessenger = module.exports = function () {
   // create reusable transporter object using the default SMTP transport
   this.email = 'iotwithchem@yahoo.com';
   this.password = 'mehchtiwtoi2017';
 };
 
 
-FbMessanger.prototype.sendMessage = function (idTo, message) {
+FbMessenger.prototype.sendMessage = function (id, message) {
   const self = this;
   //Kelemen Istvan id = 100001571194197
   //Zsebe Akos id = 100001077210300
@@ -25,6 +25,6 @@ FbMessanger.prototype.sendMessage = function (idTo, message) {
   });
 };
 
-FbMessanger.prototype.sendMessageForAdmins = function () {
+FbMessenger.prototype.sendMessageForAdmins = function () {
 };
 

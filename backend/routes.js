@@ -11,7 +11,7 @@ const MQueueWS = require(path.resolve('backend/communication/mqueue-ws'));
 const Mail = require(path.resolve('backend/communication/mail'));
 const mail = new Mail();
 
-const FbMessenger = require(path.resolve('backend/communication/fbMessenger'));
+const FbMessenger = require(path.resolve('backend/communication/fb-messenger'));
 const fbMessenger = new FbMessenger();
 
 const ExcelExport = require(path.resolve('backend/models/excel-export'));
