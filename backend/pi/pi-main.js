@@ -75,7 +75,7 @@ piwatcher.startWatcher();
 // Initialize the pi app
 piapp.init();
 
-const connectionchecker = new ConnectionChecker(5000,heatsourcedevice,pumpdevice,mQueuePi);
+const connectionchecker = new ConnectionChecker(30000,heatsourcedevice,pumpdevice,mQueuePi);
 
 connectionchecker.startChecking();
 

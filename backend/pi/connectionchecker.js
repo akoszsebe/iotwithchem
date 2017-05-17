@@ -15,9 +15,10 @@ ConnectionChecker.prototype.checking = function () {
     connectivity(function (online) {
       if (online) {
         console.log('connected to the internet!', self.alive_number);
+        self.alive_number = 0;
       } else {
         console.error('sorry, not connected!',self.alive_number);
-        if (self.alive_number++ == 10) {
+        if (self.alive_number++ >= 10) {
             self.heatsourcedevice.turnOffHeatRelay();
             self.messagequeue.sendMsgToWebServer('Heater:OFF');
             console.log("---------------------------------Heater off ")
