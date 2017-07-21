@@ -12,6 +12,10 @@ PumpDevice.prototype.init = function () {
   this.pumpWorking = true;
   this.pumpPhValue = 7.0;
   this.pumpDelta = 1;
+  this.standByToTurnOn = false;
+  this.standByFunction = undefined;
+  this.pumpWorkingPeriod = 5000 // ms
+  this.willTurnOnIn = 30000; // Milliseconds
   gpio.setup(this.pumpPin, gpio.DIR_OUT, this.turnOffPump.bind(this))
 };
 
@@ -19,6 +23,8 @@ PumpDevice.prototype.init = function () {
  * Turns off the pump
  */
 PumpDevice.prototype.turnOffPump = function () {
+  clearInterval(this.standByFunction);
+  this.standByToTurnOn = false;
   if (this.pumpWorking) {
     this.pumpWorking = false;
     gpio.write(this.pumpPin, true, function (err) {
@@ -34,6 +40,7 @@ PumpDevice.prototype.turnOffPump = function () {
  * Turns on the pump
  */
 PumpDevice.prototype.turnOnPump = function () {
+  const self = this;
   if (!this.pumpWorking) {
     this.pumpWorking = true;
     gpio.write(this.pumpPin, false, function (err) {
@@ -41,6 +48,10 @@ PumpDevice.prototype.turnOnPump = function () {
         throw err;
       }
       console.info('Turned ON PUMP!')
+      console.info('Pump will turn off in 5 second')
+      setTimeout(function(){
+        self.turnOffPump();
+      },self.pumpWorkingPeriod)
     })
   }
 };
@@ -55,4 +66,17 @@ PumpDevice.prototype.setPumpPh = function (value) {
 
 PumpDevice.prototype.checkPumpStatus = function () {
   return this.pumpWorking;
+};
+
+PumpDevice.prototype.getReadyToTurnOn = function(messageQueue) {
+  const self = this;
+  if(this.standByToTurnOn == false){
+    console.info('Pump Will turn on in 30 second!');
+    this.standByToTurnOn = true;
+    self.standByFunction = setTimeout(function(){
+      self.turnOnPump();
+      console.info('30 Second passed! Pump turns on!');
+      messageQueue.sendMsgToWebServer('Pump:ON');
+    },self.willTurnOnIn)
+  }
 };

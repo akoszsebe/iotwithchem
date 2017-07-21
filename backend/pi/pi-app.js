@@ -104,14 +104,14 @@ PiApp.prototype.phCheck = function () {
   const self = this;
   this.phdevice.getPh(function (phvalue) {
     console.log('Atlas-scientific-PhMeter READ Value: ' + phvalue);
+    //console.log('PumpPhValue: ' + self.pumpdevice.pumpPhValue);
     self.ph = phvalue;
     if (phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta))// ||
     //phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta))
     {
       if (!self.pumpdevice.pumpWorking) {
-        self.pumpdevice.turnOnPump();
-        self.messagequeue.sendMsgToWebServer('Pump:ON');
-        console.log("---------------------------------pump on")
+        self.pumpdevice.getReadyToTurnOn(self.messagequeue);
+        // self.messagequeue.sendMsgToWebServer('Pump:ON'); // Inserted in getReadyToTurnOn function
       }
     } else {
       if (self.pumpdevice.pumpWorking) {
