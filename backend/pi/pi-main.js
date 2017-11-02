@@ -22,8 +22,8 @@ let PhDevice;
 let PumpDevice;
 
 const ConnectionChecker = require('./connection-checker');
-
-let socket = require('socket.io-client')('http://iotwithchem2.herokuapp.com');
+// live nak az socket url : http://iotwithchem2.herokuapp.com
+let socket = require('socket.io-client')('http://iotwithchembeta.herokuapp.com');
 
 socket.on('connect', function () {
   console.log('Connected');

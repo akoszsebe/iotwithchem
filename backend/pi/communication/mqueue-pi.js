@@ -18,7 +18,8 @@ const MQueuePI = module.exports = function (sensorValueContext) {
  * set some initial parametes values
  */
 MQueuePI.prototype.init = function () {
-  this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz';
+  /*LIVE mq connection string*/ "amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz";   
+  this.cloudAmqpUrl = "amqp://pwxpzbkg:2lBrsgZEGj8gtGAg9ezbGzpOba8l-3Mo@squirrel.rmq.cloudamqp.com/pwxpzbkg";
   const self = this;
   this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn, err) {
     if (err) {
