@@ -6,7 +6,7 @@ module.exports = (passport) => {
   passport.use('facebook', new FacebookStrategy({
       clientID: '190103424780365',
       clientSecret: '6f2b8d730b04ae86285aac21bbfe1e41',
-      callbackURL: 'https://iotwithchem2.herokuapp.com/login/facebook/return',
+      callbackURL: 'https://iotwithchembeta.herokuapp.com/login/facebook/return',
       profileFields: ['id', 'name', 'link', 'about', 'email', 'photos']
     },
     // facebook will send back the tokens and profile

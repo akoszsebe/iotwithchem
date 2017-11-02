@@ -3,7 +3,7 @@ var request = require('request');
 var frisby = require('frisby');
 
 frisby.create('/gettemperature')
-  .get('http://iotwithchem2.herokuapp.com/gettemperature')
+  .get('http://iotwithchembeta.herokuapp.com/gettemperature')
   .expectStatus(200)
   .expectJSONTypes({
     raspberryid: String,
@@ -15,19 +15,19 @@ frisby.create('/gettemperature')
   .toss();
 
 frisby.create('/gettemperature')
-  .post('http://iotwithchem2.herokuapp.com/gettemperature')
+  .post('http://iotwithchembeta.herokuapp.com/gettemperature')
   .expectStatus(404)
   .toss();
 
 
 frisby.create('/gettemperatureinterval')
-  .get('http://iotwithchem2.herokuapp.com/gettemperatureinterval?sensorid=1&datefrom=2000000&dateto=2100000')
+  .get('http://iotwithchembrta.herokuapp.com/gettemperatureinterval?sensorid=1&datefrom=2000000&dateto=2100000')
   .expectStatus(200)
   .toss();
 
 
 frisby.create('/getph')
-  .get('http://iotwithchem2.herokuapp.com/getph')
+  .get('http://iotwithchembeta.herokuapp.com/getph')
   .expectStatus(200)
   .expectJSONTypes({
     raspberryid: String,
@@ -40,12 +40,12 @@ frisby.create('/getph')
 
 
 frisby.create('/getphinterval')
-  .get('http://iotwithchem2.herokuapp.com/getphinterval?sensorid=1&datefrom=2000000&dateto=2100000')
+  .get('http://iotwithchembeta.herokuapp.com/getphinterval?sensorid=1&datefrom=2000000&dateto=2100000')
   .expectStatus(200)
   .toss();
 
 frisby.create('/checkAuth')
-  .get('http://iotwithchem2.herokuapp.com/checkAuth')
+  .get('http://iotwithchembeta.herokuapp.com/checkAuth')
   .expectStatus(200)
   .expectJSON({
     user: null
@@ -54,7 +54,7 @@ frisby.create('/checkAuth')
   .toss();
 
 frisby.create('/getheatertemperature')
-  .get('http://iotwithchem2.herokuapp.com/getheatertemperature')
+  .get('http://iotwithchembeta.herokuapp.com/getheatertemperature')
   .expectStatus(200)
   .expectJSONTypes({
     heatertemperature: Number
@@ -64,7 +64,7 @@ frisby.create('/getheatertemperature')
 
 
 frisby.create('/getJob')
-  .get('http://iotwithchem2.herokuapp.com/getJob')
+  .get('http://iotwithchembeta.herokuapp.com/getJob')
   .expectStatus(200)
   .expectJSONTypes({
     jobStartDate: String,
@@ -75,7 +75,7 @@ frisby.create('/getJob')
   .toss();
 
 frisby.create('/getOldestReadDates')
-  .get('http://iotwithchem2.herokuapp.com/getOldestReadDates')
+  .get('http://iotwithchembeta.herokuapp.com/getOldestReadDates')
   .expectStatus(200)
   .expectJSONTypes({
     temp: String,
@@ -88,7 +88,7 @@ frisby.create('/getOldestReadDates')
 //describe('jasmine-node', function () {
 //describe('jasmine-node', function () {
 //  it("should respond with hello world", function (done) {
-//    request.get("http://iotwithchem2.herokuapp.com", function (error, response, body) {
+//    request.get("http://iotwithchembeta.herokuapp.com", function (error, response, body) {
 //      expect(response.statusCode).toBe(200);
 //      done();
 //    });
@@ -96,7 +96,7 @@ frisby.create('/getOldestReadDates')
 //  });
 //  });
 //  it("should respond with temperature json", function (done) {
-//    request.get("http://iotwithchem2.herokuapp.com/login/facebook/return", function (error, response, body) {
+//    request.get("http://iotwithchembeta.herokuapp.com/login/facebook/return", function (error, response, body) {
 //    //console.log(response);
 //      done();
 //    });

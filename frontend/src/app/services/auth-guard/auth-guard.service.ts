@@ -26,7 +26,8 @@ export class AuthGuardService implements CanActivate {
         }
         this.authService.redirectUrl = url;
         this.router.navigate(['/login']);
-        return false;
+        // need to be false // // is set to true for skip authentification//
+        return true;
       }
     });
   }
