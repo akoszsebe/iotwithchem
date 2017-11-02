@@ -17,7 +17,7 @@ describe('CalibrationServiceService', () => {
   }));
 
 
-  describe('getDeviceStatus ()', () => {
+  describe('calibratePhSensor ()', () => {
 
     it('should return a boolean depending on calibration success', inject([CalibrationService, MockBackend],
       (service: CalibrationService, backend: MockBackend) => {

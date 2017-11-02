@@ -1,13 +1,13 @@
-<md-slide-toggle class="synctoggle" [disabled]="!deviceConnected" [(ngModel)]="toggleChecked" (change)="toggleSync()">
+<mat-slide-toggle class="synctoggle" [disabled]="!deviceConnected" [(ngModel)]="toggleChecked" (change)="toggleSync()">
   {{syncLabel}}
-</md-slide-toggle>
+</mat-slide-toggle>
 <br>
 
 <p-messages [value]="msg"></p-messages>
 <div class="sensors-container">
 
-  <md-card class="sensor-card">
-    <md-card-content>
+  <mat-card class="sensor-card">
+    <mat-card-content>
       <p-progressBar [value]="progressBarValue"></p-progressBar>
       <br>
       <label>Job start date:</label>
@@ -20,49 +20,49 @@
       <p *ngIf="countdownDate==null"> - </p>
       <label>Job description: </label>
       <p>{{currentJob.jobDescription}}</p>
-    </md-card-content>
-    <md-card-actions>
-      <button id="addJobButton" md-button [disabled]="!deviceConnected" (click)="checkJob()">
-        <md-icon>add</md-icon>
+    </mat-card-content>
+    <mat-card-actions>
+      <button id="addJobButton" mat-button [disabled]="!deviceConnected" (click)="checkJob()">
+        <mat-icon>add</mat-icon>
       </button>
-      <button id="stopJobButton" md-button [disabled]="countdownDate==null" (click)="stopJob()">
-        <md-icon>cancel</md-icon>
+      <button id="stopJobButton" mat-button [disabled]="countdownDate==null" (click)="stopJob()">
+        <mat-icon>cancel</mat-icon>
       </button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 
-  <md-card class="sensor-card">
-    <md-card-content>
+  <mat-card class="sensor-card">
+    <mat-card-content>
       <justgage [options]="optionsTempGauge" [max]="maxTemp" [value]="temp.tempvalue"></justgage>
       <label> Set Temperature: </label>
       <p>{{currentJob.heaterValue}}°C</p>
       <label> Set read interval (s): </label>
       <p>{{currentJob.tempReadInt}}</p>
-    </md-card-content>
-    <md-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
       <img class="devicestatus" *ngIf="isHeaterOn" src="../../../assets/icons/heater.png">
-      <button id="tempSettingsButton" md-button [disabled]="!deviceConnected" (click)="openTempSettings()">
-        <md-icon>settings</md-icon>
+      <button id="tempSettingsButton" mat-button [disabled]="!deviceConnected" (click)="openTempSettings()">
+        <mat-icon>settings</mat-icon>
       </button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 
 
-  <md-card class="sensor-card">
-    <md-card-content>
+  <mat-card class="sensor-card">
+    <mat-card-content>
       <justgage [options]="optionsPHGauge" [max]="maxPH" [value]="ph.phvalue"></justgage>
       <label> Set pH value: </label>
       <p id="pumpValue">{{currentJob.pumpValue}}</p>
       <label> Set read interval (s): </label>
       <p id="phReadInterval">{{currentJob.phReadInt}}</p>
-    </md-card-content>
-    <md-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
       <img class="devicestatus" *ngIf="isPumpOn" src="../../../assets/icons/pump.png">
-      <button id="phSettingsButton" md-button [disabled]="!deviceConnected" (click)="openPhSettings()">
-        <md-icon>settings</md-icon>
+      <button id="phSettingsButton" mat-button [disabled]="!deviceConnected" (click)="openPhSettings()">
+        <mat-icon>settings</mat-icon>
       </button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 
 </div>
 

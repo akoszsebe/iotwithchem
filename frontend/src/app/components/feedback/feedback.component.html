@@ -1,21 +1,21 @@
-<md-card class="feedbackcard">
+<mat-card class="feedbackcard">
 
-  <md-card-title>
+  <mat-card-title>
     <h1>Feedback</h1>
-  </md-card-title>
-  <md-card-content>
+  </mat-card-title>
+  <mat-card-content>
     <p id="response">{{response}}</p>
-    <md-input-container>
-      <input mdInput id="fromField" [disabled]=true placeholder="From" [(ngModel)]="from">
-    </md-input-container>
+    <mat-input-container>
+      <input matInput id="fromField" [disabled]=true placeholder="From" [(ngModel)]="from">
+    </mat-input-container>
     <br>
-    <md-input-container>
-       <textarea id="messageBox" mdInput class="textarea"
+    <mat-input-container>
+       <textarea id="messageBox" matInput class="textarea"
                  rows="15" cols="100" placeholder="Message" [(ngModel)]="message"></textarea>
-    </md-input-container>
-  </md-card-content>
-  <md-card-actions>
-    <button id="sendButton" md-raised-button (click)="sendFeedback()">Send</button>
-  </md-card-actions>
-</md-card>
+    </mat-input-container>
+  </mat-card-content>
+  <mat-card-actions>
+    <button id="sendButton" mat-raised-button (click)="sendFeedback()">Send</button>
+  </mat-card-actions>
+</mat-card>
 

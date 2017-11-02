@@ -24,8 +24,8 @@ const MQueueWS = module.exports = function (io, fbMessenger) {
  * set some initial parameter values
  */
 MQueueWS.prototype.init = function () {
-                      /*LIVE mq connection string*/ "amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz";         
-  this.cloudAmqpUrl = "amqp://pwxpzbkg:2lBrsgZEGj8gtGAg9ezbGzpOba8l-3Mo@squirrel.rmq.cloudamqp.com/pwxpzbkg";
+            /*LIVE mq connection string*/ "amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz";         
+  this.cloudAmqpUrl = 'amqp://pwxpzbkg:2lBrsgZEGj8gtGAg9ezbGzpOba8l-3Mo@squirrel.rmq.cloudamqp.com/pwxpzbkg';
   const self = this;
   this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn) {
     let ok = conn.createChannel();

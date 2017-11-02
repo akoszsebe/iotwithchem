@@ -1,14 +1,14 @@
 import {async, TestBed} from '@angular/core/testing';
 import {ConfirmDialogComponent} from './confirm-dialog.component';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../../custom-md/custom-md.module';
 
 
 @NgModule({
   declarations: [ConfirmDialogComponent],
-  imports: [CustomMdModule, BrowserAnimationsModule],
+  imports: [CustomMatModule, BrowserAnimationsModule],
   entryComponents: [ConfirmDialogComponent],
   exports: [ConfirmDialogComponent],
 })
@@ -18,7 +18,7 @@ class TestModule {
 
 describe('ConfirmDialogComponent', () => {
   let component: ConfirmDialogComponent;
-  let dialog: MdDialog;
+  let dialog: MatDialog;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('ConfirmDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    dialog = TestBed.get(MdDialog);
+    dialog = TestBed.get(MatDialog);
     const dialogRef = dialog.open(ConfirmDialogComponent);
     component = dialogRef.componentInstance;
   });

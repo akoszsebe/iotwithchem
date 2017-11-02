@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {UIChart} from 'primeng/components/chart/chart';
 import {TempService} from '../../services/temp/temp.service';
 import {PhService} from '../../services/ph/ph.service';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ReportsComponent implements OnInit {
 
 
   constructor(private tempService: TempService,
-              private phService: PhService) {
+              private phService: PhService,
+              private snackBar: MatSnackBar) {
     this.tempChartData = {
       datasets: [
         {
@@ -62,15 +64,19 @@ export class ReportsComponent implements OnInit {
     const newLabels: string[] = [];
     this.tempService.getTempsInInterval(this.tempStartDate.getTime(), this.tempEndDate.getTime())
       .subscribe(tempDOs => {
-          tempDOs.forEach(function (item) {
-            newData.push(item.tempvalue);
-            const date = new Date();
-            date.setTime(item.tempdate);
-            newLabels.push(date.toLocaleString());
-          });
-          me.tempChartData.datasets[0].data = newData;
-          me.tempChartData.labels = newLabels;
-          me.tempChart.refresh();
+          if (tempDOs.length === 0) {
+            this.snackBar.open('No records in that period', null, {duration: 2000});
+          } else {
+            tempDOs.forEach(function (item) {
+              newData.push(item.tempvalue);
+              const date = new Date();
+              date.setTime(item.tempdate);
+              newLabels.push(date.toLocaleString());
+            });
+            me.tempChartData.datasets[0].data = newData;
+            me.tempChartData.labels = newLabels;
+            me.tempChart.refresh();
+          }
         },
         error => {
           console.log(error);
@@ -94,15 +100,19 @@ export class ReportsComponent implements OnInit {
     const newLabels: string[] = [];
     this.phService.getPhsInInterval(this.phStartDate.getTime(), this.phEndDate.getTime())
       .subscribe(phDOs => {
-          phDOs.forEach(function (item) {
-            newData.push(item.phvalue);
-            const date = new Date();
-            date.setTime(item.phdate);
-            newLabels.push(date.toLocaleString());
-          });
-          me.phChartData.datasets[0].data = newData;
-          me.phChartData.labels = newLabels;
-          me.phChart.refresh();
+          if (phDOs.length === 0) {
+            this.snackBar.open('No records in that period', null, {duration: 2000});
+          } else {
+            phDOs.forEach(function (item) {
+              newData.push(item.phvalue);
+              const date = new Date();
+              date.setTime(item.phdate);
+              newLabels.push(date.toLocaleString());
+            });
+            me.phChartData.datasets[0].data = newData;
+            me.phChartData.labels = newLabels;
+            me.phChart.refresh();
+          }
         },
         error => {
           console.log(error);

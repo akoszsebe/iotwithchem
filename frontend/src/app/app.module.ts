@@ -26,7 +26,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CalibrationComponent} from './components/calibration/calibration.component';
 import {CalibrationService} from './services/calibration/calibration.service';
 import {DeviceService} from './services/device/device.service';
-import {CustomMdModule} from '../custom-md/custom-md.module';
+import {CustomMatModule} from '../custom-md/custom-md.module';
 
 
 @NgModule({
@@ -54,7 +54,7 @@ import {CustomMdModule} from '../custom-md/custom-md.module';
     FormsModule,
     HttpModule,
     JustgageModule,
-    CustomMdModule,
+    CustomMatModule,
     AppRoutingModule,
     CalendarModule,
     ChartModule,

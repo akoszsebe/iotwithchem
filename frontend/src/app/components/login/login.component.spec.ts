@@ -4,7 +4,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {FormsModule} from '@angular/forms';
 import {ProgressBarModule} from 'primeng/primeng';
 import {RouterTestingModule} from '@angular/router/testing';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../custom-md/custom-md.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -13,7 +13,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [CustomMdModule, RouterTestingModule, FormsModule, ProgressBarModule],
+      imports: [CustomMatModule, RouterTestingModule, FormsModule, ProgressBarModule],
       providers: [AuthService]
     })
       .compileComponents();

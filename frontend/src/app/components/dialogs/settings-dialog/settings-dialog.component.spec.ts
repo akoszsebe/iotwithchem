@@ -1,14 +1,14 @@
 import {async, TestBed} from '@angular/core/testing';
 import {SettingsDialogComponent} from './settings-dialog.component';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../../custom-md/custom-md.module';
 
 @NgModule({
   declarations: [SettingsDialogComponent],
-  imports: [FormsModule, CustomMdModule, BrowserAnimationsModule],
+  imports: [FormsModule, CustomMatModule, BrowserAnimationsModule],
   entryComponents: [SettingsDialogComponent],
   exports: [SettingsDialogComponent],
 })
@@ -18,7 +18,7 @@ class TestModule {
 
 describe('SettingsDialogComponent', () => {
   let component: SettingsDialogComponent;
-  let dialog: MdDialog;
+  let dialog: MatDialog;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('SettingsDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    dialog = TestBed.get(MdDialog);
+    dialog = TestBed.get(MatDialog);
     const dialogRef = dialog.open(SettingsDialogComponent);
     component = dialogRef.componentInstance;
   });

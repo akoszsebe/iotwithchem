@@ -5,7 +5,7 @@ import {CalendarModule, ChartModule} from 'primeng/primeng';
 import {TempService} from '../../services/temp/temp.service';
 import {PhService} from '../../services/ph/ph.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../custom-md/custom-md.module';
 import {HttpModule} from '@angular/http';
 
 describe('ReportsComponent', () => {
@@ -15,7 +15,7 @@ describe('ReportsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ReportsComponent],
-      imports: [CustomMdModule, FormsModule, ChartModule, CalendarModule, BrowserAnimationsModule, HttpModule],
+      imports: [CustomMatModule, FormsModule, ChartModule, CalendarModule, BrowserAnimationsModule, HttpModule],
       providers: [TempService, PhService]
     })
       .compileComponents();

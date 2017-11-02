@@ -1,16 +1,16 @@
 import {async, TestBed} from '@angular/core/testing';
 
 import {JobDialogComponent} from './job-dialog.component';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../../custom-md/custom-md.module';
 
 @NgModule({
   declarations: [JobDialogComponent],
-  imports: [FormsModule, CustomMdModule, CalendarModule, BrowserAnimationsModule],
+  imports: [FormsModule, CustomMatModule, CalendarModule, BrowserAnimationsModule],
   entryComponents: [JobDialogComponent],
   exports: [JobDialogComponent],
 })
@@ -21,7 +21,7 @@ class TestModule {
 
 describe('JobDialogComponent', () => {
   let component: JobDialogComponent;
-  let dialog: MdDialog;
+  let dialog: MatDialog;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,7 +30,7 @@ describe('JobDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    dialog = TestBed.get(MdDialog);
+    dialog = TestBed.get(MatDialog);
     const dialogRef = dialog.open(JobDialogComponent);
     component = dialogRef.componentInstance;
   });

@@ -1,46 +1,49 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
-  MdButtonModule,
-  MdCardModule,
-  MdDialogModule,
-  MdIconModule,
-  MdIconRegistry,
-  MdInputModule,
-  MdListModule,
-  MdProgressSpinnerModule,
-  MdSidenavModule,
-  MdSlideToggleModule,
-  MdTabsModule,
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatIconModule,
+  MatIconRegistry,
+  MatInputModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatTabsModule,
 } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdSlideToggleModule,
-    MdInputModule,
-    MdProgressSpinnerModule,
-    MdDialogModule,
-    MdSidenavModule,
-    MdCardModule,
-    MdListModule,
-    MdButtonModule,
-    MdIconModule,
-    MdTabsModule
+    MatSlideToggleModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatSnackBarModule
   ],
   exports: [
-    MdSlideToggleModule,
-    MdInputModule,
-    MdProgressSpinnerModule,
-    MdDialogModule,
-    MdSidenavModule,
-    MdCardModule,
-    MdListModule,
-    MdButtonModule,
-    MdIconModule,
-    MdTabsModule],
+    MatSlideToggleModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatSnackBarModule],
   declarations: [],
-  providers: [MdIconRegistry]
+  providers: [MatIconRegistry]
 })
-export class CustomMdModule {
+export class CustomMatModule {
 }

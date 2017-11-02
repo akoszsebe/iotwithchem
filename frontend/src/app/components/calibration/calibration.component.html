@@ -1,17 +1,17 @@
-<md-card class="calibrationcard">
+<mat-card class="calibrationcard">
 
-  <md-card-title>
+  <mat-card-title>
     <h1>Calibration</h1>
-  </md-card-title>
+  </mat-card-title>
 
   <p-steps id="steps" [model]="items" [(activeIndex)]="currentLevel" class="custom-steps"></p-steps>
-  <md-card-content>
-    <md-spinner id="spinner" *ngIf="buttonDisabled" class="spinner" color={{colors[currentLevel]}}></md-spinner>
-  </md-card-content>
+  <mat-card-content>
+    <mat-spinner id="spinner" *ngIf="buttonDisabled" class="spinner" color={{colors[currentLevel]}}></mat-spinner>
+  </mat-card-content>
 
-  <md-card-actions>
-    <button id="calibrateButton" md-raised-button *ngIf="!buttonDisabled" (click)="calibrate()">Calibrate
+  <mat-card-actions>
+    <button id="calibrateButton" mat-raised-button *ngIf="!buttonDisabled" (click)="calibrate()">Calibrate
       {{levels[currentLevel]}}
     </button>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>

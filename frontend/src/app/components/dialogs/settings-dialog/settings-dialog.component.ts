@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-settings-dialog',
@@ -11,7 +11,7 @@ export class SettingsDialogComponent implements OnInit {
   public interval: number;
   public value: number;
 
-  constructor(public dialogRef: MdDialogRef<SettingsDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<SettingsDialogComponent>) {
 
   }
 

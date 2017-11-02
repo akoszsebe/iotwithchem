@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-job-dialog',
@@ -12,7 +12,7 @@ export class JobDialogComponent implements OnInit {
   public jobDescription = '';
   public minJobEndDate: Date = new Date();
 
-  constructor(public dialogRef: MdDialogRef<JobDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<JobDialogComponent>) {
   }
 
   ngOnInit() {

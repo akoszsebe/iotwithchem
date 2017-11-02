@@ -1,43 +1,43 @@
-<md-sidenav-container fullscreen>
-  <md-sidenav id="sidenav" #sidenav class="sidenav-menu">
-    <md-list>
-      <md-list-item>
-        <button id="closeMenu" md-button (click)="sidenav.close()">
-          <md-icon>close</md-icon>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav id="sidenav" #sidenav class="sidenav-menu">
+    <mat-list>
+      <mat-list-item>
+        <button id="closeMenu" mat-button (click)="sidenav.close()">
+          <mat-icon>close</mat-icon>
         </button>
-      </md-list-item>
-      <md-list-item>
+      </mat-list-item>
+      <mat-list-item>
         <h3>IoTwithChem v2</h3>
-      </md-list-item>
-      <md-list-item *ngIf="loggedIn"><img class="profilepic" src="{{user.picUrl}}" alt="profilepic"></md-list-item>
-      <md-list-item *ngIf="loggedIn"><a md-button> {{user.name}} </a></md-list-item>
-      <md-list-item *ngIf="loggedIn; then logout else login"></md-list-item>
+      </mat-list-item>
+      <mat-list-item *ngIf="loggedIn"><img class="profilepic" src="{{user.picUrl}}" alt="profilepic"></mat-list-item>
+      <mat-list-item *ngIf="loggedIn"><a mat-button> {{user.name}} </a></mat-list-item>
+      <mat-list-item *ngIf="loggedIn; then logout else login"></mat-list-item>
       <ng-template #login>
-        <md-list-item><a md-button class="sidemenu-item" routerLink="/login" (click)="sidenav.close()">Login </a>
-        </md-list-item>
+        <mat-list-item><a mat-button class="sidemenu-item" routerLink="/login" (click)="sidenav.close()">Login </a>
+        </mat-list-item>
       </ng-template>
       <ng-template #logout>
-        <md-list-item><a md-button class="sidemenu-item" href="https://iotwithchem2.herokuapp.com/logout">Logout</a>
-        </md-list-item>
+        <mat-list-item><a mat-button class="sidemenu-item" href="https://iotwithchem2.herokuapp.com/logout">Logout</a>
+        </mat-list-item>
       </ng-template>
-      <md-list-item><a id="experimentLink" md-button class="sidemenu-item" routerLink="/experiment"
-                       (click)="sidenav.close()">Experiment</a></md-list-item>
-      <md-list-item><a id="calibrationLink" md-button class="sidemenu-item" routerLink="/calibration"
-                       (click)="sidenav.close()">Calibration</a></md-list-item>
-      <md-list-item><a id="reportsLink" md-button class="sidemenu-item" routerLink="/reports" (click)="sidenav.close()">Reports</a>
-      </md-list-item>
-      <md-list-item><a id="feedbackLink" class="feedback" md-button routerLink="/feedback" (click)="sidenav.close()">Leave
+      <mat-list-item><a id="experimentLink" mat-button class="sidemenu-item" routerLink="/experiment"
+                       (click)="sidenav.close()">Experiment</a></mat-list-item>
+      <mat-list-item><a id="calibrationLink" mat-button class="sidemenu-item" routerLink="/calibration"
+                       (click)="sidenav.close()">Calibration</a></mat-list-item>
+      <mat-list-item><a id="reportsLink" mat-button class="sidemenu-item" routerLink="/reports" (click)="sidenav.close()">Reports</a>
+      </mat-list-item>
+      <mat-list-item><a id="feedbackLink" class="feedback" mat-button routerLink="/feedback" (click)="sidenav.close()">Leave
         a feedback</a>
-      </md-list-item>
-    </md-list>
+      </mat-list-item>
+    </mat-list>
 
-  </md-sidenav>
+  </mat-sidenav>
 
   <div>
-    <button id="menuButton" md-button *ngIf="loggedIn" (click)="sidenav.open()">
-      <md-icon>menu</md-icon>
+    <button id="menuButton" mat-button *ngIf="loggedIn" (click)="sidenav.open()">
+      <mat-icon>menu</mat-icon>
     </button>
     <router-outlet></router-outlet>
   </div>
 
-</md-sidenav-container>
+</mat-sidenav-container>

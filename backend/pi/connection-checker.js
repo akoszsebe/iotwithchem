@@ -30,7 +30,7 @@ ConnectionChecker.prototype.checking = function () {
             console.log("---------------------------------Turn of rpy");
             process.exit(0);
           }
-        }, 100);
+        }, 1000);
       }
     }
   })

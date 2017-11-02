@@ -2,8 +2,9 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {SidenavComponent} from './sidenav.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AuthService} from '../../services/auth/auth.service';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../custom-md/custom-md.module';
 import {HttpModule} from '@angular/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;
@@ -12,7 +13,7 @@ describe('SidenavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SidenavComponent],
-      imports: [CustomMdModule, RouterTestingModule, HttpModule],
+      imports: [CustomMatModule, RouterTestingModule, HttpModule, BrowserAnimationsModule],
       providers: [AuthService]
     })
       .compileComponents();

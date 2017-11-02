@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FeedbackComponent} from './feedback.component';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CustomMdModule} from '../../../custom-md/custom-md.module';
+import {CustomMatModule} from '../../../custom-md/custom-md.module';
 import {FeedbackService} from '../../services/feedback/feedback.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {HttpModule} from '@angular/http';
@@ -14,7 +14,7 @@ describe('FeedbackComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FeedbackComponent],
-      imports: [CustomMdModule, FormsModule, BrowserAnimationsModule, HttpModule],
+      imports: [CustomMatModule, FormsModule, BrowserAnimationsModule, HttpModule],
       providers: [FeedbackService, AuthService]
     })
       .compileComponents();
