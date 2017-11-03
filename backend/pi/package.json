@@ -25,6 +25,7 @@
     "rpi-gpio": "^0.7.0",
     "path": "^0.12.7",
     "socket.io-client": "^1.7.3",
-    "connectivity": "^1.0.0"
+    "connectivity": "^1.0.0",
+    "request":"2.83.0"
   }
 }

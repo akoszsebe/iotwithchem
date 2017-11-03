@@ -207,3 +207,50 @@ DbWs.prototype.logAction = function (name, action, date) {
 };
 
 
+DbWs.prototype.createTemperatureMessage = function (rid, sid, tv, td, _callback) {
+  
+  
+    // create a Temperature json object
+    const temp = new Temperature({
+      raspberryid: rid,
+      sensorid: sid,
+      tempvalue: tv,
+      tempdate: td
+    });
+    // call the Temperature class save operator
+    temp.save(function (err) {
+      if (err)
+        return _callback(err);
+      return _callback(null)
+    })
+  
+  };
+  
+  /**
+   * createPhMessage   method is responsabile for ...
+   *
+   * rid:
+   * sid:
+   * pv:
+   * pd:
+   * callback:
+   */
+  
+  DbWs.prototype.createPhMessage = function (rid, sid, pv, pd, _callback) {
+  
+    console.info("Save ph -------- "+ rid + " " + sid + " " + pv + " " + pd)
+    // create a Ph json object
+    const ph = new Ph({
+      raspberryid: rid,
+      sensorid: sid,
+      phvalue: pv,
+      phdate: pd
+    });
+    // call the Temperature class save operator
+    ph.save(function (err) {
+      if (err)
+        return _callback(err);
+      return _callback(null)
+    })
+  
+  };

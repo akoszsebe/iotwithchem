@@ -14,7 +14,7 @@ export class AuthGuardService implements CanActivate {
 
     const url: string = state.url;
     return true;
-    // return this.authService.checkAuthentication().map(user => {
+    // this.authService.checkAuthentication().map(user => {
     //   if (user !== null) {
     //     localStorage.setItem('name', user.name);
     //     this.authService.setUser(user);
@@ -27,8 +27,7 @@ export class AuthGuardService implements CanActivate {
     //     }
     //     this.authService.redirectUrl = url;
     //     this.router.navigate(['/login']);
-    //     // need to be false // // is set to true for skip authentification//
-    //     return true;
+    //     return false;
     //   }
     // });
   }

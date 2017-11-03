@@ -235,18 +235,36 @@ module.exports = (app, passport, io) => {
     res.json({sent: true});
   });
 
+  app.get('/settemperature', (req, res) => {
+    var temperature = req.body
+     db.createTemperatureMessage(temperature.raspberryid,temperature.sensorid,temperature.tempvalue,temperature.tempdate, (returndata) => {
+       res.json(returndata)
+     });
+   });
+ 
+  app.get('/setph', (req, res) => {
+   var ph = req.body
+   console.info("Save ph $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-------- "+ ph)
+     db.createPhMessage(ph.raspberryid,ph.sensorid,ph.phvalue,ph.phdate, (returndata) => {
+       res.json(returndata)
+     })
+   });
+
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve('./dist/index.html'));
   })
+  
+  
 
 };
 
 function logAction(req, res, next) {
-  db.logAction(req.user.fb.name, req.originalUrl, (new Date()).toString());
+  //db.logAction(req.user.fb.name, req.originalUrl, (new Date()).toString());
   next();
 }
 
 function checkAuthorization(req, res, next) {
-  req.isAuthenticated() ? next() : res.sendFile(path.resolve('./dist/index.html'));
+  next();
+  //req.isAuthenticated() ? next() : res.sendFile(path.resolve('./dist/index.html'));
 }
