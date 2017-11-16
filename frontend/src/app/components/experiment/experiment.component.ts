@@ -145,9 +145,9 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     });
     this.connection3 = this.deviceService.getDeviceStatusChanges().subscribe(response => {
       this.msg = [];
-      this.toggleChecked = true;//response
+      this.toggleChecked = response
       this.toggleSync();
-      this.deviceConnected =true;// response;
+      this.deviceConnected = response;
       response ? this.msg = [{severity: 'success', summary: 'Device', detail: 'Pi connected'}]
         :this.msg = [{severity: 'error', summary: 'Device', detail: 'Pi disconnected'}];
     });

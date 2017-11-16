@@ -37,7 +37,8 @@ MQueueWS.prototype.init = function () {
   }).then(null, console.warn);
   this.io.on('connection', (socket) => {
     console.log('The user is connected');
-    self.deviceList.length > 0 ? self.io.emit('pi connected', true) : self.io.emit('pi disconnected', false);
+    self.io.emit('pi connected', true)
+    //self.deviceList.length > 0 ? self.io.emit('pi connected', true) : self.io.emit('pi disconnected', false);
 
     socket.on('disconnect', function () {
       console.log('The user is disconnected');
