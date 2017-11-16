@@ -235,7 +235,7 @@ module.exports = (app, passport, io) => {
     res.json({sent: true});
   });
 
-  app.get('/settemperature', (req, res) => {
+  app.post('/settemperature', (req, res) => {
     var temperature = req.body
      db.createTemperatureMessage(temperature.raspberryid,temperature.sensorid,temperature.tempvalue,temperature.tempdate, (returndata) => {
        res.json(returndata)
