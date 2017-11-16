@@ -9,8 +9,8 @@ import {UserDO} from '../../models/user';
 })
 export class SidenavComponent implements OnInit {
 
-  user: UserDO = new UserDO('12423', 'DodoKacsa', '', '');
-  loggedIn = false;
+  user: UserDO = new UserDO('1234', 'Pista', '', '');
+  loggedIn = true;
 
   constructor(private authService: AuthService) {
   }
