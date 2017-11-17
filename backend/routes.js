@@ -237,7 +237,7 @@ module.exports = (app, passport, io) => {
 
   app.post('/settemperature', (req, res) => {
     var temperature = req.body
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$ req -> "+temperature+"    "+req);
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$ req -> "+temperature.raspberryid+"    "+req.raspberryid);
      db.createTemperatureMessage(temperature.raspberryid,temperature.sensorid,temperature.tempvalue,temperature.tempdate, (returndata) => {
        res.json(returndata)
      });
