@@ -245,7 +245,7 @@ module.exports = (app, passport, io) => {
  
   app.get('/setph', (req, res) => {
    var ph = req.body
-   console.info("Save ph $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-------- "+ ph)
+   console.info("Save ph $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-------- "+ ph +" "+ req)
      db.createPhMessage(ph.raspberryid,ph.sensorid,ph.phvalue,ph.phdate, (returndata) => {
        res.json(returndata)
      })
