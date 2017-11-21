@@ -66,15 +66,15 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       decimals: 2,
       gaugeWidthScale: 0.6,
       customSectors: [{
-        color: '#ff0000', lo: 0, hi: targetValue - 3
+        color: '#05a8a8', lo: 0, hi: targetValue - 3
       }, {
-        color: '#ffd50e', lo: targetValue - 3, hi: targetValue - 1
+        color: '#05a884', lo: targetValue - 3, hi: targetValue - 1
       }, {
-        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
+        color: '#05a83b', lo: targetValue - 1, hi: targetValue + 1
       }, {
-        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 3
+        color: '#a8a505', lo: targetValue + 1, hi: targetValue + 3
       }, {
-        color: '#ff0000', lo: targetValue + 3, hi: 100
+        color: '#a80705', lo: targetValue + 3, hi: 100
       }],
       counter: true
     };
@@ -89,15 +89,15 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       decimals: 2,
       gaugeWidthScale: 0.6,
       customSectors: [{
-        color: '#ff0000', lo: 1, hi: targetValue - 2
+        color: '#a80705', lo: 1, hi: targetValue - 2
       }, {
-        color: '#ffd50e', lo: targetValue - 2, hi: targetValue - 1
+        color: '#a8a505', lo: targetValue - 2, hi: targetValue - 1
       }, {
-        color: '#00ff00', lo: targetValue - 1, hi: targetValue + 1
+        color: '#05a83b', lo: targetValue - 1, hi: targetValue + 1
       }, {
-        color: '#ffd50e', lo: targetValue + 1, hi: targetValue + 2
+        color: '#05a884', lo: targetValue + 1, hi: targetValue + 2
       }, {
-        color: '#ff1105', lo: targetValue + 2, hi: 14
+        color: '#05a8a8', lo: targetValue + 2, hi: 14
       }],
       counter: true
     };
