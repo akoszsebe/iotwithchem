@@ -10,6 +10,7 @@ import {DevicesService} from '../../services/devices/devices.service';
 import {JobService} from '../../services/job/job.service';
 import {DialogService} from '../../services/dialog/dialog.service';
 import {DeviceService} from '../../services/device/device.service';
+import { DevicesDO } from 'app/models/devices';
 
 
 @Component({
@@ -29,11 +30,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   currentJob = new JobDateDO(new Date(), new Date(), '', 0, 0, 0, 0);
 
-  devices = [
-    {value: 'device_0', viewValue: 'RpiQt'},
-    {value: 'device_1', viewValue: 'RpiKemia'},
-    {value: 'device_2', viewValue: 'RpiMy'}
-  ];
+  devices:DevicesDO;
 
 
   selected: string;
@@ -144,16 +141,22 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.selected = this.devices[0].value;
-    this.devicesService.getDevices()
-    .subscribe(devices => {
-        console.log("-----devices -- " + devices);
+    this.devicesService.getDevices().subscribe(tmpdevices => {
+        console.log("-----devices -- " + tmpdevices);
+        this.devices = tmpdevices;
+        this.startWorking();
       },
       error => {
         console.log(error);
       });
 
+    
+  }
+
+  startWorking()
+  {
+    this.selected = this.devices[0].value;
+    
     this.connection1 = this.tempService.getHeaterStatus().subscribe(response => {
       response ? console.log('Heater turned on') : console.log('Heater turned off');
       this.isHeaterOn = response;
@@ -189,7 +192,6 @@ export class ExperimentComponent implements OnInit, OnDestroy {
         this.startSync();
       });
   }
-
 
   toggleSync() {
     console.log(this.toggleChecked);
