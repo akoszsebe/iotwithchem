@@ -16,6 +16,7 @@ import {ChartModule} from 'primeng/components/chart/chart';
 import {PhService} from './services/ph/ph.service';
 import {ExperimentComponent} from './components/experiment/experiment.component';
 import {JobService} from './services/job/job.service';
+import {DevicesService} from './services/devices/devices.service';
 import {JobDialogComponent} from './components/dialogs/job-dialog/job-dialog.component';
 import {CountDown} from 'angular2-simple-countdown/lib/countdown';
 import {FeedbackComponent} from './components/feedback/feedback.component';
@@ -27,6 +28,7 @@ import {CalibrationComponent} from './components/calibration/calibration.compone
 import {CalibrationService} from './services/calibration/calibration.service';
 import {DeviceService} from './services/device/device.service';
 import {CustomMatModule} from '../custom-md/custom-md.module';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import {CustomMatModule} from '../custom-md/custom-md.module';
     ChartModule,
     ProgressBarModule,
     MessagesModule,
-    StepsModule
+    StepsModule,
+    MatSelectModule
   ],
   providers: [
     TempService,
@@ -72,6 +75,7 @@ import {CustomMatModule} from '../custom-md/custom-md.module';
     FeedbackService,
     CalibrationService,
     DeviceService,
+    DevicesService,
     {provide: LOCALE_ID, useValue: 'ro-RO'}
   ],
   bootstrap: [SidenavComponent]

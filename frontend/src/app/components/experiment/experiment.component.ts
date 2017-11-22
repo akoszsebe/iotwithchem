@@ -6,6 +6,7 @@ import {PhDO} from '../../models/ph';
 import {JobDO} from '../../models/job';
 import {PhService} from '../../services/ph/ph.service';
 import {TempService} from '../../services/temp/temp.service';
+import {DevicesService} from '../../services/devices/devices.service';
 import {JobService} from '../../services/job/job.service';
 import {DialogService} from '../../services/dialog/dialog.service';
 import {DeviceService} from '../../services/device/device.service';
@@ -28,6 +29,14 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   currentJob = new JobDateDO(new Date(), new Date(), '', 0, 0, 0, 0);
 
+  devices = [
+    {value: 'device_0', viewValue: 'RpiQt'},
+    {value: 'device_1', viewValue: 'RpiKemia'},
+    {value: 'device_2', viewValue: 'RpiMy'}
+  ];
+
+
+  selected: string;
   syncLabel: string;
   toggleChecked: boolean;
   deviceConnected: boolean;
@@ -118,6 +127,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   }
 
   constructor(private tempService: TempService,
+              private devicesService: DevicesService,
               private phService: PhService,
               private jobService: JobService,
               private dialogService: DialogService,
@@ -134,6 +144,15 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.selected = this.devices[0].value;
+    this.devicesService.getDevices()
+    .subscribe(devices => {
+        console.log("-----devices -- " + devices);
+      },
+      error => {
+        console.log(error);
+      });
 
     this.connection1 = this.tempService.getHeaterStatus().subscribe(response => {
       response ? console.log('Heater turned on') : console.log('Heater turned off');
@@ -186,6 +205,9 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     this.getPh();
   }
 
+  selectChanged() {
+    console.log(this.selected);
+  }
 
   getTemp() {
     this.tempTimer = setInterval(() => {

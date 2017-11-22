@@ -1,7 +1,15 @@
 <mat-slide-toggle class="synctoggle" [disabled]="!deviceConnected" [(ngModel)]="toggleChecked" (change)="toggleSync()">
   {{syncLabel}}
 </mat-slide-toggle>
+<mat-form-field>
+<mat-select placeholder="Connected Devices" [(ngModel)]="selected" (change)="selectChanged()">
+  <mat-option *ngFor="let device of devices" [value]="device.value" >
+    {{ device.viewValue }}
+  </mat-option>
+</mat-select>
+</mat-form-field>
 <br>
+<p>You selected: {{selected}}</p>
 
 <p-messages [value]="msg"></p-messages>
 <div class="sensors-container">

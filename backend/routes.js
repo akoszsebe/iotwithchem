@@ -235,22 +235,34 @@ module.exports = (app, passport, io) => {
     res.json({sent: true});
   });
 
-  app.post('/settemperature', (req, res) => {
+  app.post('/api/device/setTemperature', (req, res) => {
     var temperature = req.body
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$ req -> "+temperature.raspberryid+"    "+req.raspberryid);
      db.createTemperatureMessage(temperature.raspberryid,temperature.sensorid,temperature.tempvalue,temperature.tempdate, (returndata) => {
        res.json(returndata)
      });
    });
  
-  app.post('/setph', (req, res) => {
+  app.post('/api/device/setPh', (req, res) => {
    var ph = req.body
-   //console.info("Save ph $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-------- "+ ph +" "+ req)
      db.createPhMessage(ph.raspberryid,ph.sensorid,ph.phvalue,ph.phdate, (returndata) => {
        res.json(returndata)
      })
    });
 
+  app.get('/api/frontEnd/getDevices', (req, res) => {
+    db.getDevices((returndata) => {
+      res.json(returndata)
+    })
+  });
+
+   
+  app.post('/api/frontEnd/setDevice', (req, res) => {
+    var d = req.body
+      db.createDevice(d.devicename,d.deviceid, (returndata) => {
+        res.json(returndata)
+    })
+  });
+  
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve('./dist/index.html'));

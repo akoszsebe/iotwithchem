@@ -45,5 +45,11 @@ export class DeviceService {
       .map(DeviceService.extractData)
       .catch(DeviceService.handleError);
   }
+  
+  getDevices(): Observable<boolean> {
+    return this.http.get(this.baseUrl + '/getDeviceStatus')
+      .map(DeviceService.extractData)
+      .catch(DeviceService.handleError);
+  }
 
 }

@@ -3,6 +3,7 @@
 let path = require('path'),
   Temperature = require(path.resolve('backend/models/temperature.js')),
   Ph = require(path.resolve('backend/models/ph.js')),
+  Device = require(path.resolve('backend/models/device.js')),
   Job = require(path.resolve('./backend/models/job.js')),
   Log = require(path.resolve('backend/models/log.js')),
   mongoose = require('mongoose');
@@ -254,3 +255,30 @@ DbWs.prototype.createTemperatureMessage = function (rid, sid, tv, td, _callback)
     })
   
   };
+
+
+  DbWs.prototype.getDevices = function (_callback) {    
+    Device.find({}, '-_id -__v', (error, devices) => {
+      if (error) {
+        return _callback(null)
+      }
+      return _callback(devices)
+    });
+  };
+
+  DbWs.prototype.createDevice = function (dn, did, _callback) {
+    
+      console.info("Save device -------- "+ dn + " " + did + " "  )
+      // create a Device json object
+      const device = new Device({
+        devicename: dn,
+        deviceid: did
+      });
+      // call the Temperature class save operator
+      device.save(function (err) {
+        if (err)
+          return _callback(err);
+        return _callback(null)
+      })
+    
+    };
