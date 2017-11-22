@@ -17,10 +17,15 @@ const fbMessenger = new FbMessenger();
 const ExcelExport = require(path.resolve('backend/models/excel-export'));
 const excelExport = new ExcelExport(db);
 
+var HashMap = require('hashmap');
+
 
 module.exports = (app, passport, io) => {
 
   const mq = new MQueueWS(io, fbMessenger);
+
+  var tempmap = new HashMap();
+  var phmap = new HashMap();
 
   app.get('/getsensorids', checkAuthorization, (req, res) => {
     db.getTemperatureSensors((returndata) => {
@@ -34,9 +39,12 @@ module.exports = (app, passport, io) => {
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
     let raspberryid;
     req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
-    db.getTemperature(raspberryid,sensorId, (returndata) => {
-      res.json(returndata)
-    });
+    if (tempmap.get(raspberryid))
+      res.json(tempmap.get(raspberryid))
+    else 
+      db.getTemperature(raspberryid,sensorId, (returndata) => {
+        res.json(returndata)
+      });
   });
 
 
@@ -67,9 +75,12 @@ module.exports = (app, passport, io) => {
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
     let raspberryid;
     req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
-    db.getPh(raspberryid,sensorId, (returndata) => {
-      res.json(returndata)
-    })
+    if (phmap.get(raspberryid))
+        res.json(phmap.get(raspberryid))
+    else 
+      db.getPh(raspberryid,sensorId, (returndata) => {
+        res.json(returndata)
+      })
   });
 
 
@@ -247,13 +258,15 @@ module.exports = (app, passport, io) => {
 
   app.post('/api/device/setTemperature', (req, res) => {
     var temperature = req.body
+    tempmap.set(temperature.raspberryid, temperature);
      db.createTemperatureMessage(temperature.raspberryid,temperature.sensorid,temperature.tempvalue,temperature.tempdate, (returndata) => {
        res.json(returndata)
      });
    });
  
   app.post('/api/device/setPh', (req, res) => {
-   var ph = req.body
+    var ph = req.body
+    phmap.set(ph.raspberryid, ph);
      db.createPhMessage(ph.raspberryid,ph.sensorid,ph.phvalue,ph.phdate, (returndata) => {
        res.json(returndata)
      })
