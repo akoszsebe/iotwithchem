@@ -208,6 +208,10 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   selectChanged() {
     console.log(this.selected);
+    clearInterval(this.tempTimer);
+    clearInterval(this.phTimer);
+    clearInterval(this.progressBarTimer);
+    this.startWorking();
   }
 
   getTemp() {
