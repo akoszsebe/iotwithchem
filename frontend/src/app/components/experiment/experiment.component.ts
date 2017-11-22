@@ -12,7 +12,6 @@ import {DialogService} from '../../services/dialog/dialog.service';
 import {DeviceService} from '../../services/device/device.service';
 import { DevicesDO } from 'app/models/devices';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: 'experiment.component.html',

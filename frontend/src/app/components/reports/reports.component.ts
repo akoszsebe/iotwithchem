@@ -3,7 +3,8 @@ import {UIChart} from 'primeng/components/chart/chart';
 import {TempService} from '../../services/temp/temp.service';
 import {PhService} from '../../services/ph/ph.service';
 import {MatSnackBar} from '@angular/material';
-
+import { DevicesDO } from 'app/models/devices';
+import {DevicesService} from '../../services/devices/devices.service';
 
 @Component({
   selector: 'app-reports',
@@ -27,14 +28,16 @@ export class ReportsComponent implements OnInit {
   phStartDate: Date;
   phEndDate: Date;
 
-
+  selected: string;
+  devices:DevicesDO;
   tempChartData: any;
   phChartData: any;
 
 
   constructor(private tempService: TempService,
               private phService: PhService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private devicesService: DevicesService,) {
     this.tempChartData = {
       datasets: [
         {
@@ -119,16 +122,37 @@ export class ReportsComponent implements OnInit {
         });
   }
 
+  selectChanged() {
+    console.log(this.selected);
+  }
 
   ngOnInit() {
-    this.tempService.getOldestReadDates().subscribe(dates => {
-      this.tempMinDate = new Date();
-      this.tempMinDate.setTime(dates.temp);
-      this.tempMaxDate = new Date();
-      this.phMinDate = new Date();
-      this.phMinDate.setTime(dates.ph);
-      this.phMaxDate = new Date();
+    this.devicesService.getDevices().subscribe(tmpdevices => {
+      console.log("-----devices -- " + tmpdevices);
+      this.devices = tmpdevices;
+      this.selected = this.devices[0].deviceid;
+      this.tempService.getOldestReadDates('-1').subscribe(dates => { 
+        this.tempMinDate = new Date();
+        this.tempMinDate.setTime(dates.temp);
+        this.tempMaxDate = new Date();
+        this.phMinDate = new Date();
+        this.phMinDate.setTime(dates.ph);
+        this.phMaxDate = new Date();
+      });
+    },
+    error => {
+      console.log(error);
+      this.tempService.getOldestReadDates('-1').subscribe(dates => { 
+        this.tempMinDate = new Date();
+        this.tempMinDate.setTime(dates.temp);
+        this.tempMaxDate = new Date();
+        this.phMinDate = new Date();
+        this.phMinDate.setTime(dates.ph);
+        this.phMaxDate = new Date();
+      });
     });
+    
+    
 
     this.tempEndDate = new Date();
     this.tempStartDate = new Date();
