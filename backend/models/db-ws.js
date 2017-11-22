@@ -100,14 +100,14 @@ DbWs.prototype.getTemperature = function (raspberryid ,sensorid, _callback) {
 /**
  * get temperature  interval vaue
  */
-DbWs.prototype.getTemperatureInterval = function (sensorid, datefrom, dateto, _callback) {
+DbWs.prototype.getTemperatureInterval = function (raspberryid,sensorid, datefrom, dateto, _callback) {
 
   Temperature.find({'tempdate': {'$gte': datefrom, '$lt': dateto}}, '-_id -__v', (error, temperatures) => {
     if (error) {
       return _callback(null)
     }
     return _callback(temperatures)
-  }).where('sensorid').equals(sensorid)
+  }).where('raspberryid').equals(raspberryid).where('sensorid').equals(sensorid)
 };
 
 /**
@@ -143,14 +143,14 @@ DbWs.prototype.getPh = function (raspberryid,sensorid, _callback) {
 /**
  * get ph interval value
  */
-DbWs.prototype.getPhInterval = function (sensorid, datefrom, dateto, _callback) {
+DbWs.prototype.getPhInterval = function (raspberryid,sensorid, datefrom, dateto, _callback) {
 
   Ph.find({'phdate': {'$gte': datefrom, '$lt': dateto}}, '-_id -__v', (error, phs) => {
     if (error) {
       return _callback(null)
     }
     return _callback(phs)
-  }).where('sensorid').equals(sensorid)
+  }).where('raspberryid').equals(raspberryid).where('sensorid').equals(sensorid)
 };
 
 DbWs.prototype.getOldestTemp = function (raspberryid,sensorid, _callback) {

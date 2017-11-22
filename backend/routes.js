@@ -43,9 +43,11 @@ module.exports = (app, passport, io) => {
   app.get('/gettempsbetween', checkAuthorization, (req, res) => {
     let sensorId;
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    let raspberryid;
+    req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
     const dateFrom = req.query.datefrom;
     const dateTo = req.query.dateto;
-    db.getTemperatureInterval(sensorId, dateFrom, dateTo, (returndata) => {
+    db.getTemperatureInterval(raspberryid,sensorId, dateFrom, dateTo, (returndata) => {
       res.json(returndata)
     });
   });
@@ -74,9 +76,11 @@ module.exports = (app, passport, io) => {
   app.get('/getphsbetween', checkAuthorization, (req, res) => {
     let sensorId;
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
+    let raspberryid;
+    req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
     const dateFrom = req.query.datefrom;
     const dateTo = req.query.dateto;
-    db.getPhInterval(sensorId, dateFrom, dateTo, (returndata) => {
+    db.getPhInterval(raspberryid,sensorId, dateFrom, dateTo, (returndata) => {
       res.json(returndata)
     })
   });

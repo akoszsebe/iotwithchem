@@ -65,7 +65,7 @@ export class ReportsComponent implements OnInit {
     const me = this;
     const newData: number[] = [];
     const newLabels: string[] = [];
-    this.tempService.getTempsInInterval(this.tempStartDate.getTime(), this.tempEndDate.getTime())
+    this.tempService.getTempsInInterval(this.selected,this.tempStartDate.getTime(), this.tempEndDate.getTime())
       .subscribe(tempDOs => {
           if (tempDOs.length === 0) {
             this.snackBar.open('No records in that period', null, {duration: 2000});
@@ -101,7 +101,7 @@ export class ReportsComponent implements OnInit {
     const me = this;
     const newData: number[] = [];
     const newLabels: string[] = [];
-    this.phService.getPhsInInterval(this.phStartDate.getTime(), this.phEndDate.getTime())
+    this.phService.getPhsInInterval(this.selected,this.phStartDate.getTime(), this.phEndDate.getTime())
       .subscribe(phDOs => {
           if (phDOs.length === 0) {
             this.snackBar.open('No records in that period', null, {duration: 2000});

@@ -46,14 +46,14 @@ export class PhService {
       .catch(PhService.handleError);
   }
 
-  getPhsInInterval(startDate: number, endDate: number): Observable<PhDO[]> {
+  getPhsInInterval(raspberryid,startDate: number, endDate: number): Observable<PhDO[]> {
 
     const params: URLSearchParams = new URLSearchParams();
     params.set('datefrom', startDate.toString());
     params.set('dateto', endDate.toString());
 
 
-    return this.http.get(this.baseUrl + '/getphsbetween', {search: params})
+    return this.http.get(this.baseUrl + '/getphsbetween'+'?raspberryid='+raspberryid, {search: params})
       .map(PhService.extractData)
       .catch(PhService.handleError);
   }

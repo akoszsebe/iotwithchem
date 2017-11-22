@@ -50,13 +50,13 @@ export class TempService {
       .catch(TempService.handleError);
   }
 
-  getTempsInInterval(startDate: number, endDate: number): Observable<TemperatureDO[]> {
+  getTempsInInterval(raspberryid,startDate: number, endDate: number): Observable<TemperatureDO[]> {
 
     const params: URLSearchParams = new URLSearchParams();
     params.set('datefrom', startDate.toString());
     params.set('dateto', endDate.toString());
 
-    return this.http.get(this.baseUrl + '/gettempsbetween', {search: params})
+    return this.http.get(this.baseUrl + '/gettempsbetween'+'?raspberryid='+raspberryid, {search: params})
       .map(TempService.extractData)
       .catch(TempService.handleError);
   }
