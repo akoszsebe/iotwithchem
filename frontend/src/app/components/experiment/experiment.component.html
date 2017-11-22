@@ -3,8 +3,8 @@
 </mat-slide-toggle>
 <mat-form-field>
 <mat-select placeholder="Connected Devices" [(ngModel)]="selected" (change)="selectChanged()">
-  <mat-option *ngFor="let device of devices" [value]="device.value" >
-    {{ device.viewValue }}
+  <mat-option *ngFor="let device of devices" [value]="device.deviceid" >
+    {{ device.devicename }}
   </mat-option>
 </mat-select>
 </mat-form-field>

@@ -155,8 +155,8 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   startWorking()
   {
-    this.selected = this.devices[0].value;
-    
+    this.selected = this.devices[0].deviceid;
+
     this.connection1 = this.tempService.getHeaterStatus().subscribe(response => {
       response ? console.log('Heater turned on') : console.log('Heater turned off');
       this.isHeaterOn = response;
