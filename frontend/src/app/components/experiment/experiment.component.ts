@@ -201,6 +201,8 @@ export class ExperimentComponent implements OnInit, OnDestroy {
   }
 
   startSync() {
+    this.getTempOnLoad();
+    this.getPhOnLoad();
     this.getTemp();
     this.getPh();
   }
@@ -229,6 +231,20 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     }, this.currentJob.tempReadInt * 1000);
   }
 
+  getTempOnLoad() {
+    if (!this.toggleChecked || !this.countdownDate) {
+      return;
+    }
+    this.tempService.getTemp(this.selected)
+      .subscribe(temp => {
+          this.temp = temp;
+          console.log(temp);
+        },
+        error => {
+          console.log(error);
+      });
+  }
+
   getPh() {
     this.phTimer = setInterval(() => {
       if (!this.toggleChecked || !this.countdownDate) {
@@ -245,16 +261,30 @@ export class ExperimentComponent implements OnInit, OnDestroy {
     }, this.currentJob.phReadInt * 1000);
   }
 
+  getPhOnLoad() {
+    if (!this.toggleChecked || !this.countdownDate) {
+      return;
+    }
+    this.phService.getPh(this.selected)
+      .subscribe(ph => {
+          this.ph = ph;
+          console.log(ph);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 
   openTempSettings() {
 
     this.dialogService.openSettings(this.currentJob.tempReadInt, this.currentJob.heaterValue).subscribe(res => {
       if (res != null) {
-
+        clearInterval(this.tempTimer);
+ 
         this.tempService.setReadInterval(res[0])
           .subscribe(result1 => {
             this.currentJob.tempReadInt = result1.sensorSetValue;
-
+            this.getTemp();
             this.tempService.setHeaterTemp(res[1])
               .subscribe(result2 => {
                 this.currentJob.heaterValue = result2.sensorSetValue;
@@ -267,13 +297,14 @@ export class ExperimentComponent implements OnInit, OnDestroy {
 
   openPhSettings() {
     this.dialogService.openSettings(this.currentJob.phReadInt, this.currentJob.pumpValue).subscribe(res => {
+      clearInterval(this.phTimer); 
 
       if (res != null) {
 
         this.phService.setReadInterval(res[0])
           .subscribe(result1 => {
             this.currentJob.phReadInt = result1.sensorSetValue;
-
+            this.getPh();
             this.phService.setPhValue(res[1])
               .subscribe(result2 => {
                 this.currentJob.pumpValue = result2.sensorSetValue;
