@@ -42,10 +42,10 @@ export class TempService {
     });
   }
 
-  getTemp(): Observable<TemperatureDO> {
+  getTemp(raspberryid): Observable<TemperatureDO> {
 
-    console.log(this.baseUrl + '/gettemperature');
-    return this.http.get(this.baseUrl + '/gettemperature')
+    console.log(this.baseUrl + '/gettemperature'+'?raspberryid='+raspberryid);
+    return this.http.get(this.baseUrl + '/gettemperature'+'?raspberryid='+raspberryid)
       .map(TempService.extractData)
       .catch(TempService.handleError);
   }
@@ -99,8 +99,8 @@ export class TempService {
       .catch(TempService.handleError);
   }
 
-  getOldestReadDates(): Observable<any> {
-    return this.http.get(this.baseUrl + '/getoldestreaddates')
+  getOldestReadDates(raspberryid): Observable<any> {
+    return this.http.get(this.baseUrl + '/getoldestreaddates'+'?raspberryid='+raspberryid)
       .map(TempService.extractData)
       .catch(TempService.handleError);
   }

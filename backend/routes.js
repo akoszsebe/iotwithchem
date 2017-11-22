@@ -32,7 +32,9 @@ module.exports = (app, passport, io) => {
   app.get('/gettemperature', (req, res) => {
     let sensorId;
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
-    db.getTemperature(sensorId, (returndata) => {
+    let raspberryid;
+    req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
+    db.getTemperature(raspberryid,sensorId, (returndata) => {
       res.json(returndata)
     });
   });
@@ -61,7 +63,9 @@ module.exports = (app, passport, io) => {
   app.get('/getph', (req, res) => {
     let sensorId;
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
-    db.getPh(sensorId, (returndata) => {
+    let raspberryid;
+    req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
+    db.getPh(raspberryid,sensorId, (returndata) => {
       res.json(returndata)
     })
   });
@@ -182,8 +186,10 @@ module.exports = (app, passport, io) => {
   app.get('/getOldestReadDates', checkAuthorization, (req, res) => {
     let sensorId;
     req.query.sensorid ? sensorId = req.query.sensorid : sensorId = '1';
-    db.getOldestTemp(sensorId, (temp) => {
-      db.getOldestPh(sensorId, (ph) => {
+    let raspberryid;
+    req.query.raspberryid ? raspberryid = req.query.raspberryid : raspberryid = '-1';
+    db.getOldestTemp(raspberryid,sensorId, (temp) => {
+      db.getOldestPh(raspberryid,sensorId, (ph) => {
         res.json({temp: temp.tempdate, ph: ph.phdate});
       });
     });

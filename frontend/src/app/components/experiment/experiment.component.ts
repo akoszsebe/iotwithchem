@@ -216,7 +216,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       if (!this.toggleChecked || !this.countdownDate) {
         return;
       }
-      this.tempService.getTemp()
+      this.tempService.getTemp(this.selected)
         .subscribe(temp => {
             this.temp = temp;
             console.log(temp);
@@ -232,7 +232,7 @@ export class ExperimentComponent implements OnInit, OnDestroy {
       if (!this.toggleChecked || !this.countdownDate) {
         return;
       }
-      this.phService.getPh()
+      this.phService.getPh(this.selected)
         .subscribe(ph => {
             this.ph = ph;
             console.log(ph);

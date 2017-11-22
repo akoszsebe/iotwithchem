@@ -87,14 +87,14 @@ DbWs.prototype.getTemperatureSensors = function (_callback) {
 /**
  * get temperature  value
  */
-DbWs.prototype.getTemperature = function (sensorid, _callback) {
+DbWs.prototype.getTemperature = function (raspberryid ,sensorid, _callback) {
 
   Temperature.findOne({}, '-_id -__v', (error, temperatures) => {
     if (error) {
       return _callback(null)
     }
     return _callback(temperatures)
-  }).where('sensorid').equals(sensorid).sort({'tempdate': 'descending'})
+  }).where('raspberryid').equals(raspberryid).where('sensorid').equals(sensorid).sort({'tempdate': 'descending'})
 };
 
 /**
@@ -130,14 +130,14 @@ DbWs.prototype.getPhSensors = function (_callback) {
 /**
  * get ph    value
  */
-DbWs.prototype.getPh = function (sensorid, _callback) {
+DbWs.prototype.getPh = function (raspberryid,sensorid, _callback) {
 
   Ph.findOne({}, '-_id -__v', (error, ph) => {
     if (error) {
       return _callback(null)
     }
     return _callback(ph)
-  }).where('sensorid').equals(sensorid).sort({'phdate': 'descending'})
+  }).where('raspberryid').equals(raspberryid).where('sensorid').equals(sensorid).sort({'phdate': 'descending'})
 };
 
 /**
@@ -153,24 +153,24 @@ DbWs.prototype.getPhInterval = function (sensorid, datefrom, dateto, _callback) 
   }).where('sensorid').equals(sensorid)
 };
 
-DbWs.prototype.getOldestTemp = function (sensorid, _callback) {
+DbWs.prototype.getOldestTemp = function (raspberryid,sensorid, _callback) {
 
   Temperature.findOne({}, '-_id -__v', (error, temperature) => {
     if (error) {
       return _callback(null)
     }
     return _callback(temperature)
-  }).where('sensorid').equals(sensorid).sort({'tempdate': 'ascending'})
+  }).where('raspberryid').equals(raspberryid).where('sensorid').equals(sensorid).sort({'tempdate': 'ascending'})
 };
 
-DbWs.prototype.getOldestPh = function (sensorid, _callback) {
+DbWs.prototype.getOldestPh = function (raspberryid,sensorid, _callback) {
 
   Ph.findOne({}, '-_id -__v', (error, ph) => {
     if (error) {
       return _callback(null)
     }
     return _callback(ph)
-  }).where('sensorid').equals(sensorid).sort({'phdate': 'ascending'})
+  }).where('raspberryid').equals(raspberryid).where('sensorid').equals(sensorid).sort({'phdate': 'ascending'})
 };
 
 DbWs.prototype.getJob = function (_callback) {

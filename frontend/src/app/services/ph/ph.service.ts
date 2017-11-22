@@ -39,9 +39,9 @@ export class PhService {
     });
   }
 
-  getPh(): Observable<PhDO> {
+  getPh(raspberryid): Observable<PhDO> {
 
-    return this.http.get(this.baseUrl + '/getph')
+    return this.http.get(this.baseUrl + '/getph'+'?raspberryid='+raspberryid)
       .map(PhService.extractData)
       .catch(PhService.handleError);
   }
