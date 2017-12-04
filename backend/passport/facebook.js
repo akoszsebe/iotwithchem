@@ -4,8 +4,8 @@ let User = require('../models/users');
 let fb = require('fb');
 module.exports = (passport) => {
   passport.use('facebook', new FacebookStrategy({
-      clientID: '190103424780365',
-      clientSecret: '6f2b8d730b04ae86285aac21bbfe1e41',
+      clientID: '1971827126406442',//190103424780365',
+      clientSecret: '0618858d9ba58903752a1281a8267620',//'6f2b8d730b04ae86285aac21bbfe1e41',
       callbackURL: 'https://iotwithchemqt.herokuapp.com/login/facebook/return',
       profileFields: ['id', 'name', 'link', 'about', 'email', 'photos']
     },
